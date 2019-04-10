@@ -3,7 +3,7 @@
     <van-nav-bar
       title="我要代言"
       left-arrow
-      @click-left="goBack"
+      @click-left="goSomePage('back')"
     />
     <div class="endorsementTop">
       <img src="../../../assets/images/endorsementBanner.png" alt="">
@@ -56,13 +56,13 @@
       <van-goods-action-big-btn
         text="加入购物车"
         class="yellow"
-        @click=""
+        @click="add"
       />
       <van-goods-action-big-btn
         primary
         class="red"
         text="立即购买"
-        @click=""
+        @click="goSomePage('confirm')"
       />
     </van-goods-action>
   </div>
@@ -78,8 +78,15 @@
       }
     },
     methods: {
-      goBack () {
-        this.$router.back(-1)
+      goSomePage (type) {
+        if(type == 'back'){
+          this.$router.back(-1)
+        }else{
+          this.$router.push({name: type})
+        }
+      },
+      add(){
+        this.$toast('加入购物车成功');
       }
     },
     components:{
