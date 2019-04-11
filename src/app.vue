@@ -19,9 +19,15 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
+  .sl{text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;}
+  $red: rgb(247, 16, 15);
+
   html,body {
     font-size: .24rem;
+    background-color:rgb(232,234,235);
   }
   body{
     padding-bottom: 1rem;
@@ -51,9 +57,6 @@
       color:rgb(116,117,118);
     }
   }
-  .van-submit-bar {
-    position: absolute;
-  }
   .van-stepper__minus, .van-stepper__plus {
     width: .6rem;
     height: .4rem;
@@ -75,5 +78,9 @@
   p{
     margin: 0;
     padding: 0;
+  }
+
+  .van-nav-bar{
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
 </style>

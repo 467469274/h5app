@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const Index = () => import('@/components/pages/index/index')
 const ShoppingMall = () => import('@/components/pages/index/shoppingMall')
+const malls = () => import('@/components/pages/goods/malls')
 const Category = () => import('@/components/pages/category/category')
-const ShoppingCart = () => import('@/components/pages/shoppingCart/shoppingCart')
 const Member = () => import('@/components/pages/member/member')
 const Register = () => import('@/components/pages/member/register')
 const Login = () => import('@/components/pages/member/login')
 const Order = () => import('@/components/pages/member/order')
 const GoodsList = () => import('@/components/pages/goods/goodsList')
-const GoodsDetail = () => import('@/components/pages/goods/goodsDetail')
+const goodsDetail = () => import('@/components/pages/goods/goodsDetail')
 const search = () => import('@/components/pages/search/search')
 const allRaise = () => import('@/components/pages/raise/allRaise')
 const myraise = () => import('@/components/pages/raise/myraise')
@@ -21,6 +21,11 @@ const invitation = () => import('@/components/pages/invitation/invitation')
 const rules = () => import('@/components/pages/invitation/rules')
 const merchants = () => import('@/components/pages/merchants/merchants')
 const endorsment = () => import('@/components/pages/detail/endorsement')
+const confirm = () => import('@/components/pages/detail/confirm')
+const locations = () => import('@/components/pages/detail/locations')
+const choseLocation = () => import('@/components/pages/detail/choseLocation')
+const myCart = () => import('@/components/pages/myCart/myCart')
+const message = () => import('@/components/pages/message/message')
 
 Vue.use(Router)
 
@@ -56,9 +61,9 @@ export default new Router({
           }
         },
         {
-          path: 'shoppingCart',
-          name: 'shoppingCart',
-          component: ShoppingCart,
+          path: 'message',
+          name: 'message',
+          component: message,
           meta: {
             keepAlive: true,
             keepAliveApp: true
@@ -68,6 +73,15 @@ export default new Router({
           path: 'member',
           name: 'member',
           component: Member,
+          meta: {
+            keepAlive: false,
+            keepAliveApp: true
+          }
+        },
+        {
+          path: 'malls',
+          name: 'malls',
+          component: malls,
           meta: {
             keepAlive: false,
             keepAliveApp: true
@@ -96,13 +110,9 @@ export default new Router({
       component: search
     },
     {
-      path: '/goodsDetail/:goodsId',
+      path: '/goodsDetail',
       name: 'goodsDetail',
-      component: GoodsDetail,
-      meta: {
-        keepAliveApp: true,
-        keepAlive: true
-      }
+      component: goodsDetail
     },
     {
       path: '/invitation',
@@ -169,6 +179,26 @@ export default new Router({
       path: '/endorsment',
       name: 'endorsment',
       component: endorsment
+    },
+    {
+      path: '/confirm',
+      name: 'confirm',
+      component: confirm
+    },
+    {
+      path: '/locations',
+      name: 'locations',
+      component: locations
+    },
+    {
+      path: '/choseLocation',
+      name: 'choseLocation',
+      component: choseLocation
+    },
+    {
+      path: '/myCart',
+      name: 'myCart',
+      component: myCart
     },
     // {
     //   path: '/shoppingCart',

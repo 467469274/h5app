@@ -4,43 +4,7 @@
       <div class="avatar"></div>
       <div class="txt">
         <p class="name">张大龙</p>
-        <van-rate class="start" :readonly="startDisabled" size="28" v-model="value" />
-        <p class="des">产品很好非常喜欢物超所值</p>
-      </div>
-      <div class="date">2019年04月10日</div>
-    </div>
-    <div class="item">
-      <div class="avatar"></div>
-      <div class="txt">
-        <p class="name">张大龙</p>
-        <van-rate class="start" :readonly="startDisabled" size="28" v-model="value" />
-        <p class="des">产品很好非常喜欢物超所值</p>
-      </div>
-      <div class="date">2019年04月10日</div>
-    </div>
-    <div class="item">
-      <div class="avatar"></div>
-      <div class="txt">
-        <p class="name">张大龙</p>
-        <van-rate class="start" :readonly="startDisabled" size="28" v-model="value" />
-        <p class="des">产品很好非常喜欢物超所值</p>
-      </div>
-      <div class="date">2019年04月10日</div>
-    </div>
-    <div class="item">
-      <div class="avatar"></div>
-      <div class="txt">
-        <p class="name">张大龙</p>
-        <van-rate class="start" :readonly="startDisabled" size="28" v-model="value" />
-        <p class="des">产品很好非常喜欢物超所值</p>
-      </div>
-      <div class="date">2019年04月10日</div>
-    </div>
-    <div class="item">
-      <div class="avatar"></div>
-      <div class="txt">
-        <p class="name">张大龙</p>
-        <van-rate class="start" :readonly="startDisabled" size="28" v-model="value" />
+        <van-rate class="start" :readonly="startDisabled" :size="28" v-model="value" />
         <p class="des">产品很好非常喜欢物超所值</p>
       </div>
       <div class="date">2019年04月10日</div>

@@ -1,16 +1,14 @@
 <template>
   <div class="goodList">
-    <van-list class="hotGoods-main">
-      <div class="good" @click="goGoodsDetail(goodsId)" v-for="(item,index) in list " :key="index">
-        <div class="imgWarp">
-          <img v-lazy="item.images" width="100%">
-        </div>
-        <div class="goods-name">{{item.name}}</div>
-        <div class="goods-price">
-          {{item.money}} <i>券</i> <span class="cart-icon"></span>
-        </div>
+    <div class="good" @click="goGoodsDetail(goodsId)" v-for="(item,index) in list " :key="index">
+      <div class="imgWarp">
+        <img v-lazy="item.images" width="100%">
       </div>
-    </van-list>
+      <div class="goods-name">{{item.name}}</div>
+      <div class="goods-price">
+        {{item.money}} <i>券</i> <span class="cart-icon"></span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -84,7 +82,7 @@ export default {
         display:-webkit-box;
         -webkit-box-orient:vertical;
         -webkit-line-clamp:2;
-        max-height: .8rem;
+        min-height: .8rem;
       }
       .goods-price{
         font-size:16px;

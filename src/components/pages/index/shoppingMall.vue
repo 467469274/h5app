@@ -74,7 +74,7 @@
       </div>
     </div>
     <div class="twoType">
-      <div class="item"><div class="inner"></div></div>
+      <div class="item"  @click="goSomePage('newperson')"><div class="inner"></div></div>
       <div class="item"><div class="inner"></div></div>
     </div>
     <div class="title">新品推荐</div>
@@ -149,6 +149,8 @@ export default {
       let loca = {}
       if (type == 'hot') {
         loca = {name: 'goodsList', query: {type: 'hot', value: '爆款专区'}}
+      }else if (type == 'newperson') {
+        loca = {name: 'goodsList', query: {type: 'hot', value: '新人特惠'}}
       } else if (type == 'overseas') {
         loca = {name: 'goodsList', query: {type: 'hot', value: '海外专营'}}
       } else {
