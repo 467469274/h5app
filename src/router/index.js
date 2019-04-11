@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 const Index = () => import('@/components/pages/index/index')
 const ShoppingMall = () => import('@/components/pages/index/shoppingMall')
 const malls = () => import('@/components/pages/goods/malls')
@@ -24,11 +25,8 @@ const endorsment = () => import('@/components/pages/detail/endorsement')
 const confirm = () => import('@/components/pages/detail/confirm')
 const locations = () => import('@/components/pages/detail/locations')
 const choseLocation = () => import('@/components/pages/detail/choseLocation')
-<<<<<<< HEAD
 const myCart = () => import('@/components/pages/myCart/myCart')
 const message = () => import('@/components/pages/message/message')
-=======
->>>>>>> ddcf6fab9c3c70beab71046017c5a08d319ae54b
 
 Vue.use(Router)
 
@@ -198,14 +196,11 @@ export default new Router({
       name: 'choseLocation',
       component: choseLocation
     },
-<<<<<<< HEAD
     {
       path: '/myCart',
       name: 'myCart',
       component: myCart
     },
-=======
->>>>>>> ddcf6fab9c3c70beab71046017c5a08d319ae54b
     // {
     //   path: '/shoppingCart',
     //   name: 'shoppingcart',
