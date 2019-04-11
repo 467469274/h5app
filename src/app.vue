@@ -19,7 +19,11 @@
   }
 </script>
 
+<<<<<<< HEAD
 <style lang="scss" >
+=======
+<style lang="scss">
+>>>>>>> ddcf6fab9c3c70beab71046017c5a08d319ae54b
   .sl{text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;}
