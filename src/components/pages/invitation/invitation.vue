@@ -39,7 +39,7 @@ export default {
   methods: {
     goSomePage (type) {
       if (type == 'back') {
-        window.history.go(-1)
+        this.$router.back(-1)
       } else if (type == 'rules') {
         this.$router.push({name: 'rules'})
       }

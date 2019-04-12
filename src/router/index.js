@@ -9,6 +9,7 @@ const Member = () => import('@/components/pages/member/member')
 const Register = () => import('@/components/pages/member/register')
 const Login = () => import('@/components/pages/member/login')
 const Order = () => import('@/components/pages/member/order')
+const sex = () => import('@/components/pages/member/sex')
 const GoodsList = () => import('@/components/pages/goods/goodsList')
 const goodsDetail = () => import('@/components/pages/goods/goodsDetail')
 const search = () => import('@/components/pages/search/search')
@@ -27,6 +28,11 @@ const locations = () => import('@/components/pages/detail/locations')
 const choseLocation = () => import('@/components/pages/detail/choseLocation')
 const myCart = () => import('@/components/pages/myCart/myCart')
 const message = () => import('@/components/pages/message/message')
+const messageDetail = () => import('@/components/pages/message/messageDetail')
+const messageList = () => import('@/components/pages/message/messageList')
+const payType = () => import('@/components/pages/pay/payType')
+const forget = () => import('@/components/pages/pay/forget')
+const changePassword = () => import('@/components/pages/pay/changePassword')
 
 Vue.use(Router)
 
@@ -200,6 +206,36 @@ export default new Router({
       path: '/myCart',
       name: 'myCart',
       component: myCart
+    },
+    {
+      path: '/messageDetail',
+      name: 'messageDetail',
+      component: messageDetail
+    },
+    {
+      path: '/messageList',
+      name: 'messageList',
+      component: messageList
+    },
+    {
+      path: '/sex',
+      name: 'sex',
+      component: sex
+    },
+    {
+      path: '/payType',
+      name: 'payType',
+      component: payType
+    },
+    {
+      path: '/forget',
+      name: 'forget',
+      component: forget
+    },
+    {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: changePassword
     },
     // {
     //   path: '/shoppingCart',

@@ -27,7 +27,7 @@ export default {
       this.$emit('click')
     },
     goSomePage () {
-      window.history.go(-1)
+      this.$router.back(-1)
     }
   }
 }
