@@ -19,14 +19,14 @@
 </template>
 
 <script>
-    export default {
-        name: "sex",
-      data(){
-          return{
-            radio:1
-          }
-      },
-      methods:{
+  export default {
+    name: "sex",
+    data(){
+      return{
+        radio:1
+      }
+    },
+    methods:{
       goSomePage (type) {
         if(type == 'back'){
           this.$router.back(-1)
@@ -35,8 +35,8 @@
           this.$router.push({name: type})
         }
       }
-      }
     }
+  }
 </script>
 
 <style scoped lang="scss">

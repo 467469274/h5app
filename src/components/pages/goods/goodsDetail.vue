@@ -2,6 +2,7 @@
   <div class="endorsementWarp">
     <van-nav-bar
       title="商品详情"
+      left-right="编辑"
       left-arrow
       @click-left="goSomePage('back')"
     />

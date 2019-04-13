@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 const Index = () => import('@/components/pages/index/index')
 const ShoppingMall = () => import('@/components/pages/index/shoppingMall')
 const malls = () => import('@/components/pages/goods/malls')
@@ -33,6 +32,13 @@ const messageList = () => import('@/components/pages/message/messageList')
 const payType = () => import('@/components/pages/pay/payType')
 const forget = () => import('@/components/pages/pay/forget')
 const changePassword = () => import('@/components/pages/pay/changePassword')
+const userCenter = () => import('@/components/pages/userCenter/userCenter')
+const wallet = () => import('@/components/pages/userCenter/wallet')
+const bill = () => import('@/components/pages/userCenter/bill')
+const backCard = () => import('@/components/pages/backCard/index')
+const choseType = () => import('@/components/pages/backCard/choseType')
+const addCart = () => import('@/components/pages/backCard/first')
+const cartInfo = () => import('@/components/pages/backCard/cartInfo')
 
 Vue.use(Router)
 
@@ -168,6 +174,11 @@ export default new Router({
       component: raiseFire
     },
     {
+      path: '/userCenter',
+      name: 'userCenter',
+      component: userCenter
+    },
+    {
       path: '/raiseAdd',
       name: 'raiseAdd',
       component: raiseAdd
@@ -223,6 +234,11 @@ export default new Router({
       component: sex
     },
     {
+      path: '/wallet',
+      name: 'wallet',
+      component: wallet
+    },
+    {
       path: '/payType',
       name: 'payType',
       component: payType
@@ -236,6 +252,31 @@ export default new Router({
       path: '/changePassword',
       name: 'changePassword',
       component: changePassword
+    },
+    {
+      path: '/bill',
+      name: 'bill',
+      component: bill
+    },
+    {
+      path: '/backCard',
+      name: 'backCard',
+      component: backCard
+    },
+    {
+      path: '/choseType',
+      name: 'choseType',
+      component: choseType
+    },
+    {
+      path: '/addCart',
+      name: 'addCart',
+      component: addCart
+    },
+    {
+      path: '/cartInfo',
+      name: 'cartInfo',
+      component: cartInfo
     },
     // {
     //   path: '/shoppingCart',
