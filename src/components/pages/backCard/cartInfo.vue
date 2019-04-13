@@ -22,7 +22,7 @@
       <p class="message" style="color: #CD0000">请绑定持卡本人的银行卡</p>
       <van-checkbox shape="0" class="checkbox" style="margin-left:.3rem" v-model="checked" checked-color="red">同意用户协议</van-checkbox>
     </div>
-    <div class="sure" @click="goSomePage()">下一步</div>
+    <div class="sure" @click="goSomePage('validationPhone')">下一步</div>
   </div>
 </template>
 

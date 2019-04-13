@@ -12,7 +12,7 @@
         <div class="cell"><span>卡号:</span><input type="text" class="input"/></div>
       </van-cell>
     </div>
-    <div class="sure">下一步</div>
+    <div class="sure" @click="goSomePage('cartInfo')">下一步</div>
   </div>
 </template>
 

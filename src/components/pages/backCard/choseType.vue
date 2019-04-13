@@ -21,7 +21,7 @@
         </van-cell>
       </van-cell-group>
     </van-radio-group>
-    <div class="sure">确定</div>
+    <div class="sure" @click="goSomePage('addCart')">确定</div>
   </div>
 </template>
 

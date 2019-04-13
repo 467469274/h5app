@@ -19,7 +19,7 @@
         </p>
       </div>
     </div>
-    <p class="addCard" @click="choseType" to="choseType">+ 添加银行卡</p>
+    <p class="addCard" @click="choseType" to="cartInfo">+ 添加银行卡</p>
     <p class="message">暂时还未绑定任何银行卡</p>
   </div>
 </template>

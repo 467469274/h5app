@@ -39,6 +39,7 @@ const backCard = () => import('@/components/pages/backCard/index')
 const choseType = () => import('@/components/pages/backCard/choseType')
 const addCart = () => import('@/components/pages/backCard/first')
 const cartInfo = () => import('@/components/pages/backCard/cartInfo')
+const validationPhone = () => import('@/components/pages/backCard/validationPhone')
 
 Vue.use(Router)
 
@@ -277,6 +278,11 @@ export default new Router({
       path: '/cartInfo',
       name: 'cartInfo',
       component: cartInfo
+    },
+    {
+      path: '/validationPhone',
+      name: 'validationPhone',
+      component: validationPhone
     },
     // {
     //   path: '/shoppingCart',
