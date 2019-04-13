@@ -26,6 +26,7 @@ const confirm = () => import('@/components/pages/detail/confirm')
 const locations = () => import('@/components/pages/detail/locations')
 const choseLocation = () => import('@/components/pages/detail/choseLocation')
 const myCart = () => import('@/components/pages/myCart/myCart')
+const myCollect = () => import('@/components/pages/myCart/myCollect')
 const message = () => import('@/components/pages/message/message')
 const messageDetail = () => import('@/components/pages/message/messageDetail')
 const messageList = () => import('@/components/pages/message/messageList')
@@ -40,6 +41,20 @@ const choseType = () => import('@/components/pages/backCard/choseType')
 const addCart = () => import('@/components/pages/backCard/first')
 const cartInfo = () => import('@/components/pages/backCard/cartInfo')
 const validationPhone = () => import('@/components/pages/backCard/validationPhone')
+const myShop = () => import('@/components/pages/myShop/myShop')
+const iwillOpen = () => import('@/components/pages/member/iwillOpen')
+const shopInfo = () => import('@/components/pages/myShop/shopInfo')
+const todayOrder = () => import('@/components/pages/myShop/todayOrder')
+const earnings = () => import('@/components/pages/myShop/earnings')
+const shopevaluate = () => import('@/components/pages/myShop/shopevaluate')
+const record = () => import('@/components/pages/myShop/record')
+const shopevaluateDetail = () => import('@/components/pages/myShop/shopevaluateDetail')
+const earningsFailed = () => import('@/components/pages/myShop/earningsFailed')
+const serviceSet = () => import('@/components/pages/set/index')
+const aboutUs = () => import('@/components/pages/set/aboutUs')
+const opinion = () => import('@/components/pages/set/opinion')
+const setSize = () => import('@/components/pages/set/setSize')
+const remind = () => import('@/components/pages/set/remind')
 
 Vue.use(Router)
 
@@ -283,6 +298,81 @@ export default new Router({
       path: '/validationPhone',
       name: 'validationPhone',
       component: validationPhone
+    },
+    {
+      path: '/myCollect',
+      name: 'myCollect',
+      component: myCollect
+    },
+    {
+      path: '/myShop',
+      name: 'myShop',
+      component: myShop
+    },
+    {
+      path: '/shopInfo',
+      name: 'shopInfo',
+      component: shopInfo
+    },
+    {
+      path: '/todayOrder',
+      name: 'todayOrder',
+      component: todayOrder
+    },
+    {
+      path: '/earnings',
+      name: 'earnings',
+      component: earnings
+    },
+    {
+      path: '/iwillOpen',
+      name: 'iwillOpen',
+      component: iwillOpen
+    },
+    {
+      path: '/earningsFailed',
+      name: 'earningsFailed',
+      component: earningsFailed
+    },
+    {
+      path: '/shopevaluate',
+      name: 'shopevaluate',
+      component: shopevaluate
+    },
+    {
+      path: '/shopevaluateDetail',
+      name: 'shopevaluateDetail',
+      component: shopevaluateDetail
+    },
+    {
+      path: '/serviceSet',
+      name: 'serviceSet',
+      component: serviceSet
+    },
+    {
+      path: '/aboutUs',
+      name: 'aboutUs',
+      component: aboutUs
+    },
+    {
+      path: '/opinion',
+      name: 'opinion',
+      component: opinion
+    },
+    {
+      path: '/setSize',
+      name: 'setSize',
+      component: setSize
+    },
+    {
+      path: '/remind',
+      name: 'remind',
+      component: remind
+    },
+    {
+      path: '/record',
+      name: 'record',
+      component: record
     },
     // {
     //   path: '/shoppingCart',

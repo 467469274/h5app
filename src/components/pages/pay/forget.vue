@@ -5,6 +5,16 @@
       left-arrow
       @click-left="goSomePage('back')"
     />
+    <div class="warp">
+      <div class="bottom">
+        <input type="text" placeholder="请输入手机号" />
+        <span class="btn">获取验证码</span>
+      </div>
+      <div class="bottom">
+        <input type="text" style="margin:.2rem 0 0 0" placeholder="请输入手机号" />
+      </div>
+    </div>
+    <div class="sure" @click="goSomePage()">下一步</div>
   </div>
 </template>
 
@@ -29,14 +39,41 @@
 </script>
 
 <style scoped lang="scss">
-  .list {
-    .item {
-      line-height: 1rem;
-      background: #fff;
-      border-bottom: 1px solid #ccc;
-      padding-left: .2rem;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.5);
+  .warp{
+    padding:.3rem;
+    background: #fff;
+    margin-top: .2rem;
+  }
+  .bottom{
+    display: flex;
+    input{
+      flex:1;
+      height: .88rem;
+      border: 1px solid #ccc;
+      margin-right: .3rem;
+      border-radius: .1rem;
+      padding: 0 .3rem;
+    }
+    .btn{
+      flex:2.6rem 0 0;
+      height: .88rem;
+      line-height: .88rem;
+      text-align: center;
+      background: rgb(216,218,219);
+      color: #fff;
+      border-radius: .1rem;
     }
   }
+  .sure{
+    background: #F1B23E;
+    color: #fff;
+    text-align: center;
+    line-height: 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 16px;
+  }
+
 </style>

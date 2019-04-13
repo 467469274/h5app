@@ -1,11 +1,16 @@
 <template>
-  <div class="bottom">
-    <input type="text" placeholder="请输入验证码" />
-    <span class="btn">获取验证码</span>
+  <div>
+    <div class="bottom" v-if="!needPhone">
+      <input type="text" placeholder="请输入验证码" />
+      <span class="btn">获取验证码</span>
+    </div>
+    <!--<div class=""></div>-->
   </div>
 </template>
 <script type="text/ecmascript-6">
-    export default {}
+    export default {
+      props:['needPhone']
+    }
 </script>
 <style lang="scss" scoped>
   .bottom{
