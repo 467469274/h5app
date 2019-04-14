@@ -28,7 +28,7 @@
           <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
           <p>全部订单</p>
         </div>
-        <div class="btn">
+        <div class="btn" @click="goSomePage('managemant')">
           <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
           <p>商品管理</p>
         </div>
@@ -92,7 +92,7 @@
         </div>
         <div class="shopBtns">
           <span class="bgr">立即接单</span>
-          <span class="bgy">取消订单</span>
+          <span class="bgy" @click="goSomePage('cencelOrder')">取消订单</span>
         </div>
       </div>
     </div>

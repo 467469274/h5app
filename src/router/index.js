@@ -44,7 +44,6 @@ const validationPhone = () => import('@/components/pages/backCard/validationPhon
 const myShop = () => import('@/components/pages/myShop/myShop')
 const iwillOpen = () => import('@/components/pages/member/iwillOpen')
 const shopInfo = () => import('@/components/pages/myShop/shopInfo')
-const todayOrder = () => import('@/components/pages/myShop/todayOrder')
 const earnings = () => import('@/components/pages/myShop/earnings')
 const shopevaluate = () => import('@/components/pages/myShop/shopevaluate')
 const record = () => import('@/components/pages/myShop/record')
@@ -56,7 +55,10 @@ const opinion = () => import('@/components/pages/set/opinion')
 const setSize = () => import('@/components/pages/set/setSize')
 const remind = () => import('@/components/pages/set/remind')
 const commentsDetail = () => import('@/components/pages/comments/commentsDetail')
-
+const cencelOrder = () => import('@/components/pages/myShop/cencelOrder')
+const fl = () => import('@/components/pages/fl/fl')
+const managemant = () => import('@/components/pages/managemant/index')
+const addGoods = () => import('@/components/pages/managemant/addGoods')
 
 //新增页面
 //到账页面
@@ -70,6 +72,8 @@ const withdraw = () => import('@/components/pages/order/withdraw')
 
 //今日订单
 const todayOrder = () => import('@/components/pages/order/todayOrder')
+//订单详情
+const orderDetail = () => import('@/components/pages/order/orderDetail')
 
 
 //卖出订单模块
@@ -131,6 +135,9 @@ const myFans = () => import('@/components/pages/message/myFans/myFans')
 const directFans = () => import('@/components/pages/message/myFans/directFans')
 //间接粉丝
 const indirect = () => import('@/components/pages/message/myFans/indirect')
+const addClass = () => import('@/components/pages/class/addClass')
+const classList = () => import('@/components/pages/class/classList')
+const addSon = () => import('@/components/pages/class/addSon')
 Vue.use(Router)
 
 export default new Router({
@@ -556,11 +563,6 @@ export default new Router({
       component: shopInfo
     },
     {
-      path: '/todayOrder',
-      name: 'todayOrder',
-      component: todayOrder
-    },
-    {
       path: '/earnings',
       name: 'earnings',
       component: earnings
@@ -619,6 +621,46 @@ export default new Router({
       path: '/commentsDetail',
       name: 'commentsDetail',
       component: commentsDetail
+    },
+    {
+      path: '/orderDetail',
+      name: 'orderDetail',
+      component: orderDetail
+    },
+    {
+      path: '/cencelOrder',
+      name: 'cencelOrder',
+      component: cencelOrder
+    },
+    {
+      path: '/fl',
+      name: 'fl',
+      component: fl
+    },
+    {
+      path: '/managemant',
+      name: 'managemant',
+      component: managemant
+    },
+    {
+      path: '/addClass',
+      name: 'addClass',
+      component: addClass
+    },
+    {
+      path: '/classList',
+      name: 'classList',
+      component: classList
+    },
+    {
+      path: '/addSon',
+      name: 'addSon',
+      component: addSon
+    },
+    {
+      path: '/addGoods',
+      name: 'addGoods',
+      component: addGoods
     },
     // {
     //   path: '/shoppingCart',

@@ -6,7 +6,7 @@
     />
 
     <div class="warp">
-        <div class="orderStatus" @click="StatusChange($event)"> 
+        <div class="orderStatus" @click="StatusChange($event)">
             <span><i :class="{'selectStatus' : this.status == 1}" data-id="1" data-path="myAllOrder">全部订单</i></span>
             <span><i :class="{'selectStatus' : this.status == 2}" data-id="2" data-path="payment">待支付</i></span>
             <span><i :class="{'selectStatus' : this.status == 3}" data-id="3" data-path="shipments">待发货</i></span>
@@ -15,14 +15,14 @@
         </div>
         <router-view v-if="!$route.meta.keepAlive" />
     </div>
-   
+
   </div>
 </template>
 
 <script>
   export default {
     name: "sex",
-    
+
     data(){
       return{
         status:1

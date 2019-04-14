@@ -20,7 +20,6 @@
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的收藏</p>
           </div>
-          <div class="btn">
           <div class="btn" @click="goFans()">
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的粉丝</p>

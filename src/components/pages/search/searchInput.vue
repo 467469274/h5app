@@ -39,7 +39,8 @@ export default {
     justify-items: center;
     border-bottom: 1px solid #ccc;
     padding: .2rem;
-  .searchIcon{
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    .searchIcon{
     flex:.55rem 0 0;
     height:.55rem;
     background: red;

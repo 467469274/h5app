@@ -9,10 +9,10 @@
         <van-cell>
             <div class="imageList">
                 <img src=""/>
-                <div class="imageinfo"> 
+                <div class="imageinfo">
                     <p class="imageTitle">1元升级家家商城普通代言人</p>
                     <p class="imageType">规格：普通代言人</p>
-                    <p class="imagePrcie">¥1.00 <span>x1</span></p>
+                    <p class="imagezPrcie">¥1.00 <span>x1</span></p>
                 </div>
             </div>
        </van-cell>
@@ -20,7 +20,7 @@
             <button>去支付</button>
         </div>
     </div>
-   
+
   </div>
 </template>
 
@@ -29,11 +29,11 @@
     name: "sex",
     data(){
       return{
-        
+
       }
     },
     methods:{
-       
+
     }
   }
 </script>
