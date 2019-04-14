@@ -10,7 +10,7 @@
       <div class="inputItem" style="border: none;">
         <span class="hasBorder">转入方</span>
         <span class="hasBorder">金额</span>
-        <span class="hasBorder">日期</span>
+        <span>日期</span>
       </div>
       <div class="scolle">
         <div class="inputItem list">

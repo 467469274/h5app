@@ -55,6 +55,7 @@ const aboutUs = () => import('@/components/pages/set/aboutUs')
 const opinion = () => import('@/components/pages/set/opinion')
 const setSize = () => import('@/components/pages/set/setSize')
 const remind = () => import('@/components/pages/set/remind')
+const commentsDetail = () => import('@/components/pages/comments/commentsDetail')
 
 Vue.use(Router)
 
@@ -373,6 +374,11 @@ export default new Router({
       path: '/record',
       name: 'record',
       component: record
+    },
+    {
+      path: '/commentsDetail',
+      name: 'commentsDetail',
+      component: commentsDetail
     },
     // {
     //   path: '/shoppingCart',
