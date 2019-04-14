@@ -26,7 +26,7 @@
     name: "sex",
     data(){
       return{
-        status:1
+       
       }
     },
     methods:{

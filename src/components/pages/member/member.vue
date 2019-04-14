@@ -20,7 +20,7 @@
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的收藏</p>
           </div>
-          <div class="btn">
+          <div class="btn" @click="goFans()">
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的粉丝</p>
           </div>
@@ -32,19 +32,19 @@
         <div class="myOrders">
           <van-cell title="我的店铺" class="myShop" is-link />
           <div class="iconBtn">
-            <div class="btn">
+            <div class="btn" @click="goJump('payment')">
               <van-icon name="idcard" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
-              <p>代付款</p>
+              <p>待付款</p>
             </div>
-            <div class="btn">
+            <div class="btn" @click="goJump('shipments')">
               <van-icon name="logistics"  size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
-              <p>代发货</p>
+              <p>待发货</p>
             </div>
-            <div class="btn">
+            <div class="btn"  @click="goJump('harvest')">
               <van-icon name="todo-list-o" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
               <p>待收货</p>
             </div>
-            <div class="btn">
+            <div class="btn"  @click="goJump('evaluate')">
               <van-icon name="comment-o" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
               <p>待评价</p>
             </div>
@@ -96,6 +96,14 @@ export default {
       } else {
         this.isLogin = false
       }
+    },
+    //跳转至我的粉丝
+    goFans () {
+      this.$router.push({path: 'directFans'});
+    },
+    //跳转至相应的页面
+    goJump (type) {
+       this.$router.push({path: type});
     },
     signOut () {
       // 退出登录清除localStorage保存的信息

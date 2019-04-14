@@ -1,7 +1,7 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="全部订单"
+      title="我的订单"
       left-arrow
     />
 
@@ -22,6 +22,7 @@
 <script>
   export default {
     name: "sex",
+    
     data(){
       return{
         status:1
@@ -29,7 +30,6 @@
     },
     methods:{
         StatusChange (e) {
-            
             if(e.target.localName === 'i'){
                 this.status =  e.target.dataset.id;
                 let path = e.target.dataset.path;
