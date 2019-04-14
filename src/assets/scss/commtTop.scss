@@ -1,0 +1,26 @@
+.van-cell{
+    line-height: 1rem;
+  }
+  
+  .warp{
+      .orderStatus{
+          margin:0 0 0.2rem 0;
+          padding:0.2rem 0;
+          display:flex;
+          background:#fff;
+          font-size:14px;
+          span{
+              flex:1;
+              text-align:center;
+              box-sizing:border-box;
+              i{
+                  font-style:normal;
+              }
+          }
+      }
+  }
+    .selectStatus{
+        color:#E82E1A;
+        border-bottom:1px solid #E82E1A;
+    }
+ 

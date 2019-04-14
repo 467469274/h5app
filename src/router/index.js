@@ -40,6 +40,79 @@ const choseType = () => import('@/components/pages/backCard/choseType')
 const addCart = () => import('@/components/pages/backCard/first')
 const cartInfo = () => import('@/components/pages/backCard/cartInfo')
 
+
+//新增页面
+//到账页面
+const account = () => import('@/components/pages/order/account')
+//冻结页面
+const freeze = () => import('@/components/pages/order/freeze')
+//转出页面
+const rollOut = () => import('@/components/pages/order/rollOut')
+//体现页面
+const withdraw = () => import('@/components/pages/order/withdraw')
+
+//今日订单
+const todayOrder = () => import('@/components/pages/order/todayOrder')
+
+
+//卖出订单模块
+const saleOrder = () => import('@/components/pages/order/saleOrder/saleOrder')
+//待卖订单
+const averageOrder = () => import('@/components/pages/order/saleOrder/averageOrder')
+//进行中
+const proceedOrder = () => import('@/components/pages/order/saleOrder/proceedOrder')
+//结束订单
+const finishOrder = () => import('@/components/pages/order/saleOrder/finishOrder')
+
+//买入订单
+const buyOrder = () => import('@/components/pages/order/buyOrder')
+
+
+
+//我要代言页面
+//支付成功
+const paySuccess = () => import('@/components/pages/represent/paySuccess')
+//支付失败
+const payFail = () => import('@/components/pages/represent/payFail')
+//支付
+const pay = () => import('@/components/pages/represent/pay')
+
+
+
+//全部订单模块
+//等待支付
+const allOrder = () => import('@/components/pages/order/allOrder')
+const obligation = () => import('@/components/pages/order/allOrder/obligation')
+//已发货
+const shipped = () => import('@/components/pages/order/allOrder/shipped')
+//配送中
+const distribution = () => import('@/components/pages/order/allOrder/distribution')
+//已完成
+const accomplish = () => import('@/components/pages/order/allOrder/accomplish')
+//已取消
+const cancel = () => import('@/components/pages/order/allOrder/cancel')
+
+
+//我的订单模块
+const myOrder = () => import('@/components/pages/order/myOrder/myOrder')
+//全部订单
+const myAllOrder = () => import('@/components/pages/order/myOrder/myAllOrder')
+//待支付
+const payment = () => import('@/components/pages/order/myOrder/payment')
+//待发货
+const shipments = () => import('@/components/pages/order/myOrder/shipments')
+//待收货
+const harvest = () => import('@/components/pages/order/myOrder/harvest')
+//待评价
+const evaluate = () => import('@/components/pages/order/myOrder/evaluate')
+
+
+//我的粉丝模块
+const myFans = () => import('@/components/pages/message/myFans/myFans')
+//直接粉丝
+const directFans = () => import('@/components/pages/message/myFans/directFans')
+//间接粉丝
+const indirect = () => import('@/components/pages/message/myFans/indirect')
 Vue.use(Router)
 
 export default new Router({
@@ -278,6 +351,172 @@ export default new Router({
       name: 'cartInfo',
       component: cartInfo
     },
+    //到账的页面路由
+    {
+      path:'/account',
+      name: 'account',
+      component: account
+    },
+    //冻结的页面
+    {
+      path:'/freeze',
+      name: 'freeze',
+      component: freeze
+    },
+    //转出
+    {
+      path:'/rollOut',
+      name: 'rollOut',
+      component: rollOut
+    },
+    //提现
+    {
+      path:'/withdraw',
+      name: 'withdraw',
+      component: withdraw
+    },
+
+    //我要代言模块
+    //支付成功
+    {
+      path:'/paySuccess',
+      name: 'paySuccess',
+      component: paySuccess
+    },
+    //支付失败
+    {
+      path:'/payFail',
+      name: 'payFail',
+      component: payFail
+    },
+    //支付
+    {
+      path:'/pay',
+      name: 'pay',
+      component: pay
+    },
+    //今日订单
+    {
+      
+      path:'/todayOrder',
+      name: 'todayOrder',
+      component: todayOrder
+    },
+    //全部订单
+    {
+      path:'/allOrder',
+      name: 'allOrder',
+      component: allOrder,
+      children:[
+        {
+          path:'/obligation',
+          name: 'obligation',
+          component: obligation
+        },
+        {
+          path:'/shipped',
+          name: 'shipped',
+          component: shipped
+        },
+        {
+          path:'/accomplish',
+          name: 'accomplish',
+          component: accomplish
+        },
+        {
+          path:'/distribution',
+          name: 'distribution',
+          component: distribution
+        }
+        ,{
+          path:'/cancel',
+          name: 'cancel',
+          component: cancel
+        }
+      ]
+    },
+    //我的订单
+    {
+      path:'/myOrder',
+      name: 'myOrder',
+      component: myOrder,
+      children:[
+        {
+          path:'/myAllOrder',
+          name: 'myAllOrder',
+          component: myAllOrder
+        },
+        
+        {
+          path:'/payment',
+          name: 'payment',
+          component: payment
+        },
+        {
+          path:'/shipments',
+          name: 'shipments',
+          component: shipments
+        },
+        
+        {
+          path:'/harvest',
+          name: 'harvest',
+          component: harvest
+        },
+        {
+          path:'/evaluate',
+          name: 'evaluate',
+          component: evaluate
+        },
+      ]
+    },
+    {
+      
+      path:'/myFans',
+      name: 'myFans',
+      component: myFans,
+      children:[
+        {
+          path:'/directFans',
+          name: 'directFans',
+          component: directFans
+        },
+        {
+          path:'/indirect',
+          name: 'indirect',
+          component: indirect
+        }
+      ]
+    },
+    {
+      path:'/saleOrder',
+      name: 'saleOrder',
+      component: saleOrder,
+      children:[
+        {
+          path:'/averageOrder',
+          name: 'averageOrder',
+          component: averageOrder
+        },
+        {
+          
+          path:'/proceedOrder',
+          name: 'proceedOrder',
+          component: proceedOrder
+        },
+        {
+          path:'/finishOrder',
+          name: 'finishOrder',
+          component: finishOrder
+        }
+      ]
+    },
+    {
+      path:'/buyOrder',
+      name: 'buyOrder',
+      component: buyOrder
+    },
+    //
     // {
     //   path: '/shoppingCart',
     //   name: 'shoppingcart',
