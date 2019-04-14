@@ -4,7 +4,11 @@
       <div class="avatar"></div>
       <div class="txt">
         <p class="name">张大龙</p>
-        <van-rate class="start" :readonly="startDisabled" :size="28" v-model="value" />
+        <p>
+          <van-rate class="start" style="display: inline-block" :readonly="startDisabled" :size="size =='big'?50:28" v-model="value" />
+          <span v-if="size =='big'" class="rank">5.0</span>
+        </p>
+        <p class="sku" v-if="size =='big'">规格:红色 XXL</p>
         <p class="des">产品很好非常喜欢物超所值</p>
       </div>
       <div class="date">2019年04月10日</div>
@@ -15,7 +19,7 @@
 <script>
     export default {
         name: "comments",
-      props:['startDisabled'],
+      props:['startDisabled','size'],
       data(){
           return{
             value:5
@@ -47,5 +51,18 @@
         }
       }
     }
+  }
+  .sku{
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: .2rem;
+  }
+  .start{
+  }
+  .rank{
+    font-size: 16px;
+    vertical-align: text-bottom;
+    margin-left: .2rem;
+    font-weight: 600;
   }
 </style>

@@ -34,7 +34,7 @@
         </div>
         <van-cell-group class="warp">
           <van-cell title="银行卡" to="backCard" is-link/>
-          <van-cell title="支付密码" is-link/>
+          <van-cell title="支付密码" is-link to="payType"/>
         </van-cell-group>
       </van-tab>
       <van-tab title="金/银券账户">
@@ -93,7 +93,7 @@
   export default {
     data () {
       return {
-        active:1
+        active:0
       }
     },
     methods: {

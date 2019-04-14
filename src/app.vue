@@ -82,4 +82,24 @@
   .van-nav-bar{
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
+  .bgy{
+    background: #F1B23E;
+  }
+  .bgr{
+    background: #DE4724!important;
+  }
+  .sure{
+    background: #F1B23E;
+    color: #fff;
+    text-align: center;
+    line-height: 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 16px;
+  }
+  .strip{
+    height: .2rem;
+  }
 </style>

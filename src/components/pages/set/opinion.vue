@@ -1,0 +1,43 @@
+<template>
+  <div class="messageWarp">
+    <van-nav-bar
+      title="意见反馈"
+      left-arrow
+      @click-left="onClickRight"
+    />
+    <van-cell-group>
+      <van-field
+         class="input"
+        v-model="message"
+        type="textarea"
+        placeholder="请在这里写下您宝贵的意见,让我们不断进步,更好的为您服务!"
+        rows="10"
+        autosize
+      />
+      <van-field          class="input"
+                          v-model="value" placeholder="请输入手机号" />
+    </van-cell-group>
+    <div class="sure" style="background: #4EA264">提交</div>
+  </div>
+</template>
+<script type="text/ecmascript-6">
+  export default {
+    methods:{
+      onClickRight(){
+        this.$router.back(-1)
+
+      }
+    }
+  }
+</script>
+<style lang="scss" scoped>
+  .input{
+    border-radius: .2rem;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: .2rem;
+  }
+  .van-cell-group{
+    background: none;
+  }
+</style>

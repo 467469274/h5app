@@ -1,18 +1,29 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="添加银行卡"
+      title="系统设置"
       left-arrow
       @click-left="goSomePage('back')"
     />
-    <p class="message">请绑定持卡本人的银行卡</p>
     <div class="warp">
-      <van-cell title="选择卡片类型" to="choseType" is-link>女</van-cell>
-      <van-cell>
-        <div class="cell"><span>卡号:</span><input type="text" class="input"/></div>
+      <van-cell title="账号安全" is-link />
+      <van-cell title="消息提醒" to="remind" is-link />
+      <van-cell title="字体大小" to="setSize" is-link />
+      <div class="strip"></div>
+      <van-cell title="关于我们" to="aboutUs" is-link />
+      <van-cell title="客服电话" is-link >
+        123123123123
+      </van-cell>
+      <van-cell title="意见反馈" to="opinion" is-link />
+      <div class="strip"></div>
+      <van-cell title="清除缓存" is-link >
+        8.6M
+      </van-cell>
+      <van-cell title="版本信息" is-link >
+        当前为最新信息
       </van-cell>
     </div>
-    <div class="sure" @click="goSomePage('cartInfo')">下一步</div>
+    <div class="sure" style="background: #598ACF" @click="goSomePage('cartInfo')">提交审核</div>
   </div>
 </template>
 
@@ -39,12 +50,6 @@
 
 <style scoped lang="scss">
   $colorG: rgba(0, 0, 0, 0.6);
-  .message{
-    line-height: 1rem;
-    padding-left: .2rem;
-    font-size: 15px;
-    color:rgba(0,0,0,0.6);
-  }
   .van-cell{
     line-height: 1rem;
   }
@@ -60,12 +65,6 @@
     font-size: 16px;
   }
   .warp{
-    .hasImg .van-cell__value{
-      flex: 1rem 0 0;
-      .van-uploader{
-        height: 1rem;
-      }
-    }
     .van-cell{
       border-bottom: 1px solid #ccc;
       line-height: 1rem;

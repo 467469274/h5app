@@ -16,11 +16,15 @@
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的钱包</p>
           </div>
-          <div class="btn">
+          <div class="btn" @click="goSomePage('myCollect')">
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的收藏</p>
           </div>
+<<<<<<< HEAD
           <div class="btn" @click="goFans()">
+=======
+          <div class="btn" @click="goSomePage('record')">
+>>>>>>> 27ac6cb32dc2880415647abd81b2013e2670e9d7
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的粉丝</p>
           </div>
@@ -30,7 +34,7 @@
     <div class="bottomBtns">
       <div class="shopInfo">
         <div class="myOrders">
-          <van-cell title="我的店铺" class="myShop" is-link />
+          <van-cell title="我的订单" class="myShop" is-link />
           <div class="iconBtn">
             <div class="btn" @click="goJump('payment')">
               <van-icon name="idcard" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
@@ -55,15 +59,14 @@
           </div>
         </div>
         <van-cell-group>
-          <van-cell title="我要开店" is-link />
-          <van-cell title="我的店铺" is-link />
-          <van-cell title="设置" is-link />
+          <van-cell title="我要开店" to="iwillOpen" is-link />
+          <van-cell title="我的店铺" to="myShop" is-link />
+          <van-cell title="设置" to="serviceSet" is-link />
         </van-cell-group>
       </div>
     </div>
     <!-- <div class="sign-out"> -->
       <van-button size="large" @click="signOut" v-show="isLogin">退出登录</van-button>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -71,7 +74,8 @@
 export default {
   data () {
     return {
-      isLogin: false
+      isLogin: false,
+      show: false
     }
   },
   created () {
