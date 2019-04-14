@@ -67,6 +67,8 @@ const rollOut = () => import('@/components/pages/order/rollOut')
 //体现页面
 const withdraw = () => import('@/components/pages/order/withdraw')
 
+//签到页面
+const signIn = () => import('@/components/pages/order/signIn')
 //今日订单
 const nowOrder = () => import('@/components/pages/order/todayOrder')
 
@@ -83,7 +85,7 @@ const finishOrder = () => import('@/components/pages/order/saleOrder/finishOrder
 //买入订单
 const buyOrder = () => import('@/components/pages/order/buyOrder')
 //卖出订单
-//const averageOrder = () => import('@/components/pages/order/averageOrder')
+const sellOrder = () => import('@/components/pages/order/sellOrder')
 
 
 //我要代言页面
@@ -393,7 +395,13 @@ export default new Router({
       name: 'withdraw',
       component: withdraw
     },
-
+    //签到
+    {
+      
+      path:'/signIn',
+      name: 'signIn',
+      component: signIn
+    },
     //我要代言模块
     //支付成功
     {
@@ -420,6 +428,8 @@ export default new Router({
       name: 'nowOrder',
       component: nowOrder
     },
+    
+
     //全部订单
     {
       path:'/allOrder',
@@ -534,7 +544,12 @@ export default new Router({
       name: 'buyOrder',
       component: buyOrder
     },
-    //
+    //卖出订单
+    {
+      path:'/sellOrder',
+      name: 'sellOrder',
+      component: sellOrder
+    },
     {
       path: '/validationPhone',
       name: 'validationPhone',

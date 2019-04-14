@@ -16,7 +16,7 @@
         <div class="cell"><span>备注说明</span><input placeholder="请填写" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>支付密码</span><input placeholder="" type="text" class="input"/></div>
+        <div class="cell"><span>支付密码</span><input placeholder="" type="password" class="input"/></div>
       </van-cell> 
       <van-cell>
         验证码
