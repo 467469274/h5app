@@ -12,7 +12,7 @@
       <p class="num">0</p>
       <p class="chinese">周总交易额</p>
       <p class="other">
-        <span><van-icon name="bill-o" size=".3rem"/>成功订单<van-icon style="display: none" name="gold-coin-o"
+        <span @click="goSomePage('allOrder')"><van-icon name="bill-o" size=".3rem"/>成功订单<van-icon style="display: none" name="gold-coin-o"
                                                                   size=".3rem"/></span>
         <span @click="goSomePage('earnings')"><van-icon name="gold-coin-o" size=".3rem"/>收益详情<van-icon style="display: none" name="gold-coin-o"
                                                                        size=".3rem"/></span>
@@ -24,7 +24,7 @@
           <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
           <p>今日订单</p>
         </div>
-        <div class="btn">
+        <div class="btn" @click="goSomePage('allOrder')">
           <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
           <p>全部订单</p>
         </div>

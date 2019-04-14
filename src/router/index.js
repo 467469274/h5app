@@ -428,37 +428,7 @@ export default new Router({
     {
       path:'/myOrder',
       name: 'myOrder',
-<<<<<<< HEAD
-      component: myOrder,
-      children:[
-        {
-          path:'/myAllOrder',
-          name: 'myAllOrder',
-          component: myAllOrder
-        },
-
-        {
-          path:'/payment',
-          name: 'payment',
-          component: payment
-        },
-        {
-          path:'/shipments',
-          name: 'shipments',
-          component: shipments
-        },
-
-        {
-          path:'/harvest',
-          name: 'harvest',
-          component: harvest
-        },
-        {
-          path:'/evaluate',
-          name: 'evaluate',
-          component: evaluate
-        },
-      ]
+      component: myOrder
     },
     {
 
@@ -481,25 +451,7 @@ export default new Router({
     {
       path:'/saleOrder',
       name: 'saleOrder',
-      component: saleOrder,
-      children:[
-        {
-          path:'/averageOrder',
-          name: 'averageOrder',
-          component: averageOrder
-        },
-        {
-
-          path:'/proceedOrder',
-          name: 'proceedOrder',
-          component: proceedOrder
-        },
-        {
-          path:'/finishOrder',
-          name: 'finishOrder',
-          component: finishOrder
-        }
-      ]
+      component: saleOrder
     },
     {
       path:'/buyOrder',
