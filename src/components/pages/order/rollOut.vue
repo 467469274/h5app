@@ -19,7 +19,8 @@
         <div class="cell"><span>支付密码</span><input placeholder="" type="password" class="input"/></div>
       </van-cell> 
       <van-cell>
-        验证码
+        <p class="codeText">转出需要短信确认，请验证手机号135****2321,按提示操作</p>
+        <gain-code></gain-code>
       </van-cell> 
     </div>
     <div class="sureConatiner">
@@ -30,6 +31,9 @@
 </template>
 
 <script>
+
+import gainCode from '../../common/gainCode.vue'
+
   export default {
     name: "sex",
     data(){
@@ -40,13 +44,20 @@
     },
     methods:{
 
+    },
+    components:{
+      gainCode
     }
   }
 </script>
 
 <style scoped lang="scss">
     $colorG: rgba(0, 0, 0, 0.6);
-
+ .codeText{
+    font-size:10px;
+    line-height:0.4rem!important;
+    color:#AAA;
+  }
   .van-cell{
     line-height: 1rem;
   }

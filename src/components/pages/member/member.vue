@@ -32,19 +32,19 @@
         <div class="myOrders">
           <van-cell title="我的订单" class="myShop" is-link />
           <div class="iconBtn">
-            <div class="btn" @click="goJump('payment')">
+            <div class="btn">
               <van-icon name="idcard" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
               <p>待付款</p>
             </div>
-            <div class="btn" @click="goJump('shipments')">
+            <div class="btn">
               <van-icon name="logistics"  size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
               <p>待发货</p>
             </div>
-            <div class="btn"  @click="goJump('harvest')">
+            <div class="btn">
               <van-icon name="todo-list-o" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
               <p>待收货</p>
             </div>
-            <div class="btn"  @click="goJump('evaluate')">
+            <div class="btn">
               <van-icon name="comment-o" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />
               <p>待评价</p>
             </div>
