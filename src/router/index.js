@@ -70,25 +70,22 @@ const rollOut = () => import('@/components/pages/order/rollOut')
 //体现页面
 const withdraw = () => import('@/components/pages/order/withdraw')
 
+//签到页面
+const signIn = () => import('@/components/pages/order/signIn')
 //今日订单
 const todayOrder = () => import('@/components/pages/order/todayOrder')
 //订单详情
 const orderDetail = () => import('@/components/pages/order/orderDetail')
+const nowOrder = () => import('@/components/pages/order/todayOrder')
 
 
 //卖出订单模块
-const saleOrder = () => import('@/components/pages/order/saleOrder/saleOrder')
-//待卖订单
-const averageOrder = () => import('@/components/pages/order/saleOrder/averageOrder')
-//进行中
-const proceedOrder = () => import('@/components/pages/order/saleOrder/proceedOrder')
-//结束订单
-const finishOrder = () => import('@/components/pages/order/saleOrder/finishOrder')
+const saleOrder = () => import('@/components/pages/order/saleOrder')
 
 //买入订单
 const buyOrder = () => import('@/components/pages/order/buyOrder')
 //卖出订单
-//const averageOrder = () => import('@/components/pages/order/averageOrder')
+const sellOrder = () => import('@/components/pages/order/sellOrder')
 
 
 //我要代言页面
@@ -104,29 +101,10 @@ const pay = () => import('@/components/pages/represent/pay')
 //全部订单模块
 //等待支付
 const allOrder = () => import('@/components/pages/order/allOrder')
-const obligation = () => import('@/components/pages/order/allOrder/obligation')
-//已发货
-const shipped = () => import('@/components/pages/order/allOrder/shipped')
-//配送中
-const distribution = () => import('@/components/pages/order/allOrder/distribution')
-//已完成
-const accomplish = () => import('@/components/pages/order/allOrder/accomplish')
-//已取消
-const cancel = () => import('@/components/pages/order/allOrder/cancel')
 
 
 //我的订单模块
-const myOrder = () => import('@/components/pages/order/myOrder/myOrder')
-//全部订单
-const myAllOrder = () => import('@/components/pages/order/myOrder/myAllOrder')
-//待支付
-const payment = () => import('@/components/pages/order/myOrder/payment')
-//待发货
-const shipments = () => import('@/components/pages/order/myOrder/shipments')
-//待收货
-const harvest = () => import('@/components/pages/order/myOrder/harvest')
-//待评价
-const evaluate = () => import('@/components/pages/order/myOrder/evaluate')
+const myOrder = () => import('@/components/pages/order/myOrder')
 
 
 //我的粉丝模块
@@ -400,7 +378,13 @@ export default new Router({
       name: 'withdraw',
       component: withdraw
     },
+    //签到
+    {
 
+      path:'/signIn',
+      name: 'signIn',
+      component: signIn
+    },
     //我要代言模块
     //支付成功
     {
@@ -427,43 +411,24 @@ export default new Router({
       name: 'todayOrder',
       component: todayOrder
     },
+{
+      path:'/nowOrder',
+      name: 'nowOrder',
+      component: nowOrder
+    },
+
+
     //全部订单
     {
       path:'/allOrder',
       name: 'allOrder',
-      component: allOrder,
-      children:[
-        {
-          path:'/obligation',
-          name: 'obligation',
-          component: obligation
-        },
-        {
-          path:'/shipped',
-          name: 'shipped',
-          component: shipped
-        },
-        {
-          path:'/accomplish',
-          name: 'accomplish',
-          component: accomplish
-        },
-        {
-          path:'/distribution',
-          name: 'distribution',
-          component: distribution
-        }
-        ,{
-          path:'/cancel',
-          name: 'cancel',
-          component: cancel
-        }
-      ]
+      component: allOrder
     },
     //我的订单
     {
       path:'/myOrder',
       name: 'myOrder',
+<<<<<<< HEAD
       component: myOrder,
       children:[
         {
@@ -541,7 +506,12 @@ export default new Router({
       name: 'buyOrder',
       component: buyOrder
     },
-    //
+    //卖出订单
+    {
+      path:'/sellOrder',
+      name: 'sellOrder',
+      component: sellOrder
+    },
     {
       path: '/validationPhone',
       name: 'validationPhone',

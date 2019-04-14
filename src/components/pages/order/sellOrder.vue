@@ -1,35 +1,33 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="转出"
-       right-text="转出记录"
+      title="卖出"
+       right-text="订单"
       left-arrow
     />
     <div class="warp">
        <van-cell>
-        <div class="cell"><span>对方账户</span><input placeholder="请输入手机号" type="text" class="input"/></div>
+        <div class="cell"><span>挂出数量</span><input placeholder="请输入挂出数量" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>转出金额</span><input placeholder="请输入转出金额" type="text" class="input"/></div>
+        <div class="cell"><span>卖出价格</span><input placeholder="请输入价格" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>备注说明</span><input placeholder="请填写" type="text" class="input"/></div>
+        <div class="cell"><span>支付密码</span><input placeholder="" type="password" class="input"/></div>
       </van-cell>
-       <van-cell>
-        <div class="cell"><span>支付密码</span><input placeholder="" type="text" class="input"/></div>
-      </van-cell> 
       <van-cell>
-        验证码
+        <p class="codeText">转出需要短信确认，请验证手机号135****2321,按提示操作</p>
+        <gain-code></gain-code>
       </van-cell> 
     </div>
     <div class="sureConatiner">
-        <div class="sure">保存</div>
-        <p>提示：转出后无法收回，请确认转账信息</p>
+        <div class="sure">创建订单</div>
     </div>
   </div>
 </template>
 
 <script>
+import gainCode from '../../common/gainCode.vue'
   export default {
     name: "sex",
     data(){
@@ -40,6 +38,9 @@
     },
     methods:{
 
+    },
+    components:{
+      gainCode
     }
   }
 </script>
@@ -49,26 +50,22 @@
 
   .van-cell{
     line-height: 1rem;
+    
   }
-  .sureConatiner{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-     width: 100%;
-     p{
-         padding-left:0.2rem;
-         margin:0.2rem 0;
-         font-size:12px;
-         color:#F25C41;
-     }
+  .codeText{
+    font-size:10px;
+    line-height:0.4rem!important;
+    color:#AAA;
   }
   .sure{
     background: #F1B23E;
     color: #fff;
     text-align: center;
     line-height: 1rem;
-   
-    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+     width: 100%;
     font-size: 16px;
   }
   .warp{
@@ -81,7 +78,7 @@
     }
     .van-cell{
       border-bottom: 1px solid #ccc;
-      line-height: 1rem;
+       line-height: 1rem;
       box-sizing: border-box;
       i{
         line-height: 1rem;
