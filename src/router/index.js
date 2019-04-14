@@ -68,7 +68,7 @@ const rollOut = () => import('@/components/pages/order/rollOut')
 const withdraw = () => import('@/components/pages/order/withdraw')
 
 //今日订单
-const todayOrder = () => import('@/components/pages/order/todayOrder')
+const nowOrder = () => import('@/components/pages/order/todayOrder')
 
 
 //卖出订单模块
@@ -368,7 +368,7 @@ export default new Router({
       name: 'cartInfo',
       component: cartInfo
     },
-<<<<<<< HEAD
+
     //到账的页面路由
     {
       path:'/account',
@@ -416,9 +416,9 @@ export default new Router({
     //今日订单
     {
       
-      path:'/todayOrder',
-      name: 'todayOrder',
-      component: todayOrder
+      path:'/nowOrder',
+      name: 'nowOrder',
+      component: nowOrder
     },
     //全部订单
     {
@@ -535,7 +535,6 @@ export default new Router({
       component: buyOrder
     },
     //
-=======
     {
       path: '/validationPhone',
       name: 'validationPhone',
@@ -616,7 +615,7 @@ export default new Router({
       name: 'record',
       component: record
     },
->>>>>>> 27ac6cb32dc2880415647abd81b2013e2670e9d7
+
     // {
     //   path: '/shoppingCart',
     //   name: 'shoppingcart',
