@@ -20,15 +20,8 @@
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的收藏</p>
           </div>
-<<<<<<< HEAD
           <div class="btn">
-=======
-<<<<<<< HEAD
           <div class="btn" @click="goFans()">
-=======
-          <div class="btn" @click="goSomePage('record')">
->>>>>>> 27ac6cb32dc2880415647abd81b2013e2670e9d7
->>>>>>> 10e06e3188ca19562731b104450f111c0e9030c4
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             <p>我的粉丝</p>
           </div>
