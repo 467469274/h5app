@@ -1,0 +1,33 @@
+.cell{
+    display:flex;
+    p{
+        flex:1;
+    }
+    .priceNumber,.priceText{
+        display:block;
+        width:100%;
+        font-size:16px;
+        font-weight:600;
+        text-align:center;
+    
+    }
+    .priceText{
+        font-size:12px;
+        color:#666666;
+        font-weight:normal;
+    }
+    .btnP{
+        border-left:1px solid #DFDFDF;
+    }
+    button{
+        display:block;
+        margin:0.2rem auto 0 auto;
+        width:1.4rem;
+        height:0.6rem;
+        background:#E62E1A;
+        color:#fff;
+        border:none;
+        font-size:12px;
+          border-radius:5px;
+    }
+}
