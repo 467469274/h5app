@@ -66,7 +66,8 @@ const finishOrder = () => import('@/components/pages/order/saleOrder/finishOrder
 
 //买入订单
 const buyOrder = () => import('@/components/pages/order/buyOrder')
-
+//卖出订单
+//const averageOrder = () => import('@/components/pages/order/averageOrder')
 
 
 //我要代言页面
