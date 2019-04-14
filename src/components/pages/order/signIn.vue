@@ -107,9 +107,7 @@ import gainCode from '../../common/gainCode.vue'
 </script>
 
 <style scoped lang="scss">
-.warp{
-    // background:#fff;
-}
+
 .warpInfo{
     position:relative;
     margin:0 0 1rem 0;
@@ -183,6 +181,7 @@ import gainCode from '../../common/gainCode.vue'
     width:100%;
     background:#fff;
     border-radius:0.3rem;
+   
     ul{
         margin:0.5rem auto 0.5rem auto;
         display:block;

@@ -27,6 +27,7 @@
   html,body {
     font-size: .24rem;
     background-color:rgb(232,234,235);
+    overflow-x:hidden;
   }
   body{
     padding-bottom: 1rem;
