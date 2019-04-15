@@ -1,6 +1,6 @@
 <template>
   <div class="searchBox" style="touch-action: none" @click="click">
-    <span class="searchIcon" @click="goSomePage"></span>
+    <span class="searchIcon" @click="goSomePage"><van-icon size=".4rem" name="arrow-left" /></span>
     <input type="text" v-model="searchTxt" @keyup="change" placeholder="请输入搜索内容.....">
   </div>
 </template>
@@ -43,7 +43,10 @@ export default {
     .searchIcon{
     flex:.55rem 0 0;
     height:.55rem;
-    background: red;
+      i{
+        line-height:.55rem;
+
+      }
   }
   input{
     height: .55rem;

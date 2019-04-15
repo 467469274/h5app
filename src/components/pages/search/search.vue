@@ -1,22 +1,30 @@
 <template>
   <div class="searchWarp">
-    <searchInput @change="search" :searchInt="searchInt"></searchInput>
-    <div class="historySearch">
+    <searchInput @change="search"  :searchInt="searchInt"></searchInput>
+    <div class="historySearch" v-if="searchKey==''">
       <p class="top">
         <span class="history">历史搜索</span>
         <span class="del"></span>
       </p>
       <div class="historys">
-        <span @click="goDetail">白酒</span>
+        <span @click="goDetail()">白酒</span>
       </div>
     </div>
-    <div class="historySearch">
+    <div class="historySearch"  v-if="searchKey==''">
       <p class="top">
         <span class="history">热搜</span>
       </p>
       <div class="historys hotSearch">
-        <span @click="goDetail">白酒</span>
+        <span @click="goDetail(item)" v-for="item in hotKey">{{item}}</span>
       </div>
+    </div>
+    <div class="searchList">
+      <div class="searchItem" v-for="item in searchEnd">
+        <van-icon size=".4rem" name="search" />dqwdqwd
+      </div>
+    </div>
+    <div class="searchEmpty" v-if="searchKey !='' && searchEnd.length == 0">
+      没有搜索到内容哦
     </div>
   </div>
 </template>
@@ -27,20 +35,42 @@ export default {
   data () {
     return {
       kk: 1,
-      searchInt:''
+      searchInt:'',
+      searchEnd:[],
+      searchKey:'',
+      hotKey:[],
+      historyKey:[]
     }
   },
   components: {
     searchInput
   },
+  created(){
+    this.getHotSearch()
+    this.getHistory()
+  },
   methods: {
-    goDetail () {
-      this.$router.push({name: 'goodsList', query: {type: 'search', value: '搜索内容'}})
+    goDetail (int) {
+      this.$router.push({name: 'goodsList', query: {type: 'search', v: int}})
+    },
+    getHotSearch(){
+      this.$ajax('/api/search/getHotSearch', {}, (res) => {
+        this.hotKey = res.data
+      }, () => {}, 'get')
+    },
+    getHistory(){
+      this.$ajax('/api/search/getHistory', {}, (res) => {
+        this.historyKey = res.data
+      }, () => {}, 'get')
     },
     search (v) {
-      this.$ajax('/api/search', {k: v}, (res) => {
-        console.log(res)
-      }, () => {}, 'get')
+      this.searchKey = v
+      if(this.setIn)clearTimeout(this.setIn);
+      this.setIn = setTimeout(()=>{
+        this.$ajax('/api/search/getSearchTips', {k: v}, (res) => {
+          this.searchEnd = res.data
+        }, () => {}, 'get')
+      },150)
     }
   }
 }
@@ -53,7 +83,7 @@ export default {
     background: #fff;
     .historySearch{
       .top{
-        padding: 0 .2rem;
+        padding:.2rem;
         .history{
           font-size: .3rem;
         }
@@ -79,9 +109,8 @@ export default {
           }
         }
         padding: 0 .2rem;
-        margin-top: .5rem;
         font-size: 0;
-        padding-bottom: 1rem;
+        padding-bottom: .5rem;
         border-bottom: $border1;
         span{
           display: inline-block;
@@ -95,6 +124,21 @@ export default {
           margin-bottom: .2rem;
         }
       }
+    }
+    .searchList{
+      .searchItem{
+        line-height:.7rem;
+        padding: .2rem;
+        border-bottom: 1px solid #ccc;
+        i{
+          vertical-align: middle;
+          margin-right: .3rem;
+        }
+      }
+    }
+    .searchEmpty{
+      line-height: 1rem;
+      text-align: center;
     }
   }
 </style>

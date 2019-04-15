@@ -74,11 +74,18 @@
       </div>
     </div>
     <div class="twoType">
-      <div class="item"  @click="goSomePage('newperson')"><div class="inner"></div></div>
-      <div class="item"><div class="inner"></div></div>
+      <div class="item" :style="{'background-image':'url('+newPreson+')'}" @click="goSomePage('bkzq')"><div class="inner"></div></div>
+      <div class="item" :style="{'background-image':'url('+newPreson+')'}" @click="goSomePage('newperson')"><div class="inner"></div></div>
     </div>
     <div class="title">新品推荐</div>
-    <goods></goods>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <goods :list="hotGoods"></goods>
+    </van-list>
   </div>
 </template>
 
@@ -96,13 +103,6 @@ export default {
   data () {
     return {
       banner: [], // banner
-      category: [], // 分类
-      adBanner: {}, // 广告banner
-      recommend: [], // 推荐
-      floor1: [], // 楼层1
-      floor2: [], // 楼层2
-      floor3: [], // 楼层3
-      floorName: {}, // 楼层title集合
       hotGoods: [], // 热门
       swiperOption: { // swiper配置
         loop: true, // 开启循环播放
@@ -127,12 +127,18 @@ export default {
             _this.goGoodsDetail(id)
           }
         }
-      }
+      },
+      newGoods:{
+        currPage:1,
+        pageSize:10
+      },
+      loading: false,
+      finished: false,
+      newPreson:''
     }
   },
   created () {
-    _this = this
-    this.getShoppingMallData()
+    this.getImg()
   },
   computed: {
     swiper () {
@@ -148,40 +154,39 @@ export default {
     goSomePage (type) {
       let loca = {}
       if (type == 'hot') {
-        loca = {name: 'goodsList', query: {type: 'hot', value: '爆款专区'}}
+        loca = {name: 'goodsList', query: {type: 'hot', v: '爆款专区'}}
       }else if (type == 'newperson') {
-        loca = {name: 'goodsList', query: {type: 'hot', value: '新人特惠'}}
+        loca = {name: 'goodsList', query: {type: 'hot',v : '新人特惠'}}
+      }else if (type == 'bkzq') {
+        loca = {name: 'goodsList', query: {type: 'hot',v : '爆款专区'}}
       } else if (type == 'overseas') {
-        loca = {name: 'goodsList', query: {type: 'hot', value: '海外专营'}}
+        loca = {name: 'goodsList', query: {type: 'hot', v: '海外专营'}}
       } else {
         loca = {name: type}
       }
       this.$router.push(loca)
     },
-    getShoppingMallData () {/*
-      let config = {
-        url: url.getShoppingMallData,
-        method: 'get'
-      }
-      this.axios(config).then((res) => {
-        let {category, advertesPicture, slides, recommend, floor1, floor2, floor3, floorName, hotGoods} = res.data.data
-        this.banner = slides
-        this.category = category
-        this.adBanner = advertesPicture
-        this.recommend = recommend
-        this.floor1 = floor1
-        this.floor2 = floor2
-        this.floor3 = floor3
-        this.floorName = floorName
-        this.hotGoods = hotGoods
-      }).catch((error) => { console.log(error) })*/
-    },
     goGoodsDetail (id) {
-      // this.$router.push({path: '/goodsDetail', query: {goodsId: id}})
       this.$router.push({name: 'goodsDetail', params: {goodsId: id}})
     },
     goSearch () {
       this.$router.push({name: 'search'})
+    },
+    onLoad(){
+      this.$ajax('/api/product/getHomeRecommend', this.newGoods, (res) => {
+        this.hotGoods = res.data
+        this.finished = true
+        this.loading = false
+      }, () => {
+      }, 'get')
+    },
+    getImg(){
+      this.$ajax('/api/product/xrthImg',{}, (res) => {
+        this.newPreson = res.data
+        console.log(res.data)
+        console.log(res)
+      }, () => {
+      }, 'get')
     }
   }
 }
@@ -306,7 +311,9 @@ $border-1px: 1PX solid #666;
     .item{
       flex: 1;
       border-radius: .2rem;
-      background: red;
+      background-color: red;
+      background-size:cover;
+      background-position: center center;
       .inner{
         height: 0;
         padding-bottom:100%;

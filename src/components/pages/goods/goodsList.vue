@@ -23,14 +23,15 @@
         <div class="item" @click="changeType(4)"><span :class="{active:acitveClass ==4}">价格</span></div>
       </div>
     </div>
-    <p class="searchEnd">20个结果</p>
+    <p class="searchEnd" v-if="type=='search'">{{products.length}}个结果</p>
       <van-list
+        :class="{marginTop19:type!='search'}"
         v-model="loading"
         :finished="finished"
         finished-text="没有更多了"
         @load="onLoad"
       >
-       <goods></goods>
+       <goods :list="products"></goods>
       </van-list>
   </div>
 </template>
@@ -50,13 +51,20 @@ export default {
       loading: false,
       finished: false,
       type: this.$route.query.type,
-      searchInt: this.$route.query.value,
+      searchInt: this.$route.query.v,
       active2:0,
       acitveClass:1,
+      postP:{
+        currPage:1,
+        pageSize:20,
+        order:1
+      },
+      products:[
+
+      ]
     }
   },
   created () {
-
   },
   activated () {
   },
@@ -64,20 +72,33 @@ export default {
   },
   methods: {
     // 数据初始化
-    innitData () {
+    onLoad () {
+      this.loading = true
+      let url;
+      if(this.type == 'search'){
+        this.postP.k = this.$route.query.v
+        url = '/api/search'
+      }else if(this.searchInt == '爆款专区'){
+        url = '/api/product/bkzq'
+      }else{
+        url = '/api/product/xrth'
+
+      }
+      this.$ajax(url,this.postP, (res) => {
+        if(this.searchInt == '新人特惠' || this.searchInt == '爆款专区'){
+          this.products = res.data
+        }else{
+          this.products = res.data.products
+        }
+        this.finished = true
+        this.loading = false
+      }, () => {}, 'get')
     },
     // 返回上一页
     goBack () {
       this.$router.back(-1)
     },
-    // 请求商品列表
-    // 打开页面时自动加载
-
-    onLoad() {
-      // 异步更新数据
-    },
     onRefresh () {
-
     },
     goSearch () {
       this.$router.push({name: 'search'})
@@ -150,6 +171,9 @@ $border-1px: 1PX solid #666;
     margin-top: 1.8rem;
     color: rgb(158,158,158);
     margin-bottom: 0;
+  }
+  .marginTop19{
+    margin-top: 1.9rem;
   }
   .list {
     flex: 1;

@@ -6,6 +6,7 @@ import 'vant/lib/index.css';
 import Vue from 'vue';
 import Vant from 'vant';
 import vueUpload from '@/components/common/upload';
+import {$ajax} from '@/common/ajax';
 import 'vant/lib/index.css';
 import { Lazyload,Toast } from 'vant';
 Vue.use(Vant);
@@ -14,6 +15,7 @@ Vue.config.productionTip = false
 // options 为可选参数，无则不传
 Vue.use(Lazyload);Vue.use(Toast);
 Vue.component('vueUpload',vueUpload)
+Vue.prototype.$ajax = $ajax
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

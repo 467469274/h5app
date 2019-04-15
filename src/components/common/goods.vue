@@ -1,12 +1,12 @@
 <template>
   <div class="goodList">
-    <div class="good" @click="goGoodsDetail(goodsId)" v-for="(item,index) in list " :key="index">
+    <div class="good" @click="goGoodsDetail(item.productId)" v-for="(item,index) in list " :key="index">
       <div class="imgWarp">
-        <img v-lazy="item.images" width="100%">
+        <img v-lazy="item.img" width="100%">
       </div>
       <div class="goods-name">{{item.name}}</div>
       <div class="goods-price">
-        {{item.money}} <i>券</i> <span class="cart-icon"></span>
+       ￥{{item.price}} +{{item.goldCouponNum}} <i>券</i> <van-icon size=".3rem" class="cart-icon" name="shopping-cart-o" />
       </div>
     </div>
   </div>
@@ -14,28 +14,18 @@
 
 <script>
 export default {
-  props: [],
+  props: ['list'],
   data () {
     return {
-      // errImg: 'this.src="' + require('@/assets/images/error.png') + '"'
-      list: [
-        {name: '商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称', money: 111, isHot: true, goodid: 1,images:'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202'},
-        {name: '商品名称商品名称商品名称商品名称', money: 111, isHot: true, goodid: 1,images:'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202'},
-        {name: '商品名称商品名称商品名称', money: 111, isHot: true, goodid: 1,images:'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202'},
-        {name: 'k商品名称商品名称商品名称kk', money: 111, isHot: true, goodid: 1,images:'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202'},
-        {name: '商品名称商品名称商品名称', money: 111, isHot: true, goodid: 1,images:'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202'},
-        {name: '商品名称商品名称商品名称', money: 111, isHot: true, goodid: 1,images:'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202'}
-      ]
     }
+  },
+  created(){
   },
   filters: {
   },
   methods: {
     goGoodsDetail (goodsId) {
-      // query路径显示传递参数，params不显示
-      // query：刷新数据仍在；params：刷新数据丢失，可以使用动态路由来保证刷新数据不丢失
-      // this.$router.push({path: '/goodsDetail', query: {goodsId: goodsId}})
-      this.$router.push({name: 'goodsDetail', params: {goodsId: goodsId}})
+      this.$router.push({name: 'goodsDetail', query: {goodsId: goodsId,type:this.$route.name}})
     }
   }
 }
@@ -95,10 +85,13 @@ export default {
         .cart-icon{
           width: .45rem;
           height: .45rem;
+          line-height: .45rem;
           float: right;
           background: red;
           border-radius: 50%;
+          color: #fff;
           vertical-align: -9px;
+          text-align: center;
         }
       }
     }
