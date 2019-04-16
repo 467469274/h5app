@@ -9,7 +9,7 @@
     <div class="endorsementTop">
       <div class="swiperWarp">
         <van-swipe :autoplay="3000" class="swiper" indicator-color="white">
-          <van-swipe-item v-for="item in nowSku.imgs" v-if="nowSku.imgs.length>0">
+          <van-swipe-item v-for="(item,index) in nowSku.imgs" v-if="nowSku.imgs.length>0">
             <img :src="item" alt="">
           </van-swipe-item>
           <van-swipe-item v-if="nowSku.imgs.length==0">
@@ -21,7 +21,8 @@
       <div class="txt">
         <div class="redTxt"><span class="b">￥{{nowSku.price}}</span></div>
         <div class="redTxt" v-if="type!='goodsList'"><span>￥</span><span>99.9</span></div>
-        <div class="redTxt chinese" v-if="type!='goodsList'"><span class="grey">购买返现</span><span class="b">￥1.00</span></div>
+        <div class="redTxt chinese" v-if="type!='goodsList'"><span class="grey">购买返现</span><span class="b">￥1.00</span>
+        </div>
       </div>
       <p class="isChose" @click="showBase = true"><span>已选</span>{{nowSku.name}}
         <van-icon size=".4rem" color="rgba(0,0,0,.4)" name="arrow" class="icon"/>
@@ -53,13 +54,13 @@
           </div>
 
         </van-tab>
-       <!-- <van-tab title="商品评论">
-          <div class="detail">
-            <div class="content nop">
-              <comments :startDisabled="true"></comments>
-            </div>
-          </div>
-        </van-tab>-->
+        <!-- <van-tab title="商品评论">
+           <div class="detail">
+             <div class="content nop">
+               <comments :startDisabled="true"></comments>
+             </div>
+           </div>
+         </van-tab>-->
       </van-tabs>
     </div>
     <van-goods-action>
@@ -71,9 +72,9 @@
       />
       <van-goods-action-mini-btn
         class="greey"
-        icon="star-o"
+        :icon="nowSku.collection==0?'star-o':'star'"
         text="收藏"
-        @click=""
+        @click="changeCollect"
       />
       <van-goods-action-big-btn
         text="加入购物车"
@@ -98,7 +99,7 @@
     data() {
       return {
         active: 0,
-        v:[],
+        v: [],
         goodsId: this.$route.query.goodsId,
         type: this.$route.query.type,
         showBase: false,
@@ -133,11 +134,11 @@
           stock_num: 227, // 商品总库存
         },
         detail: {},
-        goods:{}
+        goods: {}
       }
     },
     methods: {
-      checkSku(a){
+      checkSku(a) {
         this.detail.mainSkuId = a.skuValue.id
       },
       goSomePage(type) {
@@ -148,29 +149,51 @@
         }
       },
       add() {
+        console.log(this.detail)
+        /*
         this.$toast('加入购物车成功');
+        this.$ajax('/api/product/car', {
+          skuId:this.nowSku.skuId,
+          shopId:,
+          num:1
+        }, (res) => {
+          console.log(res)
+        }, () => {
+        }, 'put')*/
       },
       onAddCartClicked() {
       },
       onBuyClicked() {
+      },
+      changeCollect() {
+        let type = this.nowSku.collection == 0?1:0
+        this.$ajax('/api/product/collection', {
+          token:1,
+          skuId:this.nowSku.skuId
+        }, (res) => {
+          let nowCollection = this.detail.skus.find(item=>item.skuId == this.detail.mainSkuId).collection;
+          (nowCollection == 0)?this.$toast('收藏成功'):this.$toast('取消收藏成功')
+          this.nowSku.collection = (nowCollection==0)?1:0
+        }, () => {
+        }, 'put')
       },
       getData() {
         this.$ajax('/api/product/detail', {
           productId: this.goodsId
         }, (res) => {
           this.detail = res.data
-          let v = res.data.skus.map((item)=>{
+          let v = res.data.skus.map((item) => {
             return {
-              id:item.skuId,
-              name:item.name,
+              id: item.skuId,
+              name: item.name,
               imgUrl: item.mainImg
             }
           })
           this.sku.tree[0].v = v
-          this.sku.list = res.data.skus.map((itm)=>{
+          this.sku.list = res.data.skus.map((itm) => {
             return {
               id: itm.skuId, // skuId，下单时后端需要
-              price: itm.price*100, // 价格（单位分）
+              price: itm.price * 100, // 价格（单位分）
               s1: itm.skuId, // 规格类目 k_s 为 s1 的对应规格值 id
               stock_num: itm.stock // 当前 sku 组合对应的库存
             }
@@ -187,11 +210,11 @@
     },
     computed: {
       nowSku() {
-        if(!this.detail.mainSkuId)return{
-          imgs:[]
+        if (!this.detail.mainSkuId) return {
+          imgs: []
         }
-        let nowSku = this.detail.skus.find(item=>item.skuId === this.detail.mainSkuId)
-          this.goods = {
+        let nowSku = this.detail.skus.find(item => item.skuId === this.detail.mainSkuId)
+        this.goods = {
           // 商品标题
           title: nowSku.name,
           // 默认商品 sku 缩略图
@@ -337,7 +360,7 @@
   }
 </style>
 <style>
-  .van-sku-stepper-container{
+  .van-sku-stepper-container {
     display: none;
   }
 </style>

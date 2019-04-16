@@ -55,7 +55,26 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-    export default {}
+    export default {
+      data(){
+        return{
+          active:0
+        }
+      },
+      created(){
+        this.getData()
+      },
+      methods:{
+        onClickRight(){
+
+        },
+        getData(){
+          this.$ajax('/api/message/list',{},(res)=>{
+
+          },()=>{},'post')
+        }
+      }
+    }
 </script>
 <style lang="scss" scoped>
   .warp{

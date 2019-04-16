@@ -19,23 +19,12 @@
   data() {
     return {
       chosenAddressId: '1',
-      list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '1310000000',
-          address: '浙江省杭州市拱墅区莫干山路 50 号'
-        }
-      ]
+      list: []
     }
   },
-
+  created(){
+    this.getLocations()
+  },
   methods: {
     onAdd() {
       this.goSomePage('locations')
@@ -49,6 +38,19 @@
       } else {
         this.$router.push({name: type})
       }
+    },
+    getLocations(){
+      this.$ajax('/api/product/address', {
+        token:3
+      }, (res) => {
+        this.list = res.data.map((item)=>{
+          item.tel = item.phone
+          return item
+        })
+        this.chosenAddressId = res.data.find(item=>item.isDefault==1).id
+      }, () => {
+      }, 'get')
+
     }
   }
 }

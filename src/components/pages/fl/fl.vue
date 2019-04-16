@@ -1,7 +1,7 @@
 <template>
   <div class="fl">
     <div class="nav">
-      <searchInput @change="search" style="background: #fff"></searchInput>
+      <searchInput :clickRight="clickRight" @change="search" style="background: #fff"></searchInput>
     </div>
     <div class="flWarp">
       <div class="leftWarp">
@@ -30,7 +30,6 @@
 </template>
 <script type="text/ecmascript-6">
   import searchInput from '@/components/pages/search/searchInput.vue'
-
   export default {
     data() {
       return {
@@ -148,6 +147,9 @@
       },
       search(v){
         console.log(v)
+      },
+      clickRight(){
+        this.$emit('back')
       }
     },
     computed:{
@@ -161,76 +163,85 @@
   }
 </script>
 <style lang="scss" scoped>
-  .flWarp {
+  .fl{
     position: fixed;
     left: 0;
-    top: .92rem;
+    top: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    .leftWarp {
+    z-index: 12;
+    .flWarp {
+      position: absolute;
+      left: 0;
+      top: .92rem;
+      width: 100%;
       height: 100%;
-      overflow-y: scroll;
-      flex: 2rem 0 0;
-      border-right: 1px solid #ccc;
-      background: #fff;
-      .left{
-        text-align: center;
-        .item{
-          font-size: 14px;
-          color: rgba(0,0,0,0.8);
-          line-height: 1rem;
-          border-bottom: 1px solid #ccc;
-          &.active{
-            background: #E74725;
-            color: #fff;
+      display: flex;
+      z-index: 11;
+      .leftWarp {
+        height: 100%;
+        overflow-y: scroll;
+        flex: 2rem 0 0;
+        border-right: 1px solid #ccc;
+        background: #fff;
+        .left{
+          text-align: center;
+          .item{
+            font-size: 14px;
+            color: rgba(0,0,0,0.8);
+            line-height: 1rem;
+            border-bottom: 1px solid #ccc;
+            &.active{
+              background: #E74725;
+              color: #fff;
+            }
           }
         }
       }
-    }
-    .rightWarp {
-      height: 100%;
-      overflow-y: scroll;
-      flex:1;
-      border-right: 1px solid #ccc;
-      background: #EDEEEF;
-      padding: .2rem;
-      .imgWarp{
-        padding:.1rem;
-        background: #fff;
-        margin: 0 auto;
-        font-size: 0;
-        img{
-          width: 100%;
-        }
-      }
-      .childrens{
-        .name{
-          line-height: .64rem;
-          font-size: 16px;
-          padding-left: .15rem;
-        }
-        .commoditys{
+      .rightWarp {
+        height: 100%;
+        overflow-y: scroll;
+        flex:1;
+        border-right: 1px solid #ccc;
+        background: #EDEEEF;
+        padding: .2rem;
+        .imgWarp{
+          padding:.1rem;
           background: #fff;
-          .item{
-            width:33%;
-            display: inline-block;
-            position: relative;
-            padding: .15rem;
-            box-sizing: border-box;
-            .imgWarp{
-              background-size: 100% 100%;
-              &:before{
-                padding-bottom: 100%;
-                content: '';
-                height: 0;
-                display: block;
+          margin: 0 auto;
+          font-size: 0;
+          img{
+            width: 100%;
+          }
+        }
+        .childrens{
+          .name{
+            line-height: .64rem;
+            font-size: 16px;
+            padding-left: .15rem;
+          }
+          .commoditys{
+            background: #fff;
+            .item{
+              width:33%;
+              display: inline-block;
+              position: relative;
+              padding: .15rem;
+              box-sizing: border-box;
+              .imgWarp{
+                background-size: 100% 100%;
+                &:before{
+                  padding-bottom: 100%;
+                  content: '';
+                  height: 0;
+                  display: block;
+                }
               }
-            }
-            p{
-              line-height:.6rem;
-              text-align: center;
-              padding:0 .1rem;
+              p{
+                line-height:.6rem;
+                text-align: center;
+                padding:0 .1rem;
+              }
             }
           }
         }

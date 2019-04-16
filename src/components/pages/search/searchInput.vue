@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  props: ['searchInt'],
+  props: ['searchInt','clickRight'],
   name: 'searchInput',
   created () {
     if (this.searchInt) {
@@ -27,7 +27,11 @@ export default {
       this.$emit('click')
     },
     goSomePage () {
-      this.$router.back(-1)
+      if(this.clickRight){
+        this.clickRight()
+      }else{
+        this.$router.back(-1)
+      }
     }
   }
 }

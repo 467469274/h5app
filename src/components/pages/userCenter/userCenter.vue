@@ -19,7 +19,7 @@
         <div class="cell"><span>手机号:</span><input type="text" class="input"/></div>
       </van-cell>
       <van-cell title="性别"to="sex" is-link>女</van-cell>
-      <van-cell title="收货地址" to="locations" is-link />
+      <van-cell title="收货地址" to="choseLocation" is-link />
       <van-cell title="吸粉二维码" is-link />
       <van-cell title="我的邀请码">123123</van-cell>
     </div>

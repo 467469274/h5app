@@ -24,19 +24,29 @@
             <span>默认地址:</span>
             <p>注:每次下单会使用该地址 (轻松购除外)</p>
           </div>
-          <van-switch  size=".4rem" v-model="checked"/>
+          <van-switch size=".4rem" v-model="checked"/>
         </div>
       </van-cell>
     </div>
     <div class="saveBtn">保存并使用</div>
+    <van-area class="arealist"item-height="80" :area-list="list"/>
+
+
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import list from './local'
+
   export default {
-    data(){
-      return{
-        checked:true
+    data() {
+      return {
+        checked: true,
+        list: list,
+        show: true
       }
+    },
+    created() {
+      console.log()
     },
     methods: {
       goSomePage(type) {
@@ -45,6 +55,25 @@
         } else {
           this.$router.push({name: type})
         }
+      },
+      getData() {
+        /*
+      this.$ajax('/api/product/address', {
+        name: '测试姓名',
+        phone: '18610904457',
+        provinceId: '10000',
+        provinceName: '北京',
+        cityId: '110000',
+        cityName: '北京',
+        countyId: '110101',
+        countyName: '东城区',
+        address: '第九期我对其五帝钱无多',
+        isDefault: 1,
+        token:3
+      }, (res) => {
+        console.log(res)
+      }, () => {
+      }, 'post')*/
       }
     }
   }
@@ -59,29 +88,53 @@
       color: $colorG;
     }
     input {
+      border: none;
+      outline: none;
       flex: 1;
     }
   }
-  .flexss{
+
+  .flexss {
     display: flex;
     align-items: center;
-    .txt{
+    .txt {
       flex: 1;
-      p{
+      p {
         font-size: 10px;
-        color: rgba(0,0,0,0.4);
+        color: rgba(0, 0, 0, 0.4);
       }
     }
   }
-  .saveBtn{
-    background: rgb(259,159,10);
+
+  .saveBtn {
+    background: rgb(259, 159, 10);
     text-align: center;
-    position:fixed;
+    position: fixed;
     left: 0;
     bottom: 0;
     color: #fff;
-    line-height:1rem;
-    width:100%;
+    line-height: 1rem;
+    width: 100%;
     font-size: 15px;
+  }
+</style>
+<style lang="scss">
+
+  .arealist {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4rem;
+    background: #fff;
+   /* .van-picker__columns, .van-picker-column {
+      height: 100%!important;
+    }
+    .van-picker-column ul,.van-picker-column li{
+      line-height:.8rem!important;
+    }
+    .van-picker-column li{
+      height: .8rem!important;
+    }*/
   }
 </style>

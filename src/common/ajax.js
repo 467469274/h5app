@@ -1,5 +1,6 @@
 // import {getCookie, setCookie} from './cookies.js'
 import axios from 'axios';
+import qs from 'qs';
 export function $ajax (url, data, call, err, methodsType) {
   if(methodsType  == 'get'){
     axios.get(`http://39.105.229.26:8081${url}`, {
@@ -9,11 +10,22 @@ export function $ajax (url, data, call, err, methodsType) {
     }).catch(function (error) {
       err(error)
     })
+  }else if(methodsType=='put'){
+    let formData = new FormData();
+    for(let key in data){
+      formData.append(key,data[key])
+    }
+    axios.put(`http://39.105.229.26:8081${url}`, formData).then(function (re) {
+      call(re.data)
+    }).catch(function (error) {
+      err(error)
+    })
   }else{
+    let postData = qs.stringify(data)
     axios({
-      method:'post',
+      method:methodsType,
       url: `http://39.105.229.26:8081${url}`,
-      data: data
+      data: postData
     }).then(function (re) {
       call(re.data)
     }).catch(function (error) {
