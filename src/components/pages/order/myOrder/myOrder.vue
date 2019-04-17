@@ -21,12 +21,20 @@
 
 <script>
   export default {
-    name: "sex",
-
+    name: "myOrder",
     data(){
       return{
-        status:1
+        status:1,
+        formData:{
+          currPage:1,
+          pageSize:10,
+          status:-1
+        }
       }
+    },
+    created(){
+      this.getData()
+      alert(1)
     },
     methods:{
         StatusChange (e) {
@@ -35,7 +43,13 @@
                 let path = e.target.dataset.path;
                 this.$router.push({path: path});
             }
-        }
+        },
+      getData(){
+        this.$ajax('/api/order/userOrders',this.formData,(res)=>{
+          this.list = res.data
+          console.log(res.data)
+        },()=>{},'get')
+      }
     }
   }
 </script>

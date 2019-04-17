@@ -8,23 +8,23 @@
       @click-right="isEdit = !isEdit"
     />
     <div class="goodsList">
-      <div class="goodsItem" v-for="item in 10">
+      <div class="goodsItem" v-for="item in list">
         <div class="goodsInfo">
-          <van-checkbox v-show="isEdit" class="check" v-model="checked"></van-checkbox>
-          <div class="avatar"></div>
+          <van-checkbox v-show="isEdit" class="check" v-model="item.checked"></van-checkbox>
+          <div class="avatar"><img :src="item.img" alt=""></div>
           <div class="goodsDetail">
-            <p class="sl goodsName">商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌</p>
+            <p class="sl goodsName">{{item.productName}}</p>
             <p class="sku">
-              规格 <span>浓香型</span>
+              规格 <span>{{item.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥250+300券</span>
+              <span class="redColor">￥{{item.price}}+{{item.goldCouponNum}}券</span>
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div class="sure" @click="del">删除</div>
+    <div v-show="isEdit" class="sure" @click="del">删除</div>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -34,11 +34,24 @@
         return{
           isEdit:false,
           value:0,
-          checked:false
+          checked:false,
+          list:[]
         }
       },
+      created(){
+        this.getData()
+        },
       methods:{
-        del(){}
+        del(){
+         let list = this.list.map((item)=>item.checked&&item.skuId)
+          console.log(list)
+//          /api/product/collection
+        },
+        getData(){
+          this.$ajax('/api/mine/collection',{},(res)=>{
+            this.list = res.data
+          },()=>{},'get')
+        }
       }
     }
 </script>
@@ -55,7 +68,8 @@
       background: #fff;
       position: fixed;
       top: 1.2rem;
-      bottom:1rem;
+      bottom:0;
+      padding-bottom: 1rem;
       width: 100%;
       left: 0;
       overflow-y: scroll;
@@ -112,6 +126,10 @@
             flex: 1rem 0 0;
             height: 1rem;
             border: #ccc solid .5px;
+            img{
+              width: 100%;
+              height: 100%;
+            }
           }
         }
       }

@@ -6,7 +6,7 @@
       </div>
       <div class="goods-name">{{item.name}}</div>
       <div class="goods-price">
-       ￥{{item.price}} +{{item.goldCouponNum}} <i>券</i> <van-icon size=".3rem" class="cart-icon" name="shopping-cart-o" />
+       ￥{{item.price}} +{{item.goldCouponNum}} <i>券</i> <van-icon size=".3rem" class="cart-icon" @click="addCart()" name="shopping-cart-o" />
       </div>
     </div>
   </div>

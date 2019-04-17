@@ -1,87 +1,87 @@
-.van-cell{
+.van-cell {
 
-    font-size:12px;
-  }
-
-  .cell{
-      display:flex;
-      font-size:15px;
-
-      span{
-          flex:1;
-          text-align:left;
-          overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-      }
-
-  }
- .imageList{
-     margin:0.15rem 0 0.15rem 0;
-     display:flex;
-     .imageinfo{
-         flex:1;
-         text-indent:0.2rem;
-         p{
-             display:block;
-             width:100%;
-              overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-         }
-         .imageTitle{
-             font-size:14px;
-         }
-         .imageType{
-            font-size:11px;
-            color:#B9B9B9;
-         }
-         .imagePrcie{
-            font-size:13px;
-            color: #FD411C;
-            span{
-                margin:2px 0 0 0;
-                float:right;
-                color:#989898;
-            }
-         }
-     }
-     img{
-        flex:0.1;
-        width:1.3rem;
-         height:1.3rem;
-     }
-
- }
-
- .orderCount{
-    font-size:12px;
+  font-size: 12px;
 }
 
-.cellBtn{
-    padding:0.2rem 0;
-    width:100%;
-    display:inline-block;
-    background:#fff;
-   button{
-       margin:0 0.3rem 0 0;
-       float:right;
-           width:1.6rem;
-           height:0.7rem;
-           background:#fff;
-           border:1px solid #E73927;
-           color: #E73927!important;
-           font-size:13px;
-           border-radius:3px;
-           color:#666666;
-       }
-       .deliveryBtn{
-           background:#E73927!important;
-           color:#fff!important;
-           border:none;
-       }
-       .receipt{
-        color:#323232;
-        border:1px solid #DFDFDF;
+.cell {
+  display: flex;
+  font-size: 15px;
+
+  span {
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+}
+
+.imageList {
+  margin:.2rem 0;
+  display: flex;
+  .imageinfo {
+    flex: 1;
+    text-indent: 0.2rem;
+    p {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
+    .imageTitle {
+      font-size: 14px;
+    }
+    .imageType {
+      font-size: 11px;
+      color: #B9B9B9;
+    }
+    .imagePrcie {
+      font-size: 13px;
+      color: #FD411C;
+      span {
+        margin: 2px 0 0 0;
+        float: right;
+        color: #989898;
+      }
+    }
+  }
+  img {
+    flex: 1.3rem 0 0;
+    height: 1.3rem;
+  }
+
+}
+
+.orderCount {
+  font-size: 12px;
+}
+
+.cellBtn {
+  padding: 0.2rem 0;
+  width: 100%;
+  display: inline-block;
+  background: #fff;
+  button {
+    margin: 0 0.3rem 0 0;
+    float: right;
+    width: 1.6rem;
+    height: 0.7rem;
+    background: #fff;
+    border: 1px solid #E73927;
+    color: #E73927 !important;
+    font-size: 13px;
+    border-radius: 3px;
+    color: #666666;
+  }
+  .deliveryBtn {
+    background: #E73927 !important;
+    color: #fff !important;
+    border: none;
+  }
+  .receipt {
+    color: #323232;
+    border: 1px solid #DFDFDF;
+  }
 }

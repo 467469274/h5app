@@ -13,10 +13,10 @@
         <van-cell title="工业银行" @click="radio = '2'">
           <van-radio name="2" checked-color="red" />
         </van-cell>
-        <van-cell title="农业银行" @click="radio = '2'">
+        <van-cell title="农业银行" @click="radio = '3'">
           <van-radio name="2" checked-color="red" />
         </van-cell>
-        <van-cell title="建设银行" @click="radio = '2'">
+        <van-cell title="建设银行" @click="radio = '4'">
           <van-radio name="2" checked-color="red" />
         </van-cell>
       </van-cell-group>

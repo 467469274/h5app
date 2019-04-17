@@ -30,13 +30,13 @@
       this.goSomePage('locations')
     },
     onEdit(item, index) {
-      this.goSomePage('locations')
+      this.goSomePage('locations',{location: item.id})
     },
-    goSomePage(type) {
+    goSomePage(type,index) {
       if (type == 'back') {
         this.$router.back(-1)
       } else {
-        this.$router.push({name: type})
+        this.$router.push({name: type, query: index})
       }
     },
     getLocations(){

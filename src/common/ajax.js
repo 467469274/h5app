@@ -2,6 +2,7 @@
 import axios from 'axios';
 import qs from 'qs';
 export function $ajax (url, data, call, err, methodsType) {
+  data.token = 3
   if(methodsType  == 'get'){
     axios.get(`http://39.105.229.26:8081${url}`, {
       params: data

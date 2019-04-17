@@ -30,7 +30,7 @@
     <div class="bottomBtns">
       <div class="shopInfo">
         <div class="myOrders">
-          <van-cell title="我的订单" class="myShop" is-link />
+          <van-cell title="我的订单" class="myShop" to="myOrder" is-link />
           <div class="iconBtn">
             <div class="btn">
               <van-icon name="idcard" size=".6rem" color="rgba(0,0,0,0.7)" info="9" />

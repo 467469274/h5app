@@ -7,16 +7,17 @@
     />
     <div>
       <van-cell>
-        <div class="cell"><span>收货人:</span><input type="text" class="input"/></div>
+        <div class="cell"><span>收货人:</span><input type="text" v-model="name" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号码:</span><input type="text" class="input"/></div>
+        <div class="cell"><span>手机号码:</span><input type="text" v-model="phone" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>所在地区:</span><input type="text" class="input"/></div>
+        <div class="cell" @click="show = true"><span>所在地区:</span><input type="text" v-model="ssq" disabled
+                                                                        class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>详细地址:</span><input type="text" class="input"/></div>
+        <div class="cell"><span>详细地址:</span><input type="text" v-model="address" class="input"/></div>
       </van-cell>
       <van-cell>
         <div class="cell flexss">
@@ -28,10 +29,8 @@
         </div>
       </van-cell>
     </div>
-    <div class="saveBtn">保存并使用</div>
-    <van-area class="arealist"item-height="80" :area-list="list"/>
-
-
+    <div class="saveBtn" @click="save">保存并使用</div>
+    <van-area class="arealist" @confirm="sure" @cancel="cancel" v-show="show" :item-height="80" :area-list="list"/>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -40,13 +39,23 @@
   export default {
     data() {
       return {
-        checked: true,
+        checked: false,
         list: list,
-        show: true
+        show: false,
+        ssq:[],
+        name: '',
+        phone: '',
+        provinceId: '',
+        provinceName: '',
+        cityId: '',
+        cityName: '',
+        countyId: '',
+        countyName: '',
+        address: '',
       }
     },
     created() {
-      console.log()
+      this.getData()
     },
     methods: {
       goSomePage(type) {
@@ -56,24 +65,66 @@
           this.$router.push({name: type})
         }
       },
+      sure(a) {
+        this.ssq = a.map(item => item.name);
+        this.provinceId = a[0].code;
+        this.provinceName = a[0].name;
+        this.cityId = a[1].code;
+        this.cityName = a[1].name;
+        this.countyId = a[2].code;
+        this.countyName = a[2].name;
+        this.show = false
+      },
+      cancel() {
+        this.show = false
+      },
       getData() {
-        /*
-      this.$ajax('/api/product/address', {
-        name: '测试姓名',
-        phone: '18610904457',
-        provinceId: '10000',
-        provinceName: '北京',
-        cityId: '110000',
-        cityName: '北京',
-        countyId: '110101',
-        countyName: '东城区',
-        address: '第九期我对其五帝钱无多',
-        isDefault: 1,
-        token:3
-      }, (res) => {
-        console.log(res)
-      }, () => {
-      }, 'post')*/
+        if(!this.$route.query.location)return
+        this.$ajax('/api/product/addressById', {
+          id: this.$route.query.location,
+          token: 3
+        }, (res) => {
+          let detail = res.data
+          this.address = detail.address
+          this.cityId = detail.cityId
+          this.cityName = detail.cityName
+          this.countyId = detail.countyId
+          this.countyName = detail.countyName
+          this.checked = detail.isDefault == 1 ? true : false
+          this.name = detail.name
+          this.phone = detail.phone
+          this.provinceId = detail.provinceId
+          this.provinceName = detail.provinceName
+          this.ssq = [detail.provinceName,detail.cityName,detail.countyName]
+        }, () => {
+        }, 'get')
+      },
+      save() {
+        let data = {
+          name: this.name,
+          phone: this.phone,
+          provinceId: this.provinceId,
+          provinceName: this.provinceName,
+          cityId: this.cityId,
+          cityName: this.cityName,
+          countyId: this.countyId,
+          countyName: this.countyName,
+          address: this.address,
+          isDefault: this.checked ? 1 : 0,
+          token: 3
+        },
+          type = 'post',message='保存成功'
+        if(this.$route.query.location){
+          data.id = this.$route.query.location
+          type = 'PUT'
+          message='修改成功'
+        }
+        this.$ajax('/api/product/address', data, (res) => {
+          this.$toast(message);
+          this.goSomePage('back')
+
+        }, () => {
+        }, type)
       }
     }
   }
@@ -127,14 +178,5 @@
     width: 100%;
     height: 4rem;
     background: #fff;
-   /* .van-picker__columns, .van-picker-column {
-      height: 100%!important;
-    }
-    .van-picker-column ul,.van-picker-column li{
-      line-height:.8rem!important;
-    }
-    .van-picker-column li{
-      height: .8rem!important;
-    }*/
   }
 </style>

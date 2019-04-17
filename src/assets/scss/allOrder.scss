@@ -1,8 +1,8 @@
 .van-cell{
-   
+
     font-size:12px;
   }
-    
+
   .cell{
       display:flex;
       font-size:15px;
@@ -12,7 +12,7 @@
            overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-           
+
       }
       span{
           flex:1;
@@ -21,13 +21,14 @@
             text-overflow: ellipsis;
             white-space: nowrap;
       }
-      
+
   }
  .imageList{
-     margin:0.15rem 0 0.15rem 0;
-     display:flex;
+   margin:.2rem 0;
+
+   display:flex;
      .imageinfo{
-        
+
          flex:1;
      }
      img{

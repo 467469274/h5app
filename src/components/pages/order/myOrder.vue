@@ -3,65 +3,117 @@
     <van-nav-bar
       title="我的订单"
       left-arrow
+      @click-left="onClickLeft"
     />
 
     <div class="warp">
-        <div class="orderStatus" @click="StatusChange($event)"> 
-            <span><i :class="{'selectStatus' : this.status == 1}" data-id="1">全部订单</i></span>
-            <span><i :class="{'selectStatus' : this.status == 2}" data-id="2">待支付</i></span>
-            <span><i :class="{'selectStatus' : this.status == 3}" data-id="3">待发货</i></span>
-            <span><i :class="{'selectStatus' : this.status == 4}" data-id="4">待收货</i></span>
-            <span><i :class="{'selectStatus' : this.status == 5}" data-id="5">待评价</i></span>
-        </div>
-        <div>
-          <div class="myOrderCell">
-              <van-cell>
-                  <div class="cell" style="color:#666666;">
-                      <span>物流单号:989554541223</span>
-                  </div>
-              </van-cell>
-              <van-cell>
-                  <div class="imageList">
-                      <img src=""/>
-                      <div class="imageinfo"> 
-                          <p class="imageTitle">1元升级家家商城普通代言人</p>
-                          <p class="imageType">规格：普通代言人</p>
-                          <p class="imagePrcie">¥1.00 <span>x1</span></p>
-                      </div>
-                  </div>
-            </van-cell>
-            <div class="cellBtn">
-                <button  v-if="this.status == 2">去支付</button>
-                <button  v-if="this.status == 4">确认收货</button>
-                <button  v-if="this.status == 5">立即评价</button>
-                <button  v-if="this.status == 5" class="receipt">确认收货</button>
+      <div class="orderStatus">
+        <span><i @click="StatusChange(-1)" :class="{'selectStatus' : this.status == -1}">全部订单</i></span>
+        <span><i @click="StatusChange(0)" :class="{'selectStatus' : this.status == 0}">待支付</i></span>
+        <span><i @click="StatusChange(30)" :class="{'selectStatus' : this.status == 30}">待发货</i></span>
+        <span><i @click="StatusChange(40)" :class="{'selectStatus' : this.status == 40}">待收货</i></span>
+        <span><i @click="StatusChange(50)" :class="{'selectStatus' : this.status == 50}">待评价</i></span>
+      </div>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <div class="myOrderCell" v-for="(item,index) in list">
+          <van-cell>
+            <div class="cell" style="color:#666666;">
+              <span>物流单号:{{item.expressNo}}</span>
             </div>
+          </van-cell>
+          <van-cell class="main">
+            <div class="imageList" v-for="(sku,index) in item.skus">
+              <img :src="sku.skuMainImg"/>
+              <div class="imageinfo">
+                <p class="imageTitle">{{item.productName}}产品名称</p>
+                <p class="imageType">规格：普通代言人</p>
+                <p class="imagePrcie">¥{{sku.skuPrice}} <span>x1</span></p>
+              </div>
+            </div>
+          </van-cell>
+          <div class="cellBtn">
+            <button v-if="item.status == 0">去支付</button>
+            <button v-if="item.status == 40">确认收货</button>
+            <button v-if="item.status == 50">立即评价</button>
+            <button v-if="item.status == 50" class="receipt">再次购买</button>
           </div>
         </div>
+      </van-list>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: "sex",
-    
-    data(){
-      return{
-        status:1
+    name: "myOrder",
+    data() {
+      return {
+        status: -1,
+        list: [],
+        loading: false,
+        finished: false,
+        formData: {
+          currPage: 0,
+          pageSize: 10
+        }
       }
     },
-    methods:{
-        StatusChange (e) {
-            if(e.target.localName === 'i'){
-                this.status =  e.target.dataset.id;
-            }
+    created() {
+    },
+    methods: {
+      StatusChange(e) {
+        this.status = e
+        this.formData = {
+          currPage: 0,
+          pageSize: 10
         }
+        this.getData()
+      },
+      onClickLeft() {
+        this.$router.push({name: 'member'})
+      },
+      onLoad() {
+        this.loading = true
+        this.formData.currPage+=1
+        this.$ajax('/api/order/userOrders', {...this.formData, status: this.status}, (res) => {
+          this.list = res.data
+          this.loading = false
+          console.log(res.data)
+          if (res.data.length < 10) {
+            this.finished = true
+          } else {
+            this.finished = false
+          }
+        }, () => {
+        }, 'get')
+      }
     }
   }
 </script>
 
 <style scoped lang="scss">
-@import '../../../assets/scss/commtTop.scss';
-@import '../../../assets/scss/myOrder.scss';
+  @import '../../../assets/scss/commtTop.scss';
+  @import '../../../assets/scss/myOrder.scss';
+
+  .main {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 0 5%;
+    .imageList{
+      border-bottom: 1px solid #ccc;
+      padding-bottom: .2rem;
+      &:last-child{
+        border: none;
+      }
+    }
+  }
+
+  .myOrderCell {
+    margin-bottom: .2rem;
+  }
 </style>
