@@ -1,1 +1,2 @@
 GET /api/mine/indirectlyFans 缺少来源
+订单详情缺少物流编号, 地址是否为默认地址，订单类型

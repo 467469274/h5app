@@ -8,19 +8,19 @@
       @click-right="isEdit = !isEdit"
     />
     <div class="goodsList">
-      <div class="goodsItem" v-for="item in 10">
-        <p class="shopName"><van-checkbox class="check" v-model="checked"></van-checkbox>专卖店</p>
-        <div class="goodsInfo">
-          <van-checkbox class="check" v-model="checked"></van-checkbox>
-          <div class="avatar"></div>
+      <div class="goodsItem" v-for="item in list">
+        <p class="shopName"><van-checkbox class="check" v-model="item.checked"></van-checkbox>{{item.shopName}}</p>
+        <div class="goodsInfo" v-for="(product,index) in item.products">
+          <van-checkbox class="check" v-model="product.checked"></van-checkbox>
+          <div class="avatar" :style="{backgroundImage:'url('+product.mainImg+')'}"></div>
           <div class="goodsDetail">
-            <p class="sl goodsName">商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌</p>
+            <p class="sl goodsName">{{product.productName}}</p>
             <p class="sku">
-              规格 <span>浓香型</span>
+              规格 <span>{{product.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥250+300券</span>
-              <van-stepper class="num" v-model="value" />
+              <span class="redColor">￥{{product.price}}+{{product.goldCouponNum}}券</span>
+              <van-stepper class="num" @plus="changeProductNum(product)" @minus="changeProductNum(product)" v-model="product.num" />
             </p>
           </div>
         </div>
@@ -30,7 +30,7 @@
       :button-text="!isEdit?'去结算':'删除'"
       @submit="onSubmit"
     >
-      <div><van-checkbox class="check" v-model="checked"></van-checkbox> <span>全选</span></div>
+      <div><van-checkbox class="check" v-model="allCheck"></van-checkbox> <span>全选</span></div>
       <div class="txt" v-show="!isEdit">
         <p>合计 <span>100万</span></p>
         <p>总价 <span>100万</span></p>
@@ -45,7 +45,55 @@
         return{
           isEdit:false,
           value:0,
-          checked:false
+          checked:false,
+          list:[],
+          allCheck:false
+        }
+      },
+      created(){
+        this.getData()
+      },
+      methods:{
+        onSubmit(){
+          if(this.isEdit){
+            let delList = []
+            this.list.forEach((item)=>{
+              item.products.forEach((pro)=>{
+                if(pro.checked){
+                  delList.push(pro.skuId)
+                }
+              })
+            })
+            delList = delList.join(',')
+            this.$ajax('/api/product/car',{
+              skuIds:delList
+            },(res)=>{
+              console.log(res)
+              this.$toast('删除成功');
+            },()=>{},'DELETE')
+          }
+        },
+        getData(){
+
+          this.$ajax('/api/product/car',{
+          },(res)=>{
+            this.list = res.data
+            console.log(res.data)
+          },()=>{
+
+          },'get')
+        },
+        changeProductNum(item){
+          if(this.changeTimeout)clearInterval(this.changeTimeout)
+          this.changeTimeout = setTimeout(()=>{
+            this.$ajax('/api/product/car',{
+              skuId:item.skuId,
+              num:item.num,
+            },(res)=>{
+              console.log(res)
+            },()=>{},'PUT')
+          },1000)
+          this.$toast('更改成功');
         }
       }
     }
@@ -116,6 +164,7 @@
             flex: 1rem 0 0;
             height: 1rem;
             border: #ccc solid .5px;
+            background-size: 100% 100%;
           }
         }
       }

@@ -6,7 +6,7 @@
       </div>
       <div class="goods-name">{{item.name}}</div>
       <div class="goods-price">
-       ￥{{item.price}} +{{item.goldCouponNum}} <i>券</i> <van-icon size=".3rem" class="cart-icon" @click="addCart()" name="shopping-cart-o" />
+       ￥{{item.price}} +{{item.goldCouponNum}} <i>券</i> <van-icon size=".3rem" class="cart-icon" @click.stop="addCart(item)" name="shopping-cart-o" />
       </div>
     </div>
   </div>
@@ -26,6 +26,18 @@ export default {
   methods: {
     goGoodsDetail (goodsId) {
       this.$router.push({name: 'goodsDetail', query: {goodsId: goodsId,type:this.$route.name}})
+    },
+    addCart(item){
+      this.$toast('加入购物车成功');
+      console.log(item)
+    /*  this.$ajax('/api/product/car', {
+        skuId:this.nowSku.skuId,
+        num:1
+      }, (res) => {
+        console.log(res)
+      }, () => {
+      }, 'post')*/
+//      POST /api/product/car
     }
   }
 }

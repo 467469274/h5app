@@ -5,47 +5,49 @@
       left-arrow
       @click-left="goSomePage('back')"
     />
-    <div class="status">待支付</div>
+    <div class="status">{{status[detail.status]}}</div>
+
     <div class="confirmWarp">
       <div class="location" @click="goSomePage('choseLocation')">
         <p class="title">
-          <span class="name">张大龙</span>
-          <span class="phone">18610904457</span>
+          <span class="name">{{detail.name}}</span>
+          <span class="phone">{{detail.phone}}</span>
         </p>
         <div class="detailLocation">
-          <span class="isDefaule">默认</span>
-          <span class="local">山东市淄博市调往第九期我我哦掉全局</span>
+          <span class="local">{{detail.provinceName}}{{detail.cityName}}{{detail.countyName}}{{detail.address}}</span>
         </div>
       </div>
     </div>
     <div class="goodsList">
       <div class="goodsItem">
-        <div class="goodsInfo">
-          <div class="avatar"></div>
+        <div class="goodsInfo" v-for="(item,index) in detail.prorducts">
+          <div class="avatar">
+            <img :src="item.skuMainImg" alt="">
+          </div>
           <div class="goodsDetail">
-            <p class="sl goodsName">商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌商品面唱个歌</p>
+            <p class="sl goodsName">{{item.productName}}</p>
             <p class="sku">
-              规格 <span>浓香型</span>
+              规格 <span>{{item.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥250+300券</span>
-              <span class="num">x1</span>
+              <span class="redColor">￥{{item.skuPrice}}+{{item.freight}}券</span>
+              <span class="num">x{{item.skuNum}}</span>
             </p>
           </div>
         </div>
         <div class="goodsBottom">
           <div class="bottomTxt">
             <span>买家留言</span>
-            <span class="right">多块钱我ID强无敌获取文档</span>
+            <span class="right">{{detail.leavingMessage}}</span>
           </div>
           <div class="bottomTxt">
             <span>下单时间</span>
-            <span class="right">2019年04月14日11:47:04</span>
+            <span class="right">{{detail.createTime}}</span>
           </div>
           <div class="bottomTxt">
             <span>订单编号</span>
             <span class="right red" style="margin-left: .3rem">复制</span>
-            <span class="right">123123123123123</span>
+            <span class="right">{{detail.orderNo}}</span>
           </div>
           <div class="bottomTxt">
             <span>物流编号</span>
@@ -54,11 +56,11 @@
           </div>
           <div class="bottomTxt">
             <span>运费</span>
-            <span class="right red">￥20.0</span>
+            <span class="right red">￥{{detail.freightAllPrice}}</span>
           </div>
           <div class="bottomTxt">
             <span>总金额</span>
-            <span class="right red">￥20.0</span>
+            <span class="right red">￥{{detail.allPrice}}</span>
           </div>
         </div>
       </div>
@@ -68,6 +70,20 @@
 </template>
 <script type="text/ecmascript-6">
   export default {
+    data(){
+      return{
+        detail:{},
+        status:{
+          0:"待支付",
+          10:"取消支付",
+          20:'已取消',
+          30:'待发货',
+          40:'待收货',
+          50:'已收货',
+          60:'已评价',
+        }
+      }
+    },
     methods: {
       goSomePage(type) {
         if (type == 'back') {
@@ -76,6 +92,12 @@
           this.$router.push({name: type})
         }
       }
+    },
+    created(){
+      this.$ajax('/api/order/userOrderDetail', {id: this.$route.query.id}, (res) => {
+        this.detail = res.data
+        console.log(res.data)
+      }, () => {}, 'get')
     }
   }
 </script>
@@ -174,6 +196,10 @@
             flex: 1rem 0 0;
             height: 1rem;
             border: #ccc solid .5px;
+            img{
+              width: 100%;
+              height: 100%;
+            }
           }
         }
         .goodsBottom {

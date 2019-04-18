@@ -1,31 +1,39 @@
 // import {getCookie, setCookie} from './cookies.js'
 import axios from 'axios';
 import qs from 'qs';
-export function $ajax (url, data, call, err, methodsType) {
+export function $ajax(url, data, call, err, methodsType) {
+  const ajaxUrl = `http://39.105.229.26:8081${url}`
+  console.log(ajaxUrl)
   data.token = 3
-  if(methodsType  == 'get'){
-    axios.get(`http://39.105.229.26:8081${url}`, {
+  if (methodsType == 'get') {
+    axios.get(ajaxUrl, {
       params: data
     }).then(function (re) {
       call(re.data)
     }).catch(function (error) {
       err(error)
     })
-  }else if(methodsType=='put'){
+  } else if (methodsType == 'put') {
     let formData = new FormData();
-    for(let key in data){
-      formData.append(key,data[key])
+    for (let key in data) {
+      formData.append(key, data[key])
     }
-    axios.put(`http://39.105.229.26:8081${url}`, formData).then(function (re) {
+    axios.put(ajaxUrl, formData).then(function (re) {
       call(re.data)
     }).catch(function (error) {
       err(error)
     })
-  }else{
+  } else if (methodsType == 'DELETE') {
+    let formData = new FormData();
+    for (let key in data) {
+      formData.append(key, data[key])
+    }
+    axios.delete(ajaxUrl, {data: formData}).then((res)=>{call(res.data)}).catch((err)=>{})
+  } else {
     let postData = qs.stringify(data)
     axios({
-      method:methodsType,
-      url: `http://39.105.229.26:8081${url}`,
+      method: methodsType,
+      url: ajaxUrl,
       data: postData
     }).then(function (re) {
       call(re.data)
@@ -36,7 +44,7 @@ export function $ajax (url, data, call, err, methodsType) {
 
 }
 
-function parseQueryString () {
+function parseQueryString() {
   var url = window.location.hash
   var json = {}
   var arr = url.substr(url.indexOf('?') + 1).split('&')

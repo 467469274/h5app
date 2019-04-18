@@ -150,16 +150,13 @@
       },
       add() {
         console.log(this.detail)
-        /*
         this.$toast('加入购物车成功');
         this.$ajax('/api/product/car', {
           skuId:this.nowSku.skuId,
-          shopId:,
           num:1
         }, (res) => {
-          console.log(res)
         }, () => {
-        }, 'put')*/
+        }, 'post')
       },
       onAddCartClicked() {
       },

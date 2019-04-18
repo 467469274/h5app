@@ -20,7 +20,7 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <div class="myOrderCell" v-for="(item,index) in list">
+        <div class="myOrderCell" v-for="(item,index) in list" @click="goDetail(item.id)">
           <van-cell>
             <div class="cell" style="color:#666666;">
               <span>物流单号:{{item.expressNo}}</span>
@@ -72,7 +72,7 @@
           currPage: 0,
           pageSize: 10
         }
-        this.getData()
+        this.onLoad()
       },
       onClickLeft() {
         this.$router.push({name: 'member'})
@@ -91,6 +91,9 @@
           }
         }, () => {
         }, 'get')
+      },
+      goDetail(id){
+        this.$router.push({name: 'orderDetail',query:{id:id}})
       }
     }
   }
