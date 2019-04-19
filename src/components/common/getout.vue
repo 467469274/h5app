@@ -68,6 +68,10 @@ export default {
     padding-left: 80px;
     box-sizing: border-box;
     box-shadow:.05rem .05rem .1rem rgba(0,0,0,0.3);
+    background-image: url("/static/icon-test@2x.png");
+    background-size: .35rem .35rem;
+    background-position:5% center;
+    background-repeat: no-repeat;
   }
   .marquee_box{
     display: block;

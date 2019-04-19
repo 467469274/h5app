@@ -8,7 +8,10 @@
       <!-- <router-view /> -->
     </div>
     <div class="tab" v-show="isShowTab">
-        <van-tabbar v-model="active">
+        <van-tabbar
+          v-model="active"
+          active-color="red"
+        >
           <van-tabbar-item icon="wap-home" :to="{name:'shoppingMall'}">首页</van-tabbar-item>
           <van-tabbar-item icon="shop-o" :to="{name:'malls'}">商城</van-tabbar-item>
           <van-tabbar-item icon="envelop-o" :to="{name:'message'}">消息</van-tabbar-item>
@@ -25,22 +28,9 @@ export default {
   name: 'index',
   data () {
     return {
-      active: 0,
-      icon: [{
-        normal: require('@/assets/images/classify.png'),
-        active: require('@/assets/images/classify-active.png')
-      }],
       info: '',
       isShowTab: true
     }
-  },
-  watch: {
-    // active: {
-    //   handler (val, oldval) {
-    //     console.log(val)
-    //   },
-    //   deep: true
-    // }
   },
   created () {
     // this.changeTabbar()
@@ -74,6 +64,12 @@ export default {
         console.log(val)
         this.isShowTab = val
       })*/
+    }
+  },
+  computed:{
+    active(){
+      console.log(this.$router)
+      return 0
     }
   }
 }

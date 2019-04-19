@@ -24,52 +24,52 @@
     </div>
     <div class="category">
       <div class="category-item" @click="goSomePage('hot')">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/baokuan-@2x.png'" alt="" width="100%">
         <span>爆款热卖</span>
       </div>
       <div class="category-item">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/msg4@2x.png'" alt="" width="100%">
         <span>促销活动</span>
       </div>
       <div class="category-item" @click="goSomePage('allRaise')">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/zhongchou@2x.png'" alt="" width="100%">
         <span>众筹联盟</span>
       </div>
       <div class="category-item">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/zhongchou@2x.png'" alt="" width="100%">
         <span>游戏娱乐</span>
       </div>
     </div>
     <div class="category">
       <div class="category-item" @click="goSomePage('overseas')">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/iconfontyouxihudong@2x.png'" alt="" width="100%">
         <span>海外专营</span>
       </div>
       <div class="category-item" @click="goSomePage('merchants')">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/shangjia@2x.png'" alt="" width="100%">
         <span>商家联盟</span>
       </div>
       <div class="category-item">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/xueyuan@2x.png'" alt="" width="100%">
         <span>家家商学院</span>
       </div>
       <div class="category-item">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/jiankang@2x.png'" alt="" width="100%">
         <span>健康之家</span>
       </div>
     </div>
     <getout></getout>
     <div class="threeType">
       <div class="item" @click="goSomePage('endorsment')">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/daiyanren@2x.png'" alt="" width="100%">
         <p>我要代言</p>
       </div>
       <div class="item">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/yaoqing@2x.png'" alt="" width="100%">
         <p>邀请好友</p>
       </div>
       <div class="item">
-        <img v-lazy="'http://images.baixingliangfan.cn/firstCategoryPicture/20180408/20180408112053_8191.png'" alt="" width="100%">
+        <img v-lazy="'static/qiandao@2x.png'" alt="" width="100%">
         <p>签到</p>
       </div>
     </div>
@@ -113,7 +113,6 @@ export default {
         // 注意点 this指向的是swiper，在created设置_this = this来指向vue
         on: {
           click: function () {
-            // console.log(this.clickedIndex)
             // clickIndex计算了复制的slide数量，所以真实index需要减去复制的slide个数
             let index = this.clickedIndex - 3
             let len = _this.recommend.length
@@ -183,8 +182,6 @@ export default {
     getImg(){
       this.$ajax('/api/product/xrthImg',{}, (res) => {
         this.newPreson = res.data
-        console.log(res.data)
-        console.log(res)
       }, () => {
       }, 'get')
     }

@@ -3,7 +3,6 @@ import axios from 'axios';
 import qs from 'qs';
 export function $ajax(url, data, call, err, methodsType) {
   const ajaxUrl = `http://39.105.229.26:8081${url}`
-  console.log(ajaxUrl)
   data.token = 3
   if (methodsType == 'get') {
     axios.get(ajaxUrl, {

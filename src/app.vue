@@ -50,7 +50,7 @@
     background:none;
   }
   .van-tabbar-item--active,.van-nav-bar .van-icon,.van-nav-bar__text{
-    color:rgb(116,117,118)!important;
+    color:rgb(116,117,118);
   }
   .van-nav-bar__left {
     .van-icon, span {
