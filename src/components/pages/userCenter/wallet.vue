@@ -53,7 +53,7 @@
             <span style="background: rgb(83,199,87)">兑冲</span>
           </div>
         </div>
-        <div class="section">
+        <div class="section yin">
           <div class="topWarp">
             <div class="top grey">
               <p class="title">银券数量</p>
@@ -213,7 +213,12 @@
     border-radius: .2rem;
     margin-top: .2rem;
     overflow: hidden;
-    background: yellow;
+    background:url("/static/gold.png")no-repeat;
+    background-position:center center;
+    background-size: 100% 100%;
+    &.yin{
+      background-image: url("/static/yin.png")!important;
+    }
     .topWarp{
       display: flex;
       text-align: center;

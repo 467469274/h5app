@@ -56,7 +56,7 @@
       methods:{
         onSubmit(){
           if(this.isEdit){
-            let delList = []
+            let delList = [];
             this.list.forEach((item)=>{
               item.products.forEach((pro)=>{
                 if(pro.checked){

@@ -14,8 +14,8 @@
         <div class="chinese">销量</div>
       </div>
       <p class="des">
-        <span><i></i>24小时发货</span>
-        <span><i></i>官方店认证</span>
+        <span><img src="static/zhun.png" alt="">24小时发货</span>
+        <span><img src="static/zheng.png" alt="">官方店认证</span>
       </p>
     </div>
     <div class="nav">
@@ -152,17 +152,13 @@
         padding: 0 .2rem;
         line-height: .6rem;
         color: rgba(0, 0, 0, 0.4);
-
         span {
           margin-right: .4rem;
-
-          i {
+          img {
             display: inline-block;
             width: .25rem;
             height: .25rem;
-            background: red;
             margin-right: .2rem;
-            vertical-align: -4px;
           }
         }
       }

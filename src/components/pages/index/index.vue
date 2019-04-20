@@ -29,47 +29,27 @@ export default {
   data () {
     return {
       info: '',
-      isShowTab: true
+      isShowTab: true,
+      active:0
     }
   },
-  created () {
-    // this.changeTabbar()
+  created(){
   },
-  mounted () {
-    // console.log('mounted')
-    // this.getInfo()
-    this.changeInfo()
-  },
-  activated () {
-    this.changeTabbar()
-    // this.getInfo()
-  },
-  methods: {
-    // 防止刷新显示错误
-    changeTabbar () {
-      /*
-//      let arrRouter = ['shoppingMall', 'category', 'member']
-      let nowRouteName = this.$route.name
-      arrRouter.forEach((item, index) => {
-        if (nowRouteName === item) {
-          this.active = index
+  watch:{
+    $route:{
+      handler(to){
+        let name = to.name
+        if(name == 'shoppingMall'){
+          this.active =  0
+        }else if(name=='malls'){
+          this.active =  1
+        }else if(name=='message'){
+          this.active =  2
+        }else if(name=='member'){
+          this.active =  3
         }
-      })*/
-    },
-    changeInfo () {/*
-      bus.$on('info', (val) => {
-        this.info = val
-      })
-      bus.$on('tab', (val) => {
-        console.log(val)
-        this.isShowTab = val
-      })*/
-    }
-  },
-  computed:{
-    active(){
-      console.log(this.$router)
-      return 0
+      },
+      immediate:true
     }
   }
 }

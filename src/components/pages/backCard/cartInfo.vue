@@ -7,22 +7,23 @@
     />
     <p class="message">请绑定持卡本人的银行卡</p>
     <div class="warp">
-      <van-cell title="招商银行   储蓄卡" to="choseType" is-link></van-cell>
+      <van-cell :title="cartType" to="choseType" is-link></van-cell>
       <p class="message">请绑定持卡本人的银行卡</p>
       <van-cell>
-        <div class="cell"><span>姓名</span><input placeholder="请输入真实姓名" type="text" class="input"/></div>
+        <div class="cell"><span>姓名</span><input v-model="username" placeholder="请输入真实姓名" type="text" class="input"/></div>
       </van-cell>
       <van-cell title="证件类型" to="choseType"><span style="color: #CD0000;float: right">身份证</span></van-cell>
       <van-cell>
-        <div class="cell"><span>证件号</span><input placeholder="请输入身份证号" type="text" class="input"/></div>
+        <div class="cell"><span>证件号</span><input v-model="idcard" placeholder="请输入身份证号" type="text" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号</span><input placeholder="请输入预留手机号" type="text" class="input"/></div>
+        <div class="cell"><span>手机号</span><input v-model="phone" placeholder="请输入预留手机号" type="text" class="input"/></div>
       </van-cell>
       <p class="message" style="color: #CD0000">请绑定持卡本人的银行卡</p>
       <van-checkbox shape="0" class="checkbox" style="margin-left:.3rem" v-model="checked" checked-color="red">同意用户协议</van-checkbox>
     </div>
-    <div class="sure" @click="goSomePage('validationPhone')">下一步</div>
+    <!--<div class="sure" @click="goSomePage('validationPhone')">下一步</div>-->
+    <div class="sure" @click="submit">下一步</div>
   </div>
 </template>
 
@@ -32,7 +33,10 @@
     data(){
       return{
         radio:1,
-        checked:true
+        checked:true,
+        username:'',
+        idcard:'',
+        phone:''
       }
     },
     methods:{
@@ -43,6 +47,31 @@
         }else{
           this.$router.push({name: type})
         }
+      },
+      submit(){
+        this.$ajax('/api/mine/cardSave',{
+          bankName:this.cartType,
+          bankId:this.$route.query.cardType,
+          cardno:this.$route.query.phone,
+          username:this.username,
+          idcard:this.idcard,
+          phone:this.phone,
+        },()=>{
+          this.$toast('添加成功')
+          this.$router.push({name:'backCard'})
+        },()=>{
+
+        },'PUT')
+      }
+    },
+    computed:{
+      cartType(){
+        return {
+          1:'招商银行',
+          2:'工商银行',
+          3:'农业银行',
+          4:'建设银行'
+        }[this.$route.query.cardType]
       }
     }
   }

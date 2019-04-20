@@ -4,7 +4,7 @@
     <div class="historySearch" v-if="searchKey==''">
       <p class="top">
         <span class="history">历史搜索</span>
-        <span class="del"></span>
+        <van-icon class="del" size=".4rem" name="delete" />
       </p>
       <div class="historys">
         <span @click="goDetail()">白酒</span>
@@ -91,8 +91,7 @@ export default {
           float: right;
           width: .4rem;
           height: .4rem;
-          display: block;
-          background: red;
+          display: block;vertical-align: middle;
         }
       }
       .historys{

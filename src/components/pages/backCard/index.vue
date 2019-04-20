@@ -6,33 +6,56 @@
       @click-left="goBack()"
     />
     <div class="cards">
-      <div class="card">
-        <div class="top">
-          <img src="" alt="">
-          <div class="text">
-            <p class="name">招商银行</p>
-            <p class="type">信用卡</p>
+      <div class="card" v-for="item in list">
+        <img :src="item.bankId | backgrounds" alt="">
+        <div class="textWarp">
+          <div class="top">
+            <div class="text">
+              <p class="name">{{item.bankName}}</p>
+              <!--<p class="type">信用卡</p>-->
+            </div>
           </div>
+          <p class="cardNum">
+            <i>****</i><i>****</i><i>****</i><span>{{item.cardno.substring(-1,4)}}</span>
+          </p>
         </div>
-        <p class="cardNum">
-          <i>****</i><i>****</i><i>****</i><span>1111</span>
-        </p>
       </div>
     </div>
     <p class="addCard" @click="choseType" to="cartInfo">+ 添加银行卡</p>
-    <p class="message">暂时还未绑定任何银行卡</p>
+    <p class="message" v-show="list.length==0">暂时还未绑定任何银行卡</p>
   </div>
 </template>
 
 <script>
   export default {
+    filters:{
+      backgrounds(type){
+        return {
+          1:'static/gs.png',
+          2:'static/gs.png',
+          3:'static/ny.png',
+          4:'static/js.png',
+        }[type]
+      }
+    },
     data () {
       return {
+        list:[]
       }
+    },
+    created(){
+      this.innitData()
     },
     methods: {
       // 数据初始化
       innitData () {
+//        PUT
+        this.$ajax('/api/mine/cardlist',{},
+          (res)=>{
+            this.list = res.data
+        },()=>{
+
+          },'PUT')
       },
       // 返回上一页
       goBack () {
@@ -78,9 +101,23 @@
       height: 3rem;
       border-radius: .1rem;
       margin-top: .2rem;
+      position: relative;
+      .textWarp{
+        position:absolute;
+        z-index: 3;
+      }
+      img{
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index:1;
+        position: absolute;
+      }
       .top{
         display: flex;
-        padding: .45rem 0 0 .25rem;
+        padding: .45rem 0 0 1.6rem;
+        z-index:2;
         img{
           flex: .8rem 0 0;
           height: .8rem 0 0;
@@ -97,7 +134,7 @@
         }
       }
       .cardNum{
-        padding-left: 1.25rem;
+        padding-left: 1.6rem;
         font-size:18px;
         color:rgba(255,255,255,0.6);
         line-height: .55rem;

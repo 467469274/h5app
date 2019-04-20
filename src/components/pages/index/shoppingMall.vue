@@ -2,13 +2,13 @@
   <div class="shoppingMall">
     <div class="banner">
       <div class="seachWarp">
-        <span class="sweepCode icon"></span>
+        <!--<span class="sweepCode icon"></span>-->
         <div class="searchWarp">
           <span class="searchInner" @click="goSearch">
             搜索你需要的......
           </span>
         </div>
-        <span class="bellBtn icon"></span>
+        <van-icon class="bell" name="bell" color="#fff" size=".45rem" />
       </div>
       <van-swipe :autoplay="3000" class="indexWarp">
         <van-swipe-item v-for="item in banner" :key="item.goodsId">
@@ -17,10 +17,10 @@
       </van-swipe>
     </div>
     <div class="mesg">
-      <span class="first">家家商城担保正品</span>
-      <span>包邮全场</span>
-      <span>七天放心退</span>
-      <span>假一赔十</span>
+      <span class="first"><img src="static/bao.png" alt="">家家商城担保正品</span>
+      <span><img src="static/you.png" alt="">包邮全场</span>
+      <span><img src="static/qi.png" alt="">七天放心退</span>
+      <span><img src="static/zheng.png" alt="">假一赔十</span>
     </div>
     <div class="category">
       <div class="category-item" @click="goSomePage('hot')">
@@ -241,12 +241,17 @@ $border-1px: 1PX solid #666;
     margin: 0 auto;
     span{
       font-size: .2rem;
+      flex: 1;
+      color: rgb(236,98,76);
+      img{
+        width: 15px;
+        height: 15px;
+        margin-right:10px;
+        vertical-align: -.1rem;
+      }
       &.first{
         flex:1.5;
       }
-      flex: 1;
-      padding-left: .5rem;
-      color: rgb(236,98,76);
     }
   }
   .category {
@@ -331,4 +336,8 @@ $border-1px: 1PX solid #666;
   visibility: hidden;
   clear: both;
 }
+  .bell{
+    line-height: .55rem;
+
+  }
 </style>

@@ -7,9 +7,9 @@
     />
     <p class="message">请绑定持卡本人的银行卡</p>
     <div class="warp">
-      <van-cell title="选择卡片类型" to="choseType" is-link>女</van-cell>
+      <van-cell title="选择卡片类型" to="choseType" is-link>{{cartType}}</van-cell>
       <van-cell>
-        <div class="cell"><span>卡号:</span><input type="text" class="input"/></div>
+        <div class="cell"><span>卡号:</span><input type="number" v-model="phone" class="input"/></div>
       </van-cell>
     </div>
     <div class="sure" @click="goSomePage('cartInfo')">下一步</div>
@@ -21,17 +21,33 @@
     name: "sex",
     data(){
       return{
-        radio:1
+        radio:1,
+        phone:'',
+        types:{
+          1:'招商银行',
+          2:'工商银行',
+          3:'农业银行',
+          4:'建设银行'
+        }
       }
     },
     methods:{
       goSomePage (type) {
         if(type == 'back'){
           this.$router.back(-1)
-
         }else{
-          this.$router.push({name: type})
+          this.$router.push({name: type,query:{phone:this.phone,cardType:this.$route.query.type}})
         }
+      }
+    },
+    computed:{
+      cartType(){
+        return {
+          1:'招商银行',
+          2:'工商银行',
+          3:'农业银行',
+          4:'建设银行'
+        }[this.$route.query.type]
       }
     }
   }

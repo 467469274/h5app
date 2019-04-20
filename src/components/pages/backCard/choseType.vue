@@ -10,14 +10,14 @@
         <van-cell title="招商银行" clickable @click="radio = '1'">
           <van-radio name="1" checked-color="red" />
         </van-cell>
-        <van-cell title="工业银行" @click="radio = '2'">
+        <van-cell title="工商银行" @click="radio = '2'">
           <van-radio name="2" checked-color="red" />
         </van-cell>
         <van-cell title="农业银行" @click="radio = '3'">
-          <van-radio name="2" checked-color="red" />
+          <van-radio name="3" checked-color="red" />
         </van-cell>
         <van-cell title="建设银行" @click="radio = '4'">
-          <van-radio name="2" checked-color="red" />
+          <van-radio name="4" checked-color="red" />
         </van-cell>
       </van-cell-group>
     </van-radio-group>
@@ -37,9 +37,10 @@
       goSomePage (type) {
         if(type == 'back'){
           this.$router.back(-1)
-
         }else{
-          this.$router.push({name: type})
+          this.$router.push({name: type,query:{
+            type:this.radio
+          }})
         }
       }
     }
