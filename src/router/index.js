@@ -59,6 +59,7 @@ const cencelOrder = () => import('@/components/pages/myShop/cencelOrder')
 const fl = () => import('@/components/pages/fl/fl')
 const managemant = () => import('@/components/pages/managemant/index')
 const addGoods = () => import('@/components/pages/managemant/addGoods')
+const setPassword = () => import('@/components/pages/member/setPassword')
 
 //新增页面
 //到账页面
@@ -117,8 +118,7 @@ const addClass = () => import('@/components/pages/class/addClass')
 const classList = () => import('@/components/pages/class/classList')
 const addSon = () => import('@/components/pages/class/addSon')
 Vue.use(Router)
-
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -182,6 +182,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/setPassword',
+      name: 'setPassword',
+      component: setPassword
     },
     {
       path: '/login',
@@ -411,7 +416,7 @@ export default new Router({
       name: 'todayOrder',
       component: todayOrder
     },
-{
+    {
       path:'/nowOrder',
       name: 'nowOrder',
       component: nowOrder
@@ -600,3 +605,8 @@ export default new Router({
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  // to.name
+  next()
+})
+export default router

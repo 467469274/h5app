@@ -7,6 +7,7 @@ import Vue from 'vue';
 import Vant from 'vant';
 import vueUpload from '@/components/common/upload';
 import {$ajax} from '@/common/ajax';
+import {setCookie,getCookie} from '@/common/cookies';
 import 'vant/lib/index.css';
 import { Lazyload,Toast } from 'vant';
 Vue.use(Vant);
@@ -16,6 +17,8 @@ Vue.config.productionTip = false
 Vue.use(Lazyload);Vue.use(Toast);
 Vue.component('vueUpload',vueUpload)
 Vue.prototype.$ajax = $ajax
+Vue.prototype.setCookie = setCookie;
+Vue.prototype.getCookie = getCookie;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

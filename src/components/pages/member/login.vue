@@ -1,45 +1,21 @@
 <template>
   <div class="login">
-    <div class="nav">
-      <van-nav-bar
-        title="登录"
-        left-text="返回"
-        left-arrow
-        @click-left="goBack"
-      />
+    <div class="top">
+      <img src="/static/loginlogo.png" alt="">
     </div>
-    <!-- <div class="field"> -->
-      <van-cell-group class="field">
-        <van-field
-          v-model="userName"
-          required
-          center
-          type="number"
-          label="手机号码"
-          clearable
-          placeholder="请输入手机号码"
-          class="input-field"
-          :error-message="userNameErrorMessage"
-        />
-        <van-field
-          v-model="passWord"
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-          required
-          center
-          class="input-field"
-          :error-message="passWordErrorMessage"
-        />
-        <van-button
-          type="primary"
-          size="large"
-          class="button-login"
-          @click="loginUserAction"
-          :loading="openLoading"
-        >登录</van-button>
-      </van-cell-group>
-    <!-- </div> -->
+    <div class="loginMain">
+      <div class="loginInput">
+        <img src="/static/loginsj.png" alt="">
+        <input type="text" placeholder="请输入手机号" v-model="phone">
+      </div>
+      <div class="loginInput">
+        <img src="/static/loginlock.png" alt="">
+        <input type="text" placeholder="请输入密码" v-model="password">
+      </div>
+      <p class="otherBtn"><span class="forgetPassword">忘记密码</span> <span class="remenberPassword"><i></i> 记住密码</span></p>
+      <div class="loginBtn" @click="gologin">登录</div>
+      <p class="register">如果您还没有账号，请 <span @click="goRegister">工商银行</span></p>
+    </div>
   </div>
 </template>
 
@@ -47,129 +23,115 @@
 export default {
   data () {
     return {
-      userName: '', // 手机号码
-      passWord: '', // 密码
-      openLoading: false, // 是否打开loading
-      userNameErrorMessage: '', // 手机号码错误提示
-      passWordErrorMessage: '' // 密码错误提示
+      phone:'',
+      password:''
     }
   },
   created () {
-    // 判断localstorage是否存有userInfo，有则说明已登录
-    if (localStorage.userInfo) {
-      this.$toast.success('您已经登录')
-      this.$router.push('/member')
-    }
   },
   methods: {
-    // 返回上一页
-    goBack () {
-      this.$router.back(-1)
+    goRegister(){
+      this.$router.push({name:'register'})
     },
-    // 登录
-    loginUserAction () {
-      if (this.checkForm()) {
-        this.axiosLoginUser()
-      }
-    },
-    // 手机号码和密码验证
-    checkForm () {
-      let username = this.userName
-      let password = this.passWord
-      let isOk = true // 判断格式是否正确，有一个错误就返回false
-      if (!(/^1[34578]\d{9}$/.test(username))) {
-        this.userNameErrorMessage = '手机号码格式错误！'
-        isOk = false
-      } else {
-        this.userNameErrorMessage = ''
-      }
-      if (password.length < 6) {
-        this.passWordErrorMessage = '密码不能小于6位！'
-        isOk = false
-      } else {
-        this.passWordErrorMessage = ''
-      }
-      return isOk
-    },
-    // 登录请求
-    axiosLoginUser () {
-      let config = {
-        url: url.loginUser,
-        method: 'post',
-        data: {
-          username: this.userName,
-          password: this.passWord
-        }
-      }
-      this.openLoading = true // 是否打开loading
-      this.axios(config).then((res) => {
-        let {code, message, token} = res.data
-        if (code === 200) {
-          // this.$toast.success('登录成功')
-          // this.$router.push('/member')
-          this.localStorageUserInfo(message, token)
-        } else if (code === 201) {
-          this.$toast.fail(message)
-          this.openLoading = false
-        } else if (code === 404) {
-          // console.log(message)
-          this.$toast.fail(message)
-          this.openLoading = false
-        }
-      }).catch((error) => {
-        console.log(error)
-        this.$toast.fail('登录失败')
-        this.openLoading = false
-      })
-    },
-    // 登录信息存入localstorage
-    localStorageUserInfo (message, token) {
-      // let _this = this
-      return new Promise((resolve, reject) => {
-        localStorage.userInfo = JSON.stringify({token: token})
-        if (localStorage.userInfo.length > 0) {
-          setTimeout(() => {
-            resolve()
-          }, 500)
-        } else {
-          // eslint规则必须添加new Error()
-          reject(new Error(0))
-        }
-      }).then(() => {
-        this.$toast.success({
-          message: message,
-          duration: 1000
-        })
-        setTimeout(() => {
-          // this.$router.push('/member')
-          this.$router.back(-1)
-        }, 1000)
-      }).catch(err => {
-        this.$toast.fail('登录状态保存失败')
-        console.log(err)
-        this.openLoading = false
-      })
+    gologin(){
+      this.$ajax('/api/login',
+          {
+            mobile:this.phone,
+            password:this.password
+          },
+          (res)=>{
+            this.$toast('登录成功')
+            this.$router.push({name:'shoppingMall'})
+            this.setCookie('token',res.token)
+          },
+          (err)=>{
+            this.$toast(err)
+          },
+        'POST'
+        )
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.login {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .input-field {
-    margin: .3rem auto;
+  .login{
+    position:fixed;
+    left: 0;
+    top: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    .top{
+      height:4.85rem;
+      background:url("/static/loginTop.png") no-repeat;
+      background-size: 100% 100%;
+      position: relative;
+      img{
+        width:2.2rem;
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+      }
+    }
+    .loginMain{
+      width: 80%;
+      margin: 0 auto;
+      padding-top: .9rem;
+      .loginInput{
+        border-bottom: 1px solid rgb(224,225,226);
+        display: flex;
+        width: 100%;
+        align-items: center;
+        margin-bottom: .4rem;
+        padding-bottom: .1rem;
+        input{
+          flex: 1;
+          height: .66rem;
+          font-size: 16px;
+        }
+        img{
+          flex: .35rem 0 0;
+          height: .5rem;
+          margin: 0 .2rem;
+          vertical-align: middle;
+        }
+      }
+      .otherBtn{
+        margin-top: -.1rem;
+        .forgetPassword{
+          color: rgb(248,73,33);
+        }
+      }
+      .remenberPassword{
+        float: right;
+        color:#9e9e9e;
+        i{
+          width: .2rem;
+          height: .2rem;
+          border: 1px solid #ccc;
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: .2rem;
+        }
+      }
+      .loginBtn{
+        line-height: .85rem;
+        text-align: center;
+        color: #fff;
+        background: rgb(248,73,33);
+        border-radius: .1rem;
+        margin-top: .8rem;
+        font-size: 16px;
+      }
+      .register{
+        margin-top: .35rem;
+        text-align: center;
+        span{
+          color: rgb(248,73,33);
+        }
+      }
+    }
   }
-  .button-login {
-    width: 96%;
-    margin-top: 1rem;
-  }
-}
 </style>

@@ -3,149 +3,227 @@
     <div class="nav">
       <van-nav-bar
         title="注册"
-        left-text="返回"
         left-arrow
         @click-left="goBack"
       />
     </div>
-    <!-- <div class="field"> -->
-      <van-cell-group class="field">
-        <van-field
-          v-model="userName"
-          required
-          center
-          type="number"
-          label="手机号码"
-          clearable
-          placeholder="请输入手机号码"
-          class="input-field"
-          :error-message="userNameErrorMessage"
-        />
-        <van-field
-          v-model="passWord"
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-          required
-          center
-          class="input-field"
-          :error-message="passWordErrorMessage"
-        />
-        <van-field
-          v-model="sms"
-          center
-          clearable
-          label="短信验证码"
-          placeholder="请输入短信验证码"
-          class="input-field"
-        >
-          <van-button slot="button" size="small" type="primary">发送验证码</van-button>
-        </van-field>
-        <van-button
-          type="primary"
-          size="large"
-          class="button-register"
-          @click="registerUserAction"
-          :loading="openLoading"
-        >注册</van-button>
-      </van-cell-group>
-    <!-- </div> -->
+    <p class="strip" style="background: #EAEBEC"></p>
+    <div class="inputWarp">
+      <div class="loginInput">
+        <img src="/static/loginsj.png" alt="">
+        <input type="text" placeholder="请输入手机号" v-model="userName">
+        <span class="clear"></span>
+      </div>
+      <div class="codeWarp">
+        <div class="loginInput">
+          <img src="/static/yanzhengma@2x.png" alt="">
+          <input type="text" placeholder="请输入验证码" v-model="code">
+        </div>
+        <div class="getCodeBtn" @click="getCode">
+          {{getCodeWord}}
+        </div>
+      </div>
+      <div class="loginInput">
+        <img src="/static/loginlock.png">
+        <input type="text" placeholder="邀请码(可不填写)" v-model="vicode">
+      </div>
+    </div>
+    <p class="message">如不填写验证码,视为平台大众用户</p>
+    <div class="loginBtn" @click="next">下一步</div>
+    <p class="otherTxt">
+      <van-checkbox v-model="checked"></van-checkbox>
+      我同意<span>《家家商城永华服务协议》</span></p>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      userName: '', // 手机号码
-      passWord: '', // 密码
-      sms: '', // 手机验证码
-      openLoading: false, // 是否打开loading
-      userNameErrorMessage: '', // 手机号码错误提示
-      passWordErrorMessage: '' // 密码错误提示
-    }
-  },
-  methods: {
-    // 返回上一页
-    goBack () {
-      this.$router.back(-1)
-    },
-    // 注册
-    registerUserAction () {
-      if (this.checkForm()) {
-        this.axiosRegisterUser()
+  export default {
+    data() {
+      return {
+        checked: true,
+        userName: '', // 手机号码
+        code: "",
+        vicode: '',
+        canClick: true,
+        getCodeWord: '获取验证码'
       }
     },
-    // 验证手机号吗和密码
-    checkForm () {
-      let username = this.userName
-      let password = this.passWord
-      let isOk = true // 判断格式是否正确，有一个错误就返回false
-      if (!(/^1[34578]\d{9}$/.test(username))) {
-        this.userNameErrorMessage = '手机号码格式错误！'
-        isOk = false
-      } else {
-        this.userNameErrorMessage = ''
-      }
-      if (password.length < 6) {
-        this.passWordErrorMessage = '密码不能小于6位！'
-        isOk = false
-      } else {
-        this.passWordErrorMessage = ''
-      }
-      return isOk
-    },
-    // 注册请求
-    axiosRegisterUser () {
-      let config = {
-        url: url.registerUser,
-        method: 'post',
-        data: {
-          username: this.userName,
-          password: this.passWord
+    methods: {
+      // 返回上一页
+      goBack() {
+        this.$router.back(-1)
+      },
+      getCode() {
+        if (this.canClick) {
+          this.canClick = false;
+          this.$ajax('/api/getcode', {mobile: this.userName},
+            (res) => {
+              if (res.code == 0) {
+                this.$toast('获取成功');
+                let num = 60
+                this.intervals = setInterval(() => {
+                  if (num == -1) {
+                    clearInterval(this.intervals)
+                    this.canClick = true;
+                  } else {
+                    this.getCodeWord = num
+                    num--
+                  }
+                }, 1000)
+              }
+            }, () => {
+            }, 'post')
         }
-      }
-      this.openLoading = true // 打开注册按钮的loading，防止多次点击重复请求
-      this.axios(config).then((res) => {
-        // console.log(res.data.code)
-        if (res.data.code === 200) {
-          this.openLoading = false
-          this.$toast.success(res.data.message)
-          this.$router.push('/member')
-        } else if (res.data.code === 201) {
-          this.openLoading = false
-          this.$toast(res.data.message)
+      },
+      next() {
+        this.$ajax('/api/register',
+          {
+            mobile: this.userName,
+            code: this.code,
+            vicode: this.vicode,
+          },
+          (res) => {
+            console.log(res.data)
+            if (res.code == 0) {
+              this.$router.push(
+                {
+                  name: 'setPassword',
+                  params: {
+                    userId: res.data.userId
+                  }
+                }
+              )
+            }else{
+              this.$toast.fail(res.msg);
+            }
+          }, () => {
+          }, 'POST')
+      },
+      registerUserAction() {
+        if (this.checkForm()) {
+          this.axiosRegisterUser()
+        }
+      },
+      // 验证手机号吗和密码
+      /*checkForm () {
+        let username = this.userName
+        let password = this.passWord
+        let isOk = true // 判断格式是否正确，有一个错误就返回false
+        if (!(/^1[34578]\d{9}$/.test(username))) {
+          this.userNameErrorMessage = '手机号码格式错误！'
+          isOk = false
         } else {
-          // console.log(res.data.message)
-          this.$toast.fail(res.data.message)
-          this.openLoading = false
+          this.userNameErrorMessage = ''
         }
-      }).catch((error) => {
-        console.log(error)
-        this.$toast.fail('注册失败')
-        this.openLoading = false
-      })
+        if (password.length < 6) {
+          this.passWordErrorMessage = '密码不能小于6位！'
+          isOk = false
+        } else {
+          this.passWordErrorMessage = ''
+        }
+        return isOk
+      },*/
     }
   }
-}
 </script>
 
 <style scoped lang="scss">
-.register {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .input-field {
-    margin: .3rem auto;
+  .register {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
   }
-  .button-register {
-    width: 96%;
-    margin-top: 1rem;
+
+  .loginInput {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    margin-bottom: .4rem;
+    margin-top: .38rem;
+    padding: .15rem;
+    border-radius: .1rem;
+    .clear {
+      width: .4rem;
+      height: .4rem;
+      border-radius: 50%;
+      background: url("/static/cuowu@2x.png");
+      background-size: 100% 100%;
+    }
+    input {
+      flex: 1;
+      height: .66rem;
+      font-size: 16px;
+    }
+    img {
+      flex: .35rem 0 0;
+      height: .5rem;
+      margin: 0 .2rem;
+      vertical-align: middle;
+    }
   }
-}
+
+  .codeWarp {
+    display: flex;
+    width: 94%;
+    margin: 0 auto;
+    align-items: center;
+    border: 1px solid transparent;
+    padding: 0;
+    img {
+      flex: .46rem 0 0;
+      height: .35rem;
+      margin: 0 .17rem;
+    }
+    .loginInput {
+      flex: 1;
+      margin: 0;
+    }
+    .getCodeBtn {
+      flex: .7 0 0;
+      background: #F1B23E;
+      color: #fff;
+      line-height: .96rem;
+      text-align: center;
+      margin-left: .35rem;
+      border-radius: .1rem;
+    }
+  }
+
+  .message {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: -.15rem;
+    color: #ccc;
+  }
+
+  .loginBtn {
+    line-height: .85rem;
+    text-align: center;
+    color: #fff;
+    background: #E7B455;
+    border-radius: .1rem;
+    font-size: 16px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 1.6rem;
+  }
+
+  .otherTxt {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: .3rem;
+    .van-checkbox {
+      display: inline-block;
+      margin-right: .3rem;
+      vertical-align: -0.08rem
+    }
+    span {
+      color: red;
+    }
+  }
 </style>

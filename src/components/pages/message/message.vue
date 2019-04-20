@@ -14,7 +14,7 @@
             </div>
             <div class="txt">
               <p class="title">系统消息</p>
-              <p class="des sl">系统消息提示文字</p>
+              <p class="des sl">{{service.messageContent}}</p>
             </div>
           </div>
           <div class="serviceMessage" @click="goList(2)">
@@ -23,7 +23,8 @@
             </div>
             <div class="txt">
               <p class="title">订单消息</p>
-              <p class="des sl">订单消息提示文字</p>
+              <p class="des sl">{{order.messageContent}}</p>
+
             </div>
           </div>
           <div class="serviceMessage" @click="goList(3)">
@@ -32,7 +33,7 @@
             </div>
             <div class="txt">
               <p class="title">到账消息</p>
-              <p class="des sl">到账消息提示文字</p>
+              <p class="des sl">{{money.messageContent}}</p>
             </div>
           </div>
         </div>
@@ -40,13 +41,22 @@
       <van-tab title="公告">
 
         <div class="warp">
-          <div class="serviceMessage">
+          <div class="serviceMessage" v-if="gg">
             <div class="avatar blue">
               <van-icon name="shop-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
-              <p class="title">家家商城电商系统</p>
-              <p class="des sl">2019年04月13日</p>
+              <p class="title">{{gg.messageTitle}}</p>
+              <p class="des sl">{{gg.messageContent}}</p>
+            </div>
+          </div>
+          <div class="serviceMessage" v-if="!gg">
+            <div class="avatar blue">
+              <van-icon name="shop-o" color="#fff" size=".6rem" />
+            </div>
+            <div class="txt">
+              <p class="title"></p>
+              <p class="des sl">暂无公告</p>
             </div>
           </div>
         </div>
@@ -59,7 +69,11 @@
       data(){
         return{
           active:0,
-          isIgnore:false
+          isIgnore:false,
+          service:{},
+          order:{},
+          money:{},
+          gg:{}
         }
       },
       created(){
@@ -70,7 +84,12 @@
         },
         getData(){
           this.$ajax('/api/message/message',{},(res)=>{
-            console.log(res)
+//             1系统消息 2订单消息 3到账消息 4公告 ,
+            console.log(res.data)
+            this.service = res.data.find((item)=>item.type ==1)
+            this.order = res.data.find((item)=>item.type ==2)
+            this.money = res.data.find((item)=>item.type ==3)
+            this.gg = res.data.find((item)=>item.type ==4)
           },()=>{},'POST')
         },
         goList(type){

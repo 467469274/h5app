@@ -1,7 +1,7 @@
 <template>
   <div class="messageWarp">
     <van-nav-bar
-      title="系统消息"
+      :title="types[formData.type]"
       left-arrow
       @click-left="onClickRight"
     />
@@ -13,7 +13,7 @@
         @load="onLoad"
       >
         <van-swipe-cell :right-width="130" v-for="(item,index) in list">
-          <div class="messageItem" :class="{opacitymin2:item.oread=='y'}" @click="goDetail(item.messageId)">
+          <div class="messageItem" :class="{opacitymin2:item.oread=='y'}" @click="goDetail(item)">
             <p class="title sl">{{types[item.type]}}</p>
             <p class="time">{{item.createTime}}</p>
             <p class="des">{{item.messageContent}}</p>
@@ -42,11 +42,10 @@
         }
       },
       created(){
-        console.log(this.formData)
       },
       methods:{
-        goDetail(id){
-          this.$router.push({name: 'messageDetail',query:{id:id}})
+        goDetail(item){
+          this.$router.push({name: 'messageDetail',params:item})
         },
         onClickRight(){
           this.$router.back(-1)
@@ -56,9 +55,11 @@
           this.formData.currPage+=1
           this.$ajax('/api/message/list',this.formData,(res)=>{
             this.loading = false;
-            this.list = res.data;
-            if(res.data.length<=0)this.finished = true
-          },()=>{},'post')
+            this.list = this.list.concat(res.data)
+            if(res.data.length<10){
+              this.finished = true
+            }
+          },(err)=>{console.log(err)},'post')
         },
         del(id,index){
           this.$ajax('/api/message/delete',{
