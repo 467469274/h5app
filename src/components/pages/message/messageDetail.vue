@@ -19,8 +19,17 @@
     methods:{
       onClickRight(){
         this.$router.back(-1)
-
       }
+    },
+    created() {
+      this.$ajax('/api/message/read',{
+          messageId:this.$route.query.id
+        },
+        (res)=>{
+          console.log(res.data)
+        },
+        ()=>{},
+        'POST')
     }
   }
 </script>

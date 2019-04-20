@@ -8,31 +8,31 @@
     <van-tabs v-model="active">
       <van-tab title="通知">
         <div class="warp">
-          <div class="serviceMessage">
+          <div class="serviceMessage" @click="goList(1)">
             <div class="avatar blue">
               <van-icon name="volume-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">系统消息</p>
-              <p class="des sl">这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息</p>
+              <p class="des sl">系统消息提示文字</p>
             </div>
           </div>
-          <div class="serviceMessage">
+          <div class="serviceMessage" @click="goList(2)">
             <div class="avatar green">
               <van-icon name="orders-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">订单消息</p>
-              <p class="des sl">这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息</p>
+              <p class="des sl">订单消息提示文字</p>
             </div>
           </div>
-          <div class="serviceMessage">
+          <div class="serviceMessage" @click="goList(3)">
             <div class="avatar red">
               <van-icon name="cash-back-record" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">到账消息</p>
-              <p class="des sl">这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息这是系统消息</p>
+              <p class="des sl">到账消息提示文字</p>
             </div>
           </div>
         </div>
@@ -58,7 +58,8 @@
     export default {
       data(){
         return{
-          active:0
+          active:0,
+          isIgnore:false
         }
       },
       created(){
@@ -66,12 +67,16 @@
       },
       methods:{
         onClickRight(){
-
         },
         getData(){
-          this.$ajax('/api/message/list',{},(res)=>{
-
-          },()=>{},'post')
+          this.$ajax('/api/message/message',{},(res)=>{
+            console.log(res)
+          },()=>{},'POST')
+        },
+        goList(type){
+          this.$router.push({name:'messageList',query:{
+              type:type
+            }})
         }
       }
     }

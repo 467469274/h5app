@@ -6,38 +6,67 @@
       @click-left="onClickRight"
     />
     <div class="messageList">
-      <van-swipe-cell :right-width="130">
-        <div class="messageItem" @click="goDetail">
-          <p class="title sl">系统消息</p>
-          <p class="time">2019年04月13日09:09:10</p>
-          <p class="des">吃地区教委的</p>
-        </div>
-        <span slot="right" class="del">删除</span>
-      </van-swipe-cell>
-      <van-swipe-cell :right-width="130">
-        <div class="messageItem opacitymin2">
-          <p class="title sl">系统消息</p>
-          <p class="time">2019年04月13日09:09:10</p>
-          <p class="des">吃地区教委的</p>
-        </div>
-        <span slot="right" class="del">删除</span>
-      </van-swipe-cell>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <van-swipe-cell :right-width="130" v-for="(item,index) in list">
+          <div class="messageItem" :class="{opacitymin2:item.oread=='y'}" @click="goDetail(item.messageId)">
+            <p class="title sl">{{types[item.type]}}</p>
+            <p class="time">{{item.createTime}}</p>
+            <p class="des">{{item.messageContent}}</p>
+          </div>
+          <span slot="right" class="del" @click="del(item.messageId,index)">删除</span>
+        </van-swipe-cell>
+      </van-list>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
     export default {
+      data(){
+        return{
+          formData:{
+            currPage:0,
+            pageSize:10,
+            type:this.$route.query.type
+          },
+          loading:false,
+          finished:false,
+          list:[],
+          types:{
+            1:'系统消息', 2:'订单消息', 3:'到账消息', 4:'公告' ,
+          }
+        }
+      },
+      created(){
+        console.log(this.formData)
+      },
       methods:{
-        goDetail(){
-          this.$router.push({name: 'messageDetail'})
+        goDetail(id){
+          this.$router.push({name: 'messageDetail',query:{id:id}})
         },
         onClickRight(){
           this.$router.back(-1)
         },
-        getData(){
-          this.$ajax('/api/message/list',{},(res)=>{
-
+        onLoad(){
+          this.loading = true
+          this.formData.currPage+=1
+          this.$ajax('/api/message/list',this.formData,(res)=>{
+            this.loading = false;
+            this.list = res.data;
+            if(res.data.length<=0)this.finished = true
           },()=>{},'post')
+        },
+        del(id,index){
+          this.$ajax('/api/message/delete',{
+            message_id:id
+          },(res)=>{
+            this.list.splice(index,1)
+            this.$toast('删除成功');
+          },()=>{},'DELETE')
         }
       }
     }
