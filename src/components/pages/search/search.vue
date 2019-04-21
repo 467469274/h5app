@@ -7,7 +7,7 @@
         <van-icon class="del" size=".4rem" name="delete" />
       </p>
       <div class="historys">
-        <span @click="goDetail()">白酒</span>
+        <span @click="goDetail(item)" v-for="(item,index) in historyKey">{{item}}</span>
       </div>
     </div>
     <div class="historySearch"  v-if="searchKey==''">
@@ -19,8 +19,8 @@
       </div>
     </div>
     <div class="searchList">
-      <div class="searchItem" v-for="item in searchEnd">
-        <van-icon size=".4rem" name="search" />dqwdqwd
+      <div class="searchItem" v-for="item in searchEnd"@click="goDetail(item)" >
+        <van-icon size=".4rem" name="search" />{{item}}
       </div>
     </div>
     <div class="searchEmpty" v-if="searchKey !='' && searchEnd.length == 0">

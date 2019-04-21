@@ -4,34 +4,32 @@
       title="商品详情"
       left-arrow
       right-text="完成"
-      @click-left="goSomePage('back')"
-      @click-right="goSomePage()"
+      @click-left="goSomePage"
+      @click-right="goSomePage('over')"
     />
     <van-cell-group>
       <van-cell title="商品介绍"/>
       <van-cell class="hasborderb">
-        <vueUpload></vueUpload>
+        <img :src="recommend" v-if="recommend">
+        <vueUpload @upOk="upOk1"></vueUpload>
       </van-cell>
     </van-cell-group>
     <div class="strip"></div>
     <van-cell-group>
       <van-cell title="规格参考"/>
       <van-cell class="hasborderb">
-        <vueUpload></vueUpload>
+        <img :src="sku" v-if="sku">
+        <vueUpload @upOk="upOk2"></vueUpload>
       </van-cell>
     </van-cell-group>
     <div class="strip"></div>
     <van-cell-group>
       <van-cell title="包装售后"/>
       <van-cell class="hasborderb">
-        <vueUpload></vueUpload>
+        <img :src="sh" v-if="sh">
+        <vueUpload @upOk="upOk3"></vueUpload>
       </van-cell>
     </van-cell-group>
-    <van-actionsheet
-      v-model="show"
-      :actions="actions"
-      @select="select"
-    />
 
   </div>
 </template>
@@ -41,39 +39,22 @@
     name: "sex",
     data(){
       return{
-        value:'',
-        checked:true,
-        show:false,
-        isSelect:{
-          name:'请选择'
-        },
-        actions:[
-          {
-            name: '上架',
-            id:0
-          },
-          {
-            name: '下架',
-            id:0
-          }
-        ]
+        recommend:'',
+        sku:'',
+        sh:'',
       }
     },
     methods:{
-      goSomePage (type) {
-        if(type == 'back'){
-          this.$emit('back')
-        }else{
-          this.$emit('back')
-        }
+      upOk1(url){
+        this.recommend = url
       },
-      showSelect(){
-        this.show = true
+      upOk2(url){
+        this.sku = url
       },
-      select(v){
-        this.isSelect = v
-        this.show = false
-      }
+      upOk3(url){
+        this.sh = url
+      },
+      goSomePage()
     }
   }
 </script>
@@ -98,6 +79,11 @@
   }
   .hasborderb{
     border-bottom: 1px solid rgba(0,0,0,0.2);
+    img{
+      width:1rem;
+      height:1rem;
+      display:inline-block;
+    }
   }
   .van-cell__value{
     display: inline-block;

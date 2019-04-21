@@ -103,4 +103,9 @@
   .strip{
     height: .2rem;
   }
+  input{
+    border: none;
+    outline:0;
+    background-color: #fff;
+  }
 </style>

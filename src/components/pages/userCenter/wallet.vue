@@ -5,14 +5,14 @@
       right-text="账单"
       left-arrow
       @click-left="goBack()"
-      @click-right="goBill()"
+      @click-right="goSomePage('bill')"
     />
     <van-tabs v-model="active">
       <van-tab title="普通账户">
         <div class="strip"></div>
         <div class="member-user">
           <div class="topWarp" @click="goSomePage('userCenter')">
-            <p class="userCenter">9999元</p>
+            <p class="userCenter">{{userInfo.money}}元</p>
             <p class="name">当前收益</p>
           </div>
           <div class="meberBottom">
@@ -25,7 +25,7 @@
                 <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
                 <p>提现</p>
               </div>
-              <div class="btn">
+              <div class="btn" @click="goSomePage('freeze',{money:userInfo.money})">
                 <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
                 <p>冻结</p>
               </div>
@@ -43,7 +43,7 @@
           <div class="topWarp">
             <div class="top gold">
               <p class="title">金券数量</p>
-              <p class="number">1800000</p>
+              <p class="number">{{userInfo.gold}}</p>
             </div>
           </div>
           <div class="bottomWarp">
@@ -57,7 +57,7 @@
           <div class="topWarp">
             <div class="top grey">
               <p class="title">银券数量</p>
-              <p class="number">1800000</p>
+              <p class="number">{{userInfo.silver}}</p>
             </div>
             <div class="top grey">
               <p class="title">可用银券数量</p>
@@ -93,8 +93,12 @@
   export default {
     data () {
       return {
-        active:0
+        active:0,
+        userInfo:{}
       }
+    },
+    created(){
+      this.getUserInfo()
     },
     methods: {
       // 数据初始化
@@ -105,8 +109,16 @@
         this.$router.back(-1)
       },
       // 去账单
-      goBill () {
-        this.$router.push({name: 'bill'})
+      goSomePage (type,query) {
+        this.$router.push({name: type,query:query})
+        // this.$router.push({name: 'bill'})
+      },
+      getUserInfo(){
+        this.$ajax('/api/mine/info', {}, (res) => {
+          this.userInfo = res.data
+          if(res.data.walletStatus==2){
+          }
+        }, () => {}, 'get')
       }
     },
     computed: {

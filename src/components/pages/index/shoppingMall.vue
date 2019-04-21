@@ -68,7 +68,7 @@
         <img v-lazy="'static/yaoqing@2x.png'" alt="" width="100%">
         <p>邀请好友</p>
       </div>
-      <div class="item">
+      <div class="item" @click="goSomePage('signIn')">
         <img v-lazy="'static/qiandao@2x.png'" alt="" width="100%">
         <p>签到</p>
       </div>

@@ -8,51 +8,62 @@
     <p class="message">个人信息</p>
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>姓名:</span><input type="text" class="input" placeholder="输入姓名"/></div>
+        <div class="cell"><span>姓名:</span><input type="text" class="input" v-model="username" placeholder="输入姓名"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号:</span><input type="text" class="input" placeholder="输入手机号"/></div>
+        <div class="cell"><span>手机号:</span><input  v-model="phone" type="text" class="input" placeholder="输入手机号"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>身份证号:</span><input type="text" class="input" placeholder="输入身份证号"/></div>
+        <div class="cell"><span>身份证号:</span><input  v-model="cardnum"  type="text" class="input" placeholder="输入身份证号"/></div>
       </van-cell>
     </div>
     <p class="message">店铺信息</p>
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>店铺名称:</span><input type="text" class="input" placeholder="输入店铺名称"/></div>
+        <div class="cell"><span>店铺名称:</span><input type="text"   v-model="name"  class="input" placeholder="输入店铺名称"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>营业地址:</span><input type="text" class="input" placeholder="输入营业地址"/></div>
+        <div class="cell"><span>营业地址:</span><input type="text" v-model="address" class="input" placeholder="输入营业地址"/></div>
       </van-cell>
-      <van-cell title="主营业务" is-link />
+      <van-cell title="主营业务" is-link @click="isShowFl = true">{{showNames}}</van-cell>
       <!--类型为选择-->
       <van-cell>
-        <div class="cell"><span>店铺电话:</span><input type="text" class="input" placeholder="输入店铺电话"/>
+        <div class="cell"><span>店铺电话:</span><input type="text"v-model="mobile" class="input" placeholder="输入店铺电话"/>
         </div>
       </van-cell>
       <van-cell>
-        <div class="cell" style="border-bottom: 0"><span>店铺介绍:</span><input style="text-align: left;" type="text" class="input" placeholder="输入店铺介绍"/>
+        <div class="cell" style="border-bottom: 0"><span>店铺介绍:</span><input v-model="recommend" style="text-align: left;" type="text" class="input" placeholder="输入店铺介绍"/>
         </div>
       </van-cell>
       <van-cell>
         <div class="cell">
-          <van-uploader :after-read="onRead">
-            <van-icon name="add-o" size=".6rem" color="rgba(0,0,0,0.4)" />
-          </van-uploader>
+          <vueUpload></vueUpload>
         </div>
       </van-cell>
     </div>
-    <div class="sure" style="background: #598ACF" @click="goSomePage('cartInfo')">提交审核</div>
+    <div class="sure" style="background: #598ACF" @click="save('cartInfo')">提交审核</div>
+    <fl @choseOk="choseOk" @back="isShowFl=false" :type="'choseType'" v-if="isShowFl"></fl>
   </div>
 </template>
 
 <script>
+  import fl from '../fl/fl'
   export default {
     name: "sex",
     data(){
       return{
-        radio:1
+        isShowFl:false,
+        fls:[],
+        radio:1,
+        username:'',
+        phone:'',
+        cardnum:'',
+        name:'',
+        mobile:'',
+        address:'',
+        recommend:'',
+        imgs:'',
+        categoryIds:''
       }
     },
     methods:{
@@ -63,6 +74,40 @@
         }else{
           this.$router.push({name: type})
         }
+      },
+      choseOk(it){
+        this.fls.push(it);
+        this.isShowFl = false
+      },
+      save(){
+        this.$ajax('/api/shop/shop',{
+          username:this.username,
+          phone:this.phone,
+          cardnum:this.cardnum,
+          name:this.name,
+          mobile:this.mobile,
+          address:this.address,
+          recommend:this.recommend,
+          imgs:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2729907495,3881318794&fm=173&app=49&f=JPEG?w=218&h=146&s=DB002CC14C0139575EB0D109030060D1',
+          categoryIds:this.fls.map(item=>item.id).join(',')
+        },(res)=>{
+          if(res.code==0){
+            this.$toast('提交成功')
+            this.$router.push({name:'member'})
+          }
+        },(res)=>{
+          this.$toast(msg)
+        },'PUT')
+      }
+    },
+    created(){
+    },
+    components:{
+      fl
+    },
+    computed:{
+      showNames(){
+        return this.fls.map(item=>item.name).join(',')
       }
     }
   }

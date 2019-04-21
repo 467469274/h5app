@@ -49,6 +49,15 @@
 </script>
 
 <style scoped lang="scss">
+  .sexWarp{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 1;
+  }
   .list{
     .item{
       line-height:1rem;

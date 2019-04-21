@@ -8,12 +8,12 @@
       @click-right="goSomePage('back')"
     />
     <van-cell-group>
-      <van-field class="hasborderb" label="名称" input-align="right" v-model="value" placeholder="请输入商品名称" />
+      <van-field class="hasborderb" label="名称" input-align="right" v-model="formData.name" placeholder="请输入商品名称" />
       <van-cell class="hasborderb" title="状态" @click="showSelect" is-link>
         {{isSelect.name}}
       </van-cell>
-      <van-cell class="hasborderb" title="类目" @click="showSelect" is-link />
-      <van-cell class="hasborderb" title="商品详情" @click="showSelect" is-link />
+      <van-cell class="hasborderb" title="类目" @click="showclassList= true" is-link />
+      <van-cell class="hasborderb" title="商品详情" @click="showDetail= true" is-link />
       <van-cell class="hasborderb" title="商品规格" @click="showSku = true" is-link />
     </van-cell-group>
     <div class="sure" @click="goSomePage('addSon')">确认增加</div>
@@ -24,20 +24,42 @@
     />
     <addSku v-show="showSku" @back="hideSku"></addSku>
     <goodsDetail v-show="showDetail" @back="hideDetail"></goodsDetail>
+    <classList v-show="showclassList"></classList>
   </div>
 </template>
 
 <script>
   import addSku from './addSku.vue'
   import goodsDetail from './goodsDetail.vue'
+  import classList from '../class/classList'
   export default {
     name: "sex",
     data(){
       return{
-        value:'',
+        showclassList:false,
+        formData:{
+          "categoryId": 0,
+          "desc": "",
+          "id": 0,
+          "name": "",
+          "skus": [
+            {
+              "freight": 0,
+              "goldCouponNum": 0,
+              "imgs": "string",
+              "mainSkuId": 0,
+              "name": "string",
+              "price": 0,
+              "remarks": "string",
+              "status": 0,
+              "stock": 0
+            }
+          ],
+          "status": 0
+        },
         checked:true,
         showSku:false,
-        showDetail:true,
+        showDetail:false,
         show:false,
         isSelect:{
           name:'请选择'
@@ -78,7 +100,7 @@
       }
     },
     components:{
-      addSku,goodsDetail
+      addSku,goodsDetail,classList
     }
   }
 </script>

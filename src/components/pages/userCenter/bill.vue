@@ -1,20 +1,18 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="性别"
+      title="账单"
       left-arrow
+      :right-text="mounth+'月'"
       @click-left="goSomePage('back')"
+      @click-right="clickRight"
     />
-    <van-radio-group v-model="radio">
-      <van-cell-group>
-        <van-cell title="男" clickable @click="radio = '1'">
-          <van-radio name="1" checked-color="red" />
-        </van-cell>
-        <van-cell title="女" @click="radio = '2'">
-          <van-radio name="2" checked-color="red" />
-        </van-cell>
-      </van-cell-group>
-    </van-radio-group>
+    <van-datetime-picker
+      v-model="currentDate"
+      type="year-month"
+      :min-date="minDate"
+      :formatter="formatter"
+    />
   </div>
 </template>
 
@@ -23,7 +21,9 @@
     name: "sex",
     data(){
       return{
-        radio:1
+        mounth:8,
+        minDate: new Date(2018, 10, 1),
+        maxDate: new Date(2023, 10, 1),
       }
     },
     methods:{
@@ -34,6 +34,17 @@
         }else{
           this.$router.push({name: type})
         }
+      },
+      clickRight(){
+
+      },
+      formatter(type, value) {
+        if (type === 'year') {
+          return `${value}年`;
+        } else if (type === 'month') {
+          return `${value}月`
+        }
+        return value;
       }
     }
   }
@@ -49,5 +60,10 @@
       font-size: 14px;
       color: rgba(0,0,0,0.5);
     }
+  }
+</style>
+<style>
+  .van-nav-bar__text{
+    color: #747576;
   }
 </style>

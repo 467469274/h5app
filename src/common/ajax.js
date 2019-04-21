@@ -4,8 +4,8 @@ import qs from 'qs';
 
 export function $ajax(url, data, call, err, methodsType) {
   const ajaxUrl = `http://39.105.229.26:8081${url}`
-  data.token = getCookie('token')
-
+  // data.token = getCookie('token')
+  data.token = 2
   if (methodsType == 'get') {
     axios.get(ajaxUrl, {
       params: data
@@ -44,7 +44,7 @@ export function $ajax(url, data, call, err, methodsType) {
       }
     }).catch((err) => {
     })
-  } else {
+  } else if(methodsType == 'post'){
     let postData = qs.stringify(data)
     axios({
       method: methodsType,
@@ -52,6 +52,20 @@ export function $ajax(url, data, call, err, methodsType) {
       data: postData
     }).then(function (re) {
 
+      if(re.data.code ==0){
+        call(re.data)
+      }else{
+        err(re.data.msg)
+      }
+    }).catch(function (error) {
+
+    })
+  }else if(methodsType == 'upload'){
+    axios({
+      method: 'post',
+      url: ajaxUrl,
+      data: data
+    }).then(function (re) {
       if(re.data.code ==0){
         call(re.data)
       }else{

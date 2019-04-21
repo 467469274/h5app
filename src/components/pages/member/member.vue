@@ -9,8 +9,8 @@
         <div class="imgWarp">
           <img src="../../../assets/images/default-head.png">
         </div>
-        <p class="shopName" @click="goSomePage('userCenter')">家家商城</p>
-        <p class="fid" @click="goSomePage('userCenter')">FID：4546123123</p>
+        <p class="shopName" @click="goSomePage('userCenter')">{{userInfo.username}}</p>
+        <p class="fid" @click="goSomePage('userCenter')">FID：{{userInfo.incode}}</p>
         <div class="btns">
           <div class="btn" @click="goSomePage('wallet')">
             <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
@@ -71,18 +71,21 @@ export default {
   data () {
     return {
       isLogin: false,
-      show: false
+      show: false,
+      userInfo:{}
     }
   },
   created () {
-    // console.log('created')
     this.checkLogin()
+    this.getUserInfo()
+    console.log(1231231)
+    this.$ajax('/api/shop/shop', {}, (res) => {
+      console.log(res)
+    }, () => {}, 'get')
+    this.$ajax('/api/shop/userShop', {}, (res) => {
+      console.log(res)
+    }, () => {}, 'get')
   },
-  // mounted () {
-  //   this.$nextTick(() => {
-  //     this.checkLogin()
-  //   })
-  // },
   activated () {
     this.checkLogin()
   },
@@ -96,6 +99,11 @@ export default {
       } else {
         this.isLogin = false
       }
+    },
+    getUserInfo(){
+      this.$ajax('/api/mine/info', {}, (res) => {
+        this.userInfo = res.data
+      }, () => {}, 'get')
     },
     //跳转至我的粉丝
     goFans () {
