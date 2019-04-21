@@ -39,14 +39,10 @@
       }
     },
     created(){
-      console.log(123123123)
-      this.$ajax('/api/mall/allCategory',{},
-        (res)=>{
-        console.log(res)
-          this.datas = res.data
-        },
-        (err)=>{console.log(err)},'GET')
-      console.log(123123123)
+
+      this.$ajax('/api/mall/allCategory', {}, (res) => {
+        this.datas = res.data
+      }, () => {}, 'get')
 
     },
     methods:{

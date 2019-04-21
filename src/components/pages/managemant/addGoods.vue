@@ -25,7 +25,7 @@
     <addSku v-show="showSku" :initData="formData.skus" @back="hideSku"></addSku>
     <goodsDetail :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
     <!--<classList v-show="showclassList"></classList>-->
-    <fl @back="isShowFl=false" ></fl>
+    <fl @back="isShowFl=false" v-if="isShowFl"></fl>
   </div>
 </template>
 
