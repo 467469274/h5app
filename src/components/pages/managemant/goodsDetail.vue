@@ -8,40 +8,51 @@
       @click-right="goSomePage('over')"
     />
     <van-cell-group>
-      <van-cell title="商品介绍"/>
+      <input type="text" v-model="recommendTxt" placeholder="商品介绍" />
       <van-cell class="hasborderb">
-        <img :src="recommend" v-if="recommend">
+        <img :src="recommend || detailInit.recommend" v-if="recommend">
         <vueUpload @upOk="upOk1"></vueUpload>
       </van-cell>
     </van-cell-group>
     <div class="strip"></div>
-    <van-cell-group>
-      <van-cell title="规格参考"/>
+ <!--   <van-cell-group>
+      <input type="text" v-model="skuTxt" placeholder="规格参考" />
       <van-cell class="hasborderb">
-        <img :src="sku" v-if="sku">
+        <img :src="sku || detailInit.sku" v-if="sku">
         <vueUpload @upOk="upOk2"></vueUpload>
       </van-cell>
     </van-cell-group>
     <div class="strip"></div>
     <van-cell-group>
-      <van-cell title="包装售后"/>
+      <input type="text" v-model="shTxt" placeholder="包装售后" />
       <van-cell class="hasborderb">
-        <img :src="sh" v-if="sh">
+        <img :src="sh || detailInit.sh" v-if="sh">
         <vueUpload @upOk="upOk3"></vueUpload>
       </van-cell>
-    </van-cell-group>
+    </van-cell-group>-->
 
   </div>
 </template>
 
 <script>
   export default {
+    props:['detailInit'],
     name: "sex",
     data(){
       return{
         recommend:'',
         sku:'',
         sh:'',
+        recommendTxt:'',
+        skuTxt:'',
+        shTxt:''
+      }
+    },
+    created(){
+      if(this.detailInit){
+        this.recommendTxt = this.detailInit.recommendTxt
+        // this.skuTxt = this.detailInit.skuTxt
+        // this.shTxt = this.detailInit.shTxt
       }
     },
     methods:{
@@ -54,7 +65,20 @@
       upOk3(url){
         this.sh = url
       },
-      goSomePage()
+      goSomePage(over){
+        if(over){
+          let recommend = this.recommend
+          let recommendTxt = this.recommendTxt
+          // let skuTxt = this.skuTxt
+          // let shTxt = this.shTxt
+          // let sku = this.sku
+          // let sh = this.sh
+          // this.$emit('isOk',{recommend,recommendTxt,skuTxt,shTxt,sku,sh})
+          this.$emit('isOk',{recommend,recommendTxt})
+        }else {
+          this.$emit('isOk')
+        }
+      }
     }
   }
 </script>
@@ -68,6 +92,11 @@
     height: 100%;
     background: #EDEEEF;
     z-index:1;
+    input{
+      height: .88rem;
+      padding-left: .3rem;
+      width: 100%;
+    }
     .item{
       line-height:1rem;
       background: #fff;

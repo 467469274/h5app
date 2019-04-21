@@ -12,19 +12,20 @@
       <van-cell class="hasborderb" title="状态" @click="showSelect" is-link>
         {{isSelect.name}}
       </van-cell>
-      <van-cell class="hasborderb" title="类目" @click="showclassList= true" is-link />
+      <van-cell class="hasborderb" title="商品类目" @click="isShowFl= true" is-link />
       <van-cell class="hasborderb" title="商品详情" @click="showDetail= true" is-link />
       <van-cell class="hasborderb" title="商品规格" @click="showSku = true" is-link />
     </van-cell-group>
-    <div class="sure" @click="goSomePage('addSon')">确认增加</div>
+    <div class="sure" @click="save">确认增加</div>
     <van-actionsheet
       v-model="show"
       :actions="actions"
       @select="select"
     />
-    <addSku v-show="showSku" @back="hideSku"></addSku>
-    <goodsDetail v-show="showDetail" @back="hideDetail"></goodsDetail>
-    <classList v-show="showclassList"></classList>
+    <addSku v-show="showSku" :initData="formData.skus" @back="hideSku"></addSku>
+    <goodsDetail :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
+    <!--<classList v-show="showclassList"></classList>-->
+    <fl @back="isShowFl=false" ></fl>
   </div>
 </template>
 
@@ -32,6 +33,7 @@
   import addSku from './addSku.vue'
   import goodsDetail from './goodsDetail.vue'
   import classList from '../class/classList'
+  import fl from '../fl/fl.vue'
   export default {
     name: "sex",
     data(){
@@ -42,22 +44,11 @@
           "desc": "",
           "id": 0,
           "name": "",
-          "skus": [
-            {
-              "freight": 0,
-              "goldCouponNum": 0,
-              "imgs": "string",
-              "mainSkuId": 0,
-              "name": "string",
-              "price": 0,
-              "remarks": "string",
-              "status": 0,
-              "stock": 0
-            }
-          ],
+          "skus": [],
           "status": 0
         },
         checked:true,
+        isShowFl:false,
         showSku:false,
         showDetail:false,
         show:false,
@@ -71,19 +62,23 @@
           },
           {
             name: '下架',
-            id:0
+            id:5
           }
-        ]
+        ],
+        detailInit:{},
+        skuDetail:[]
       }
     },
     methods:{
       goSomePage (type) {
         if(type == 'back'){
           this.$router.back(-1)
-
         }else{
           this.$router.push({name: type})
         }
+      },
+      save(){
+        console.log(this.formData)
       },
       showSelect(){
         this.show = true
@@ -92,15 +87,20 @@
         this.isSelect = v
         this.show = false
       },
-      hideSku(){
+      hideSku(data){
+        if(data){this.formData.skus = data}
         this.showSku = false
       },
       hideDetail(){
         this.showDetail = false
+      },
+      isOk(obj){
+        if(obj){this.detailInit = obj}
+        this.showDetail = false
       }
     },
     components:{
-      addSku,goodsDetail,classList
+      addSku,goodsDetail,classList,fl
     }
   }
 </script>
