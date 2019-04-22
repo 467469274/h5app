@@ -63,7 +63,7 @@
       }
     },
     created(){
-      this.list  = this.initData;
+      if(this.initData)this.list  = this.initData;
     },
     methods:{
       goSomePage (type) {

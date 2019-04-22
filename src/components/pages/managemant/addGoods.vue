@@ -12,7 +12,7 @@
       <van-cell class="hasborderb" title="状态" @click="showSelect" is-link>
         {{isSelect.name}}
       </van-cell>
-      <van-cell class="hasborderb" title="商品类目" @click="isShowFl= true" is-link />
+      <van-cell class="hasborderb" title="商品类目" @click="isShowFl= true" is-link >{{flName}}</van-cell>
       <van-cell class="hasborderb" title="商品详情" @click="showDetail= true" is-link />
       <van-cell class="hasborderb" title="商品规格" @click="showSku = true" is-link />
     </van-cell-group>
@@ -22,10 +22,9 @@
       :actions="actions"
       @select="select"
     />
-    <addSku v-show="showSku" :initData="formData.skus" @back="hideSku"></addSku>
+    <addSku v-show="showSku" :initD2ata="formData.skus" @back="hideSku"></addSku>
     <goodsDetail :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
-    <!--<classList v-show="showclassList"></classList>-->
-    <fl @back="isShowFl=false" v-if="isShowFl"></fl>
+    <fl @back="isShowFl=false" :type="'choseType'" @choseOk="choseOk" v-if="isShowFl"></fl>
   </div>
 </template>
 
@@ -42,7 +41,6 @@
         formData:{
           "categoryId": 0,
           "desc": "",
-          "id": 0,
           "name": "",
           "skus": [],
           "status": 0
@@ -66,7 +64,8 @@
           }
         ],
         detailInit:{},
-        skuDetail:[]
+        skuDetail:[],
+        flName:''
       }
     },
     methods:{
@@ -78,7 +77,12 @@
         }
       },
       save(){
-        console.log(this.formData)
+        // this.formData.desc = this.detailInit.recommendTxt+`<img src="${this.detailInit.recommend}"/>`
+        this.formData = {"categoryId":3,"desc":"大青蛙多群","name":"大青蛙多群无多","skus":[{"imgs":[],"recommend":"大青蛙多","name":"大青蛙多","price":"123123","freight":"123","stock":"12323","status":0,"statusChinese":"上架"}],"status":0}
+        this.$ajax('/api/shop/product', this.formData, (res) => {
+          console.log(res)
+        }, () => {
+        }, 'put')
       },
       showSelect(){
         this.show = true
@@ -88,7 +92,9 @@
         this.show = false
       },
       hideSku(data){
-        if(data){this.formData.skus = data}
+        if(data){
+          this.formData.skus = data
+        }
         this.showSku = false
       },
       hideDetail(){
@@ -97,6 +103,11 @@
       isOk(obj){
         if(obj){this.detailInit = obj}
         this.showDetail = false
+      },
+      choseOk(obj){
+        this.formData.categoryId = obj.id
+        this.flName = obj.name
+        this.isShowFl = false
       }
     },
     components:{

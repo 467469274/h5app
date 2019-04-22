@@ -68,7 +68,8 @@
         isEdit:false,
         value:0,
         checked:false,
-        searchTxt:''
+        searchTxt:'',
+        active:0
       }
     },
     methods:{

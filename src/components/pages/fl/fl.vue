@@ -62,7 +62,11 @@
     },
     computed:{
       childrens(){
-        return this.datas[this.nowClass]
+        if(this.datas.length>0){
+          return this.datas[this.nowClass]
+        }else {
+          return {}
+        }
       }
     },
     components:{

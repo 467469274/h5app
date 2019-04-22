@@ -20,7 +20,8 @@ export function $ajax(url, data, call, err, methodsType) {
   } else if (methodsType == 'put') {
     let formData = new FormData();
     for (let key in data) {
-      formData.append(key, data[key])
+      console.log(key,data[key])
+      formData.append(key, JSON.stringify(data[key]))
     }
     axios.put(ajaxUrl, formData).then(function (re) {
 
