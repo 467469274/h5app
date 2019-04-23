@@ -23,10 +23,9 @@
     overflow: hidden;
     white-space: nowrap;}
   $red: rgb(247, 16, 15);
-
   html,body {
     font-size: .24rem;
-    background-color:rgb(232,234,235);
+    background-color:#F5F6F7;
     overflow-x:hidden;
   }
   body{

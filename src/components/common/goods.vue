@@ -28,16 +28,15 @@ export default {
       this.$router.push({name: 'goodsDetail', query: {goodsId: goodsId,type:this.$route.name}})
     },
     addCart(item){
-      this.$toast('加入购物车成功');
       console.log(item)
-    /*  this.$ajax('/api/product/car', {
-        skuId:this.nowSku.skuId,
+      this.$ajax('/api/product/car', {
+        skuId:item.skuId,
         num:1
       }, (res) => {
-        console.log(res)
-      }, () => {
-      }, 'post')*/
-//      POST /api/product/car
+        this.$toast('加入购物车成功');
+      }, (err) => {
+        this.$toast(err);
+      }, 'post')
     }
   }
 }
@@ -67,7 +66,6 @@ export default {
         height: 0;
         width: 100%;
         padding-bottom: 79%;
-        background: red;
         position: relative;
         img{
           position: absolute;

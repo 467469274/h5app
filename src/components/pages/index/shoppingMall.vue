@@ -64,7 +64,7 @@
         <img v-lazy="'static/daiyanren@2x.png'" alt="" width="100%">
         <p>我要代言</p>
       </div>
-      <div class="item">
+      <div class="item"  @click="goSomePage('invitation')">
         <img v-lazy="'static/yaoqing@2x.png'" alt="" width="100%">
         <p>邀请好友</p>
       </div>
@@ -74,7 +74,7 @@
       </div>
     </div>
     <div class="twoType">
-      <div class="item" :style="{'background-image':'url('+newPreson+')'}" @click="goSomePage('bkzq')"><div class="inner"></div></div>
+      <div class="item" :style="{'background-image':'url(/static/bk.png)'}" @click="goSomePage('bkzq')"><div class="inner"></div></div>
       <div class="item" :style="{'background-image':'url('+newPreson+')'}" @click="goSomePage('newperson')"><div class="inner"></div></div>
     </div>
     <div class="title">新品推荐</div>
@@ -184,6 +184,13 @@ export default {
         this.newPreson = res.data
       }, () => {
       }, 'get')
+      this.$ajax('/api/product/banners',{
+        placed:1
+      }, (res) => {
+        this.banner =res.data
+      }, (err) => {
+        console.log(err)
+      }, 'get')
     }
   }
 }
@@ -233,6 +240,12 @@ $border-1px: 1PX solid #666;
       width:95%;
       margin: 0 auto;
       border-radius:.3rem;
+      overflow: hidden;
+      height:3rem;
+      img{
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   .mesg{
@@ -313,7 +326,6 @@ $border-1px: 1PX solid #666;
     .item{
       flex: 1;
       border-radius: .2rem;
-      background-color: red;
       background-size:cover;
       background-position: center center;
       .inner{

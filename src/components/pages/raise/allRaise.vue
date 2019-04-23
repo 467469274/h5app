@@ -11,32 +11,41 @@
       <van-list
         class="raiseList"
       >
-        <div class="item">
-          <div class="top">
-            <div class="imgWarp"></div>
-            <div class="txt">
-              <p class="title">家家商城</p>
-              <p class="des">这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述</p>
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="getData"
+        >
+          <div class="item" v-for="item in taskList">
+            <div class="top">
+              <div class="imgWarp">
+                <img src="/static/2181555986749_.pic_hd.jpg" alt="">
+              </div>
+              <div class="txt">
+                <p class="title">{{item.tickName}}</p>
+                <p class="des">{{item.recommend}}</p>
+              </div>
+            </div>
+            <div class="itemBottom">
+              <div class="bottomItem first">
+                <div class="title">众筹规模</div>
+                <div class="des">{{item.dimensions}}</div>
+              </div>
+              <div class="bottomItem second">
+                <div class="title">接收券种</div>
+                <div class="des"><span>{{item.coupon==1?'金券':'银券'}}</span></div>
+              </div>
+              <div class="bottomItem">
+                <div class="title">价格</div>
+                <div class="des"><span>{{item.gold}}金券={{item.silver}}银券</span></div>
+              </div>
+              <div class="bottomItem joinBtn" @click="goSomePage('add',item.tickId)">
+                加入
+              </div>
             </div>
           </div>
-          <div class="itemBottom">
-            <div class="bottomItem first">
-              <div class="title">众筹规模</div>
-              <div class="des">300 <span>万</span></div>
-            </div>
-            <div class="bottomItem second">
-              <div class="title">接收券种</div>
-              <div class="des"><span>金券</span></div>
-            </div>
-            <div class="bottomItem">
-              <div class="title">价格</div>
-              <div class="des"><span>1金券=5银券</span></div>
-            </div>
-            <div class="bottomItem joinBtn" @click="goSomePage('add')">
-              加入
-            </div>
-          </div>
-        </div>
+        </van-list>
       </van-list>
     </div>
     <div class="fire" @click="goSomePage('fire')"></div>
@@ -46,17 +55,43 @@
 <script>
 export default {
   name: 'allRaise',
+  data(){
+    return{
+      formData:{
+        currPage:0,
+        pageSize:10
+      },
+      taskList:[],
+      finished:false,
+      loading:false
+    }
+  },
   methods: {
-    goSomePage (type) {
+    goSomePage (type,id) {
       if (type == 'back') {
         this.$router.back(-1)
       } else if (type == 'my') {
         this.$router.push({name: 'myraise'})
       } else if (type == 'add') {
-        this.$router.push({name: 'raiseAdd', query: {value: 1}})
+        this.$router.push({name: 'raiseAdd', query: {value: id}})
       } else {
         this.$router.push({name: 'raiseFire'})
       }
+    },
+    getData(){
+      this.formData.currPage+=1
+      this.loading = true
+      this.$ajax('/api/tick/list',this.formData,
+        (res)=>{
+          this.taskList = this.taskList.concat(res.data)
+          this.loading = false
+          if(res.data.length<10){
+            this.finished = true
+          }
+        },
+        (err)=>{
+          console.log(err)
+        },'post')
     }
   }
 }
@@ -91,6 +126,10 @@ export default {
               height: .85rem;
               background: rgb(232, 234, 235);
               border-radius: .1rem;
+              img{
+                width: 100%;
+                height: 100%;
+              }
             }
 
             .txt {
@@ -169,14 +208,14 @@ export default {
     }
     .fire{
       position: fixed;
-      width: 1.4rem;
-      height: 1.4rem;
-      background: #fff;
+      width:2rem;
+      height: 2rem;
       border-radius: 50%;
       right:1%;
       bottom: 5%;
       box-shadow: 0.05rem 0.05rem 0.1rem rgba(0,0,0,0.1);
-
+      background: url("/static/2171555986748_.pic_hd.jpg");
+      background-size: 100% 100%;
     }
   }
 </style>

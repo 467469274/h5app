@@ -10,7 +10,7 @@
         <div class="warp">
           <div class="serviceMessage" @click="goList(1)">
             <div class="avatar blue">
-              <van-icon name="volume-o" color="#fff" size=".6rem" />
+              <van-icon :info="service.count" name="volume-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">系统消息</p>
@@ -19,7 +19,7 @@
           </div>
           <div class="serviceMessage" @click="goList(2)">
             <div class="avatar green">
-              <van-icon name="orders-o" color="#fff" size=".6rem" />
+              <van-icon :info="order.count" name="orders-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">订单消息</p>
@@ -29,7 +29,7 @@
           </div>
           <div class="serviceMessage" @click="goList(3)">
             <div class="avatar red">
-              <van-icon name="cash-back-record" color="#fff" size=".6rem" />
+              <van-icon :info="money.count"  name="cash-back-record" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">到账消息</p>
@@ -76,11 +76,16 @@
           gg:{}
         }
       },
-      created(){
+      activated(){
         this.getData()
       },
       methods:{
         onClickRight(){
+          this.$ajax('/api/message/ignore',{},(res)=>{
+            this.service.count = 0
+            this.order.count = 0
+            this.money.count = 0
+          },()=>{},'post')
         },
         getData(){
           this.$ajax('/api/message/message',{},(res)=>{
@@ -90,7 +95,7 @@
             this.order = res.data.find((item)=>item.type ==2)
             this.money = res.data.find((item)=>item.type ==3)
             this.gg = res.data.find((item)=>item.type ==4)
-          },()=>{},'POST')
+          },()=>{},'post')
         },
         goList(type){
           this.$router.push({name:'messageList',query:{

@@ -7,14 +7,37 @@
     />
     <div class="warp">
       <div class="bottom">
-        <input type="text" placeholder="请输入手机号" />
-        <span class="btn">获取验证码</span>
+        <input type="text" v-model="phone" placeholder="请输入手机号" />
       </div>
-      <div class="bottom">
-        <input type="text" style="margin:.2rem 0 0 0" placeholder="请输入手机号" />
+      <div class="bottom" style="margin:.2rem 0 0 0">
+        <input type="text" v-model="code" placeholder="请输入验证码" />
+        <span class="btn" @click="getCode">{{getCodeWord}}</span>
       </div>
     </div>
-    <div class="sure" @click="goSomePage()">下一步</div>
+    <div class="sure" @click="next">下一步</div>
+    <div v-if="showSet" class="register">
+      <div class="nav">
+        <van-nav-bar
+          title="设置密码"
+          left-arrow
+          @click-left="goBack"
+        />
+      </div>
+      <p class="strip" style="background: #EAEBEC"></p>
+      <div class="inputWarp">
+        <div class="loginInput">
+          <img src="/static/loginlock.png" alt="">
+          <input type="text" placeholder="密码" v-model="password">
+        </div>
+      </div>
+      <div class="inputWarp">
+        <div class="loginInput">
+          <img src="/static/loginlock.png" alt="">
+          <input type="text" placeholder="确认密码"v-model="agpassword">
+        </div>
+      </div>
+      <div class="loginBtn" @click="over">确定</div>
+    </div>
   </div>
 </template>
 
@@ -23,10 +46,70 @@
     name: "forget",
     data() {
       return {
-        radio: 1
+        phone:'',
+        canClick: true,
+        getCodeWord: '获取验证码',
+        code:'',
+        serviceCode:'',
+        showSet:false,
+        password:'',
+        agpassword:'',
       }
     },
     methods: {
+      goBack(){
+        this.$router.push({name:'payType'})
+      },
+      over(){
+        if(this.password!=this.agpassword){
+          this.$toast('重复密码错误，请重新输入')
+          return
+        }
+        this.$ajax('/api/mine/withdrawUpdate', {
+            password:this.password
+          },
+          (res)=>{
+            if(res.code == 0){
+              this.$toast('设置成功')
+              this.$router.push({name:'member'})
+            }else{
+              this.$toast(res.msg)
+            }
+          },
+          ()=>{},
+          'PUT')
+      },
+      next(){
+        if(this.serviceCode == this.code){
+          this.showSet = true
+        }
+      },
+      getCode() {
+        if (this.canClick) {
+          this.canClick = false;
+          this.$ajax('/api/getcode', {mobile:this.phone},
+            (res) => {
+              if (res.code == 0) {
+                this.$toast('获取成功');
+                let num = 60
+                this.serviceCode = res.data.code
+                this.intervals = setInterval(() => {
+                  if (num == -1) {
+                    clearInterval(this.intervals)
+                    this.canClick = true;
+                    this.getCodeWord = '获取验证码'
+                  } else {
+                    this.getCodeWord = num
+                    num--
+                  }
+                }, 1000)
+              }
+            }, (err) => {
+              this.canClick = false;
+              this.$toast(err)
+            }, 'post')
+        }
+      },
       goSomePage(type) {
         if (type == 'back') {
           this.$router.back(-1)
@@ -75,5 +158,98 @@
     width: 100%;
     font-size: 16px;
   }
+  .register {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    .loginInput{
+      width: 90%;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      margin-bottom: .4rem;
+      margin-top: .38rem;
+      padding: .15rem;
+      border-radius: .1rem;
+      .clear{
+        width: .4rem;
+        height: .4rem;
+        border-radius: 50%;
+        background: url("/static/cuowu@2x.png");
+        background-size: 100% 100%;
+      }
+      input{
+        flex: 1;
+        height: .66rem;
+        font-size: 16px;
+      }
+      img{
+        flex: .35rem 0 0;
+        height: .5rem;
+        margin: 0 .2rem;
+        vertical-align: middle;
+      }
+    }
+    .codeWarp{
+      display:flex;
+      width: 94%;
+      margin: 0 auto;
+      align-items: center;
+      border: 1px solid transparent;
+      padding: 0;
+      img{
+        flex:.46rem 0 0;
+        height: .35rem;
+        margin: 0 .17rem;
+      }
+      .loginInput{
+        flex: 1;
+        margin: 0;
+      }
+      .getCodeBtn{
+        flex:.7 0 0;
+        background: #F1B23E;
+        color: #fff;
+        line-height: .96rem;
+        text-align: center;
+        margin-left: .35rem;
+        border-radius: .1rem;
+      }
+    }
+    .message{
+      width: 90%;
+      margin:0 auto;
+      margin-top: -.15rem;
+      color: #ccc;
+    }
 
+    .loginBtn{
+      line-height: .85rem;
+      text-align: center;
+      color: #fff;
+      background:#D3412C;
+      border-radius: .1rem;
+      font-size: 16px;
+      width: 90%;
+      margin: 0 auto;
+      margin-top: 1.6rem;
+    }
+    .otherTxt{
+      width: 90%;
+      margin: 0 auto;
+      margin-top:.3rem;
+      .van-checkbox{
+        display: inline-block;
+        margin-right: .3rem;
+        vertical-align: -0.08rem
+      }
+      span{
+        color:red;
+      }
+    }
+  }
 </style>

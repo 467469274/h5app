@@ -7,21 +7,24 @@
     >
     </van-nav-bar>
     <div class="inputList">
-      <div class="inputItem">众筹名称 <span><input type="text" placeholder="请填写"></span></div>
+      <div class="inputItem">众筹名称 <span><input type="text" v-model="tickName" placeholder="请填写"></span></div>
     </div>
     <div class="inputList">
       <div class="inputItem">众筹券种 <span>金券</span></div>
     </div>
     <div class="inputList">
-      <div class="inputItem moreInput">券种价格 <span><input type="text" placeholder="请填写">金    =<input type="text" placeholder="请填写">银</span></div>
+      <div class="inputItem moreInput">券种价格 <span><input type="text" v-model="gold" placeholder="请填写">金    =<input v-model="silver" type="text" placeholder="请填写">银</span></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹规模 <span><input type="text" placeholder="请填写"></span></div>
+      <div class="inputItem">众筹规模 <span><input v-model="dimensions" type="text" placeholder="请填写"></span></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹介绍 <span><input type="text" placeholder="请填写"></span></div>
+      <div class="inputItem">限量 <span><input v-model="quantity" type="text" placeholder="请填写"></span></div>
     </div>
-    <div class="fireBtn">发布</div>
+    <div class="inputList">
+      <div class="inputItem">众筹介绍 <span><input v-model="recommend" type="text" placeholder="请填写"></span></div>
+    </div>
+    <div class="fireBtn" @click="save">发布</div>
   </div>
 </template>
 
@@ -30,7 +33,12 @@ export default {
   name: 'raiseFire',
   data () {
     return {
-      value: ''
+      tickName:'',
+      gold:'',
+      silver:'',
+      dimensions:'',
+      quantity:'',
+      recommend:'',
     }
   },
   methods: {
@@ -42,6 +50,28 @@ export default {
       } else {
         this.$router.push({name: 'raiseFire'})
       }
+    },
+    save(){
+//      POST
+      this.$ajax('/api/tick/save',
+        {
+          coupon:1,
+          tickName:this.tickName,
+          gold:this.gold,
+          silver:this.silver,
+          dimensions:this.dimensions,
+          quantity:this.quantity,
+          recommend:this.recommend,
+        },
+        (res)=>{
+          this.$toast('发布成功')
+          this.$router.push({name:'allRaise'})
+        },
+        (err)=>{
+          this.$toast(err)
+        },
+        'post'
+      )
     }
   }
 }

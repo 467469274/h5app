@@ -7,43 +7,111 @@
     />
     <div class="warp">
        <van-cell>
-        <div class="cell"><span>对方账户</span><input placeholder="请输入手机号" type="text" class="input"/></div>
+        <div class="cell"><span>对方账户</span><input v-model="phone" placeholder="请输入手机号" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>转出金额</span><input placeholder="请输入转出金额" type="text" class="input"/></div>
+        <div class="cell"><span>转出金额</span><input v-model="gold" placeholder="请输入转出金额" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>备注说明</span><input placeholder="请填写" type="text" class="input"/></div>
+        <div class="cell"><span>备注说明</span><input v-model="remarks" placeholder="请填写" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>支付密码</span><input placeholder="" type="password" class="input"/></div>
-      </van-cell> 
+        <div class="cell"><span>支付密码</span><input placeholder="请填写支付密码" v-model="password" type="password" class="input"/></div>
+      </van-cell>
       <van-cell>
-        <p class="codeText">转出需要短信确认，请验证手机号135****2321,按提示操作</p>
-        <gain-code></gain-code>
-      </van-cell> 
+        <p class="codeText">转出需要短信确认，请验证手机号{{$route.query.mobile}},按提示操作</p>
+        <div class="bottom">
+          <input type="text" v-model="code" placeholder="请输入验证码" />
+          <span class="btn" @click="getCode">{{getCodeWord}}</span>
+        </div>
+      </van-cell>
     </div>
     <div class="sureConatiner">
-        <div class="sure">保存</div>
+        <div class="sure" @click="save">保存</div>
         <p>提示：转出后无法收回，请确认转账信息</p>
     </div>
   </div>
 </template>
 
 <script>
-
 import gainCode from '../../common/gainCode.vue'
-
   export default {
     name: "sex",
     data(){
       return{
-        radio:1,
-        checked:true
+        phone:'',
+        gold:'',
+        remarks:'',
+        canClick: true,
+        getCodeWord: '获取验证码',
+        code:'',
+        serviceCode:'',
+        password:''
       }
     },
-    methods:{
+    created(){
+//      PUT
 
+    /*  this.$ajax('/api/mine/withdrawCheck', {},
+        (res) => {
+        }, (err) => {
+        console.log(err)
+          this.$router.push('setPassword')
+        }, 'PUT')*/
+    },
+    methods:{
+      getCode() {
+        if (this.canClick) {
+          this.canClick = false;
+          this.$ajax('/api/getcode', {mobile: this.$route.query.mobile},
+            (res) => {
+              if (res.code == 0) {
+                this.$toast('获取成功');
+                let num = 60
+                this.serviceCode = res.data.code
+                this.intervals = setInterval(() => {
+                  if (num == -1) {
+                    clearInterval(this.intervals)
+                    this.canClick = true;
+                    this.getCodeWord = '获取验证码'
+                  } else {
+                    this.getCodeWord = num
+                    num--
+                  }
+                }, 1000)
+              }
+            }, () => {
+            }, 'post')
+        }
+      },
+      save(){
+        if((this.code == this.serviceCode && this.serviceCode!='')){
+          this.$ajax('/api/mine/withdrawPassword',{
+            password:this.password
+          },(res)=>{
+            console.log(res)
+            this.$ajax('/api/mine/goldinter',
+              {
+                phone:this.phone,
+                gold:this.gold,
+                remarks:this.remarks
+              },
+              (data)=>{
+                this.$toast('转账成功')
+              },
+              (e)=>{
+                this.$toast(e)
+              },
+              'post'
+            )
+          },(err)=>{
+            this.$toast(err)
+          },'PUT')
+        }
+//        phone
+//        gold
+//        remarks
+      }
     },
     components:{
       gainCode
@@ -78,7 +146,7 @@ import gainCode from '../../common/gainCode.vue'
     color: #fff;
     text-align: center;
     line-height: 1rem;
-   
+
     width: 100%;
     font-size: 16px;
   }
@@ -121,4 +189,26 @@ import gainCode from '../../common/gainCode.vue'
       background: pink!important;
     }
   }
+
+    .bottom{
+      margin:0.2rem 0;
+      display: flex;
+      input{
+        flex:1.2rem;
+        height: .88rem;
+        border: 1px solid #ccc;
+        margin-right: .3rem;
+        border-radius: .1rem;
+        padding: 0 .3rem;
+      }
+      .btn{
+        flex:1;
+        height: .88rem;
+        line-height: .88rem;
+        text-align: center;
+        background: #F1B23E;
+        color: #fff;
+        border-radius: .1rem;
+      }
+    }
 </style>

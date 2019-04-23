@@ -40,7 +40,7 @@
 //          console.log(res.data)
         },
         ()=>{},
-        'POST')
+        'post')
     }
   }
 </script>

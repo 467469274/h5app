@@ -172,12 +172,13 @@
           (nowCollection == 0)?this.$toast('收藏成功'):this.$toast('取消收藏成功')
           this.nowSku.collection = (nowCollection==0)?1:0
         }, () => {
-        }, 'put')
+        }, 'PUT')
       },
       getData() {
         this.$ajax('/api/product/detail', {
           productId: this.goodsId
         }, (res) => {
+          console.log(res.data)
           this.detail = res.data
           let v = res.data.skus.map((item) => {
             return {

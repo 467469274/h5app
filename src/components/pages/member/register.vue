@@ -65,6 +65,7 @@
                   if (num == -1) {
                     clearInterval(this.intervals)
                     this.canClick = true;
+                    this.getCodeWord = '获取验证码'
                   } else {
                     this.getCodeWord = num
                     num--
@@ -83,21 +84,17 @@
             vicode: this.vicode,
           },
           (res) => {
-            console.log(res.data)
-            if (res.code == 0) {
-              this.$router.push(
-                {
-                  name: 'setPassword',
-                  params: {
-                    userId: res.data.userId
-                  }
+            this.$router.push(
+              {
+                name: 'setPassword',
+                params: {
+                  userId: res.data.userId
                 }
-              )
-            }else{
-              this.$toast.fail(res.msg);
-            }
-          }, () => {
-          }, 'POST')
+              }
+            )
+          }, (msg) => {
+            this.$toast.fail(msg);
+          }, 'post')
       },
       registerUserAction() {
         if (this.checkForm()) {

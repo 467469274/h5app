@@ -64,6 +64,9 @@
       }
     },
     created() {
+      if(this.$route.query.type){
+        this.status = this.$route.query.type
+      }
     },
     methods: {
       StatusChange(e) {

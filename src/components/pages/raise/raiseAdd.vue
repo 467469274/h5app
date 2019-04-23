@@ -7,15 +7,15 @@
     >
     </van-nav-bar>
     <div class="inputList">
-      <div class="inputItem">姓名 <span><input type="text" placeholder="请输入姓名"></span></div>
+      <div class="inputItem">姓名 <span><input type="text" v-model="name" placeholder="请输入姓名"></span></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">手机号 <span><input type="text" placeholder="请输入手机号"></span></div>
+      <div class="inputItem">手机号 <span><input type="text" v-model="phone" placeholder="请输入手机号"></span></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">投入金券 <span><input type="number" placeholder="请输入数量"></span></div>
+      <div class="inputItem">投入金券 <span><input v-model="gold" type="number" placeholder="请输入数量"></span></div>
     </div>
-    <div class="fireBtn" @click="goSomePage('add')">加入</div>
+    <div class="fireBtn" @click="save">加入</div>
   </div>
 </template>
 
@@ -24,7 +24,9 @@
     name: 'raiseFire',
     data () {
       return {
-        value: ''
+        gold: '',
+        name:'',
+        phone:''
       }
     },
     methods: {
@@ -36,6 +38,25 @@
         } else {
           this.$router.push({name: 'raiseFire'})
         }
+      },
+      save(){
+        this.$ajax('/api/tick/join',{
+            tickId:this.$route.query.value,
+            gold:this.gold,
+            name:this.name,
+            phone:this.phone
+          },
+          (res)=>{
+            console.log(res.data)
+            this.$toast('加入成功')
+            this.$router.push({name:'myraise',query:{type:1}})
+          },
+          (err)=>{
+            console.log(err)
+            this.$toast(err)
+
+          },
+        'post')
       }
     }
   }

@@ -9,7 +9,7 @@
     />
     <div class="main">
       <van-cell-group v-for="(item,index) in list">
-        <van-field label="商品图片" input-align="right" v-model="item.recommend" placeholder="请输入商品名称" />
+        <van-field label="商品图片" input-align="right" v-model="item.remarks" placeholder="请输入商品名称" />
         <van-cell class="hasborderb">
           <img width="100" height="100" v-for="img in item.imgs" :src="img" />
           <vueUpload @upOk="(url)=>{item.imgs.push(url)}"></vueUpload>
@@ -18,6 +18,7 @@
         <van-field class="hasborderb" label="价格" input-align="right" v-model="item.price" placeholder="请输入价格" />
         <van-field class="hasborderb" label="运费" input-align="right" v-model="item.freight" placeholder="请输入运费" />
         <van-field class="hasborderb" label="库存" input-align="right" v-model="item.stock" placeholder="请输入库存" />
+        <van-field class="hasborderb" label="金券数量" input-align="right" v-model="item.goldCouponNum" placeholder="请输入金券数量" />
         <van-cell class="hasborderb" title="状态" @click="showSelect(index)" is-link>
           {{item.statusChinese}}
         </van-cell>

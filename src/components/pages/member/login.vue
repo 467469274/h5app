@@ -14,7 +14,7 @@
       </div>
       <p class="otherBtn"><span class="forgetPassword">忘记密码</span> <span class="remenberPassword"><i></i> 记住密码</span></p>
       <div class="loginBtn" @click="gologin">登录</div>
-      <p class="register">如果您还没有账号，请 <span @click="goRegister">工商银行</span></p>
+      <p class="register">如果您还没有账号，请 <span @click="goRegister">注册</span></p>
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
           (err)=>{
             this.$toast(err)
           },
-        'POST'
+        'post'
         )
     }
   }

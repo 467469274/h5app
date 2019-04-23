@@ -15,12 +15,12 @@
         <span>加入日期</span>
       </div>
       <div class="scolle">
-        <div class="inputItem list">
-          <span>20000</span>
-          <span class="redTxt">555</span>
-          <span>张明成</span>
-          <span>56%</span>
-          <span>2019-04-08</span>
+        <div class="inputItem list" v-for="item in list">
+          <span>{{item.gold}}</span>
+          <span class="redTxt">{{item.money}}</span>
+          <span>{{item.remarks}}</span>
+          <span>{{item.recordId}}%</span>
+          <span>{{item.createTime}}</span>
         </div>
       </div>
     </div>
@@ -32,7 +32,21 @@
     name: 'raiseFire',
     data () {
       return {
+        list:[]
       }
+    },
+    created(){
+      this.$ajax('/api/tick/enterRecords',
+        {
+          tickId:this.$route.query.id
+        },
+        (res)=>{
+        this.list = res.data;
+        },
+        (err)=>{
+          console.log(err)
+        },
+      'post')
     },
     methods: {
       goSomePage (type) {

@@ -8,7 +8,7 @@
         </van-nav-bar>
         <div class="myNav" v-if="listType=='malls'">
           <van-icon @click="goSearch" name="search" color="rgba(0,0,0,0.4)" size=".4rem" slot="right"/>
-          <van-tabs v-model="active2" title-active-color="#f44" class="tab">
+          <van-tabs v-model="active2" @change="onchange" title-active-color="#f44" class="tab">
             <van-tab title="现金商城">
             </van-tab>
             <van-tab title="会员商城">
@@ -32,7 +32,7 @@
     </van-swipe>
     <p class="searchEnd" v-if="type=='search'">{{products.length}}个结果</p>
     <van-list
-      :class="{marginTop19:type!='search'}"
+      :class="{marginTop19:type!='search'&&!listType,marginTop02:banner.length>0&&listType}"
       v-model="loading"
       :finished="finished"
       finished-text="没有更多了"
@@ -105,7 +105,13 @@
         } else if (this.searchInt == '爆款专区') {
           url = '/api/product/bkzq'
         } else if (this.routeName == 'malls') {
-          url = '/api/product/xrth'
+          url = '/api/search'
+          this.postP.k = ''
+          if(this.active2 == 0){
+            this.postP.l = 0
+          }else{
+            this.postP.l = 5
+          }
         } else {
           url = '/api/product/xrth'
         }
@@ -115,6 +121,7 @@
           } else {
             this.products = res.data.products
           }
+          this.postP.currPage+=1
           this.finished = true
           this.loading = false
         }, () => {
@@ -131,6 +138,10 @@
       },
       changeType(v) {
         this.acitveClass = v
+      },
+      onchange(){
+        this.postP.currPage = 1
+        this.onLoad()
       }
     },
     computed: {
@@ -203,6 +214,9 @@
     }
     .marginTop19 {
       margin-top: 1.9rem;
+    }
+    .marginTop02 {
+      margin-top:.2rem;
     }
     .list {
       flex: 1;

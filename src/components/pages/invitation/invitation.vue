@@ -8,24 +8,26 @@
     >
     </van-nav-bar>
     <div class="main">
-      <div class="codeImg"></div>
+      <div class="codeImg">
+        <img :src="userInfo.qrcode" alt="">
+      </div>
       <div class="codeTxt">
         <span>邀请码</span>
-        <span class="colorR">BLABLABLA</span>
+        <span class="colorR">{{userInfo.incode}}</span>
       </div>
       <div class="friends">好友们扫描二维码接收邀请</div>
       <div class="shareBtn">分享给好友</div>
       <div class="invitationBtns">
         <div class="item">
-          <img src="../../../assets/images/error.png" alt="">
+          <img src="/static/weixin@2x.png" alt="">
           <p>邀请微信好友</p>
         </div>
         <div class="item">
-          <img src="../../../assets/images/error.png" alt="">
+          <img src="/static/qq@2x.png" alt="">
           <p>邀请QQ好友</p>
         </div>
         <div class="item">
-          <img src="../../../assets/images/error.png" alt="">
+          <img src="/static/weibo@2x.png" alt="">
           <p>邀请微博好友</p>
         </div>
       </div>
@@ -36,6 +38,14 @@
 <script>
 export default {
   name: 'invitation',
+  data(){
+    return{
+      userInfo:{}
+    }
+  },
+  created(){
+    this.getUserInfo()
+  },
   methods: {
     goSomePage (type) {
       if (type == 'back') {
@@ -43,6 +53,11 @@ export default {
       } else if (type == 'rules') {
         this.$router.push({name: 'rules'})
       }
+    },
+    getUserInfo(){
+      this.$ajax('/api/mine/info', {}, (res) => {
+        this.userInfo = res.data
+      }, () => {}, 'get')
     }
   }
 }
@@ -51,6 +66,7 @@ export default {
 <style scoped lang="scss">
   .invitation{
     .main{
+      padding:1px;
       box-shadow:.05rem .05rem .1rem rgba(0,0,0,0.1);
       background: #fff;
       width: 95%;
@@ -59,10 +75,13 @@ export default {
       .codeImg{
         width: 3rem;
         height: 3rem;
-        background: pink;
         margin: 0 auto;
         margin-top:1.1rem;
         margin-bottom: .6rem;
+        img{
+          width:100%;
+          height: 100%;
+        }
       }
       .codeTxt{
         text-align: center;

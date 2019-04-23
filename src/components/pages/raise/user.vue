@@ -14,11 +14,11 @@
         <span>加入日期</span>
       </div>
       <div class="scolle">
-        <div class="inputItem list">
-          <span class="redTxt">20000</span>
-          <span>张明成</span>
-          <span>56%</span>
-          <span>2019-04-08</span>
+        <div class="inputItem list" v-for="item in userList">
+          <span class="redTxt">{{item.gold}}</span>
+          <span>{{item.username}}</span>
+          <span>{{item.recordId}}%</span>
+          <span>{{item.createTime}}</span>
         </div>
       </div>
     </div>
@@ -30,7 +30,20 @@
     name: 'raiseFire',
     data () {
       return {
+        userList:[]
       }
+    },
+    created(){
+      this.$ajax('/api/tick/members',{
+        tickId:this.$route.query.id
+      },
+        (res)=>{
+        this.userList = res.data
+        },
+        (err)=>{
+          console.log(err)
+        },
+      'post')
     },
     methods: {
       goSomePage (type) {

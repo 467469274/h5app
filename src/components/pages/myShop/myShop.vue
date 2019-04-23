@@ -8,8 +8,8 @@
       @click-right="goSomePage('shopInfo')"
     />
     <div class="shopTop">
-      <p class="count">共0单</p>
-      <p class="num">0</p>
+      <p class="count">共{{userDetail.orders.length}}单</p>
+      <p class="num">{{userDetail.weekAllPrice}}</p>
       <p class="chinese">周总交易额</p>
       <p class="other">
         <span @click="goSomePage('allOrder')"><van-icon name="bill-o" size=".3rem"/>成功订单<van-icon style="display: none" name="gold-coin-o"
@@ -21,78 +21,55 @@
     <div class="middle">
       <div class="btns">
         <div class="btn" @click="goSomePage('todayOrder')">
-          <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
+          <img src="/static/order@2x.png" alt="">
           <p>今日订单</p>
         </div>
         <div class="btn" @click="goSomePage('allOrder')">
-          <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
+          <img src="/static/quanbudingdan01@2x.png" alt="">
+
           <p>全部订单</p>
         </div>
         <div class="btn" @click="goSomePage('managemant')">
-          <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
+          <img src="/static/shangpinguanli@2x.png" alt="">
           <p>商品管理</p>
         </div>
-        <div class="btn" @click="goSomePage('shopevaluate')">
-          <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png"/>
+        <!--<div class="btn" @click="goSomePage('shopevaluate')">
+          <img src="/static/pinglun@2x.png" alt="">
           <p>用户评价</p>
-        </div>
+        </div>-->
       </div>
     </div>
     <p class="title">待处理订单</p>
     <div class="orderList">
-      <div class="order">
+      <div class="order" v-for="(item,index) in userDetail.orders">
         <p class="text">
           <span class="name">订单编号</span>
-          <span class="orderNum">123123123123123</span>
-          <span class="sj">2019年04月13日</span>
+          <span class="orderNum">{{item.orderNo}}</span>
+          <span class="sj">{{item.createTime}}</span>
         </p>
         <p class="text" style="margin-bottom: .2rem">
           <span class="name">配送地址</span>
-          <span class="orderNum">soID噢IQ见我都</span>
+          <span class="orderNum">{{item.address}}</span>
         </p>
         <p class="text">
           <span class="name" style="visibility: hidden">配送地址</span>
-          <span class="orderNum">soID噢IQ见我都</span>
+          <span class="orderNum">{{item.name}}     {{item.phone}}</span>
         </p>
         <p class="info">
-          <span class="name">共4件 ￥90</span>
-          <span class="type">已支付</span>
+          <span class="name">共{{item.countNum}}件 ￥{{item.allPrice}}</span>
+          <span class="type">{{status[item.status]}}</span>
         </p>
         <div class="imgs">
           <div class="commodityWarp">
             <div class="imgWarp"
-                 style="background: url('https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202')"></div>
-            <p class="sl">大青蛙调取殴打我</p>
-          </div>
-          <div class="commodityWarp">
-            <div class="imgWarp"
-                 style="background: url('https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202')"></div>
-            <p class="sl">大青蛙调取殴打我</p>
-          </div>
-          <div class="commodityWarp">
-            <div class="imgWarp"
-                 style="background: url('https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202')"></div>
-            <p class="sl">大青蛙调取殴打我</p>
-          </div>
-          <div class="commodityWarp">
-            <div class="imgWarp"
-                 style="background: url('https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202')"></div>
-            <p class="sl">大青蛙调取殴打我</p>
-          </div>
-          <div class="commodityWarp">
-            <div class="imgWarp"
-                 style="background: url('https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202')"></div>
-            <p class="sl">大青蛙调取殴打我</p>
-          </div>
-          <div class="commodityWarp">
-            <div class="imgWarp"
-                 style="background: url('https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202')"></div>
-            <p class="sl">大青蛙调取殴打我</p>
+                 :style="'background: url('+item.img+')'"></div>
+            <!--<p class="sl">大青蛙调取殴打我</p>-->
           </div>
         </div>
         <div class="shopBtns">
-          <span class="bgr">立即接单</span>
-          <span class="bgy" @click="goSomePage('cencelOrder')">取消订单</span>
+          <!--<span class="bgr">立即接单</span>-->
+          <!--<span class="bgy" @click="goSomePage('cencelOrder')">取消订单</span>-->
+          <span class="bgy" @click="cancel(item.id,index)">取消订单</span>
         </div>
       </div>
     </div>
@@ -100,6 +77,19 @@
 </template>
 <script type="text/ecmascript-6">
   export default {
+    data(){
+      return{
+        userDetail:{
+          orders:[]
+        },
+        status:{
+          0:'待支付', 10:'超时取消支付' ,20:'手动取消', 30:'待发货', 40:'待收货', 50:'待评价', 60:'已评价'
+        }
+      }
+    },
+    created(){
+      this.getData()
+    },
     methods: {
       goSomePage(type) {
         if (type == 'back') {
@@ -107,6 +97,29 @@
         } else {
           this.$router.push({name: type})
         }
+      },
+      getData(){
+//        GET
+        this.$ajax('/api/shop/userShop',
+          {},
+          (res)=>{
+            this.userDetail = res.data
+          },
+          ()=>{},
+          'get'
+        )
+      },
+      cancel(id,index){
+        console.log(id)
+        this.$ajax('/api/shop/cancelOrder',{
+            orderId:id
+          },
+          (res)=>{
+            this.userDetail.orders.splice(index,1)
+            this.$toast('取消成功')
+          },(err)=>{
+            this.$toast(err)
+          },'PUT')
       }
     }
   }
@@ -164,7 +177,7 @@
       margin-top: .2rem;
       .btn {
         flex: 1.1rem 0 0;
-        i {
+        img {
           display: block;
           width: .9rem;
           height: .9rem;

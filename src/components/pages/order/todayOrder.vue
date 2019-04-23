@@ -5,33 +5,40 @@
       left-arrow
     />
     <div class="warp">
-    <div class="warpDiv">
-       <van-cell>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="getData"
+      >
+        <div class="warpDiv"v-for="item in list">
+          <van-cell>
             <div class="cell" style="color:#666666;">
-                <span class="orderNumber">订单编号:989554541223</span>
-                <span>11月22日 13:56</span>
+              <span class="orderNumber">订单编号:{{item.orderNo}}</span>
+              <span>{{item.createTime}}</span>
             </div>
-       </van-cell>
-       <van-cell>
+          </van-cell>
+          <van-cell>
             <div class="cell">
-                <span class="orderNumber">配送地址：丰台区新家园301</span>
-                <span>王路 13521779954</span>
+              <span class="orderNumber">配送地址：{{item.address}}</span>
+              <span>{{item.name}}         {{item.phone}}</span>
             </div>
             <div class="imageList">
-                <div class="imageinfo">
-                    <img src=""/>
-                    <p class="imageText">弄12就倾向</p>
-                </div>
+              <div class="imageinfo">
+                <img :src="item.img"/>
+                <!--<p class="imageText">弄12就倾向</p>-->
+              </div>
             </div>
-            <p class="orderCount"><span>共4件 合计 ：¥79.00</span><span class="delivery">已支付</span></p>
-       </van-cell>
-        <div class="cellBtn">
+            <p class="orderCount"><span>共{{item.countNum}}件 合计 ：¥{{item.allPrice}}</span><span class="delivery">{{status[item.status]}}</span></p>
+          </van-cell>
+          <div class="cellBtn">
             <button class="deliveryBtn">立即接单</button>
             <button>取消订单</button>
+          </div>
         </div>
+      </van-list>
     </div>
-    </div>
-   
+
   </div>
 </template>
 
@@ -40,11 +47,40 @@
     name: "sex",
     data(){
       return{
-        status:1
+        status:{
+          0:"待支付",
+          10:"取消支付",
+          20:'已取消',
+          30:'待发货',
+          40:'待收货',
+          50:'已收货',
+          60:'已评价',
+        },
+        loading:false,
+        finished:false,
+        list:[],
+        form:{
+          currPage:0,
+          pageSize:10,
+          now:1
+        }
       }
     },
     methods:{
-       
+      getData(){
+        this.form.currPage+=1
+        this.loading = true;
+        this.$ajax('/api/shop/orders',this.form,(res)=>{
+          this.list = this.list.concat(res.data)
+          this.loading = false;
+          if(res.data.length<this.form.pageSize){
+            this.finished = true
+          }
+          console.log(res)
+        },()=>{
+          this.loading = false;
+        },'get')
+      }
     }
   }
 </script>
@@ -88,6 +124,6 @@
             background:#E73927!important;
             color:#fff!important;
             border:none;
-        }  
+        }
  }
 </style>

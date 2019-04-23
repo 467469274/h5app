@@ -17,16 +17,16 @@
           </div>
           <div class="meberBottom">
             <div class="btns">
-              <div class="btn" @click="goSomePage('wallet')">
-                <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
+              <div class="btn" @click="$toast('敬请期待')">
+                <img src="/static/qian@2x.png" alt="">
                 <p>充值</p>
               </div>
-              <div class="btn">
-                <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
+              <div class="btn" @click="$toast('敬请期待')">
+                <img src="/static/tiqu@2x.png" alt="">
                 <p>提现</p>
               </div>
               <div class="btn" @click="goSomePage('freeze',{money:userInfo.money})">
-                <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
+                <img src="/static/suozi@2x.png" alt="">
                 <p>冻结</p>
               </div>
             </div>
@@ -47,10 +47,10 @@
             </div>
           </div>
           <div class="bottomWarp">
-            <span style="background:rgb(213,91,54)">转账</span>
-            <span style="background:rgb(213,91,54)">买入</span>
-            <span style="background: rgb(195,156,77)">卖出</span>
-            <span style="background: rgb(83,199,87)">兑冲</span>
+            <span style="background:rgb(213,91,54)" @click="goSomePage('rollOut',{mobile:userInfo.mobile})">转账</span>
+            <span style="background:rgb(213,91,54)" @click="goSomePage('buyOrder')">买入</span>
+            <span style="background: rgb(195,156,77)" @click="goSomePage('sellOrder',{mobile:userInfo.mobile})">卖出</span>
+            <span style="background: rgb(83,199,87)" @click="goSomePage('dc',{type:'1'})">兑冲</span>
           </div>
         </div>
         <div class="section yin">
@@ -61,16 +61,16 @@
             </div>
             <div class="top grey">
               <p class="title">可用银券数量</p>
-              <p class="number">1800000</p>
+              <p class="number">{{userInfo.silver}}</p>
             </div>
           </div>
           <div class="bottomWarp" style=" justify-content:center;">
-            <span style="background:rgb(213,91,54);margin-right: .4rem">释放</span>
-            <span style="background: rgb(83,199,87)">兑冲</span>
+            <span style="background:rgb(213,91,54);margin-right: .4rem" @click="release">释放</span>
+            <!--<span style="background: rgb(83,199,87)" @click="goSomePage('dc',{type:'2'})">兑冲</span>-->
           </div>
         </div>
 
-        <van-cell-group class="warp" style="margin-top: .2rem">
+      <!--  <van-cell-group class="warp" style="margin-top: .2rem">
           <van-cell title="通证交易">
             <div class="bottomWarp noH" style=" justify-content:center;">
               <span style="background:rgb(213,91,54);margin-right: .4rem">释放</span>
@@ -83,7 +83,7 @@
               <span style="background: rgb(83,199,87)">兑冲</span>
             </div>
           </van-cell>
-        </van-cell-group>
+        </van-cell-group>-->
       </van-tab>
     </van-tabs>
   </div>
@@ -99,6 +99,9 @@
     },
     created(){
       this.getUserInfo()
+      if(this.$route.query.type){
+        this.active = this.$route.query.type
+      }
     },
     methods: {
       // 数据初始化
@@ -107,6 +110,15 @@
       // 返回上一页
       goBack () {
         this.$router.back(-1)
+      },
+      //释放
+      release () {
+        this.$ajax('/api/mine/release', {}, (res) => {
+          this.$toast(res.msg)
+          this.getUserInfo()
+        }, (err) => {
+          this.$toast(err)
+        }, 'post')
       },
       // 去账单
       goSomePage (type,query) {
@@ -187,7 +199,7 @@
         .btn{
           flex:1.1rem 0 0;
           height:1.1rem;
-          i{
+          img{
             display:block;
             width: .6rem;
             height: .6rem;

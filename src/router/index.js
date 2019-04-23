@@ -9,6 +9,7 @@ const Register = () => import('@/components/pages/member/register')
 const Login = () => import('@/components/pages/member/login')
 const Order = () => import('@/components/pages/member/order')
 const sex = () => import('@/components/pages/member/sex')
+const dc = () => import('@/components/pages/member/dc')
 const GoodsList = () => import('@/components/pages/goods/goodsList')
 const goodsDetail = () => import('@/components/pages/goods/goodsDetail')
 const search = () => import('@/components/pages/search/search')
@@ -313,6 +314,11 @@ const router = new Router({
       path: '/sex',
       name: 'sex',
       component: sex
+    },
+    {
+      path: '/dc',
+      name: 'dc',
+      component: dc
     },
     {
       path: '/wallet',

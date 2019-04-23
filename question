@@ -1,2 +1,3 @@
-GET /api/mine/indirectlyFans 缺少来源
 订单详情缺少物流编号, 地址是否为默认地址，订单类型
+/api/shop/product  get   status=0&token=2  {"msg":"未知异常，请联系管理员","code":500}  并且缺少类目接口
+

@@ -8,13 +8,13 @@
       @click-right="goSomePage('back')"
     />
     <van-cell-group>
-      <van-field class="hasborderb" label="名称" input-align="right" v-model="formData.name" placeholder="请输入商品名称" />
+      <van-field class="hasborderb" label="名称" input-align="right" v-model="formData.name" placeholder="请输入商品名称"/>
       <van-cell class="hasborderb" title="状态" @click="showSelect" is-link>
         {{isSelect.name}}
       </van-cell>
-      <van-cell class="hasborderb" title="商品类目" @click="isShowFl= true" is-link >{{flName}}</van-cell>
-      <van-cell class="hasborderb" title="商品详情" @click="showDetail= true" is-link />
-      <van-cell class="hasborderb" title="商品规格" @click="showSku = true" is-link />
+      <van-cell class="hasborderb" title="商品类目" @click="isShowFl= true" is-link>{{flName}}</van-cell>
+      <van-cell class="hasborderb" title="商品详情" @click="showDetail= true" is-link/>
+      <van-cell class="hasborderb" title="商品规格" @click="showSku = true" is-link/>
     </van-cell-group>
     <div class="sure" @click="save">确认增加</div>
     <van-actionsheet
@@ -33,101 +33,137 @@
   import goodsDetail from './goodsDetail.vue'
   import classList from '../class/classList'
   import fl from '../fl/fl.vue'
+
   export default {
     name: "sex",
-    data(){
-      return{
-        showclassList:false,
-        formData:{
+    data() {
+      return {
+        showclassList: false,
+        formData: {
           "categoryId": 0,
           "desc": "",
           "name": "",
           "skus": [],
           "status": 0
         },
-        checked:true,
-        isShowFl:false,
-        showSku:false,
-        showDetail:false,
-        show:false,
-        isSelect:{
-          name:'请选择'
+        checked: true,
+        isShowFl: false,
+        showSku: false,
+        showDetail: false,
+        show: false,
+        isSelect: {
+          name: '请选择'
         },
-        actions:[
+        actions: [
           {
             name: '上架',
-            id:0
+            id: 0
           },
           {
             name: '下架',
-            id:5
+            id: 5
           }
         ],
-        detailInit:{},
-        skuDetail:[],
-        flName:''
+        detailInit: {},
+        skuDetail: [],
+        flName: ''
       }
     },
-    methods:{
-      goSomePage (type) {
-        if(type == 'back'){
+    methods: {
+      goSomePage(type) {
+        if (type == 'back') {
           this.$router.back(-1)
-        }else{
+        } else {
           this.$router.push({name: type})
         }
       },
-      save(){
-        // this.formData.desc = this.detailInit.recommendTxt+`<img src="${this.detailInit.recommend}"/>`
-        this.formData = {"categoryId":3,"desc":"大青蛙多群","name":"大青蛙多群无多","skus":[{"imgs":[],"recommend":"大青蛙多","name":"大青蛙多","price":"123123","freight":"123","stock":"12323","status":0,"statusChinese":"上架"}],"status":0}
-        this.$ajax('/api/shop/product', this.formData, (res) => {
-          console.log(res)
-        }, () => {
-        }, 'put')
+      GetRequest(url) {
+        var result = [];
+        var query = url.split("?")[1];
+        var queryArr = query.split("&");
+        queryArr.forEach(function(item){
+          var obj = {};
+          var value = item.split("=")[0];
+          var key = item.split("=")[1];
+          obj[key] = value;
+          result.push(obj);
+        });
+        console.log(result)
+        return result;
       },
-      showSelect(){
+      save() {
+           this.formData.desc = this.detailInit.recommendTxt+`<img src='${this.detailInit.recommend}'/>`
+            this.formData.skus.forEach((item)=>{
+            item.imgs = item.imgs.join(',')
+              item.mainSkuId = item.mainSkuId?1:0
+          })
+          this.$ajax('/api/shop/product', this.formData, (res) => {
+            console.log(res)
+            this.$toast('添加成功')
+            this.$router.push('managemant')
+          }, (msg) => {
+            this.$toast(msg)
+          }, 'setProduct')
+       /* this.$ajax('/api/mine/zfbwallet', {
+          money: 1000
+        }, (res) => {
+          console.log(res.data.body)
+          const div = document.createElement('div')
+          div.innerHTML = res.data.body//此处form就是后台返回接收到的数据
+          console.log(div)
+          document.body.appendChild(div)
+          document.forms[0].submit()
+        }, (err) => {
+          console.log(err)
+        }, 'post')*/
+      },
+      showSelect() {
         this.show = true
       },
-      select(v){
+      select(v) {
         this.isSelect = v
         this.show = false
       },
-      hideSku(data){
-        if(data){
+      hideSku(data) {
+        if (data) {
           this.formData.skus = data
         }
         this.showSku = false
       },
-      hideDetail(){
+      hideDetail() {
         this.showDetail = false
       },
-      isOk(obj){
-        if(obj){this.detailInit = obj}
+      isOk(obj) {
+        if (obj) {
+          this.detailInit = obj
+        }
         this.showDetail = false
       },
-      choseOk(obj){
+      choseOk(obj) {
         this.formData.categoryId = obj.id
         this.flName = obj.name
         this.isShowFl = false
       }
     },
-    components:{
-      addSku,goodsDetail,classList,fl
+    components: {
+      addSku, goodsDetail, classList, fl
     }
   }
 </script>
 
 <style scoped lang="scss">
-  .list{
-    .item{
-      line-height:1rem;
+  .list {
+    .item {
+      line-height: 1rem;
       background: #fff;
-      border-bottom:1px solid #ccc;
+      border-bottom: 1px solid #ccc;
       padding-left: .2rem;
       font-size: 14px;
-      color: rgba(0,0,0,0.5);
+      color: rgba(0, 0, 0, 0.5);
     }
   }
-  .hasborderb{
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+
+  .hasborderb {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
 </style>
