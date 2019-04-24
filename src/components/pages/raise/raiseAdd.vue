@@ -7,13 +7,13 @@
     >
     </van-nav-bar>
     <div class="inputList">
-      <div class="inputItem">姓名 <span><input type="text" v-model="name" placeholder="请输入姓名"></span></div>
+      <div class="inputItem">姓名 <input type="text" v-model="name" placeholder="请输入姓名"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">手机号 <span><input type="text" v-model="phone" placeholder="请输入手机号"></span></div>
+      <div class="inputItem">手机号 <input type="text" v-model="phone" placeholder="请输入手机号"/></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">投入金券 <span><input v-model="gold" type="number" placeholder="请输入数量"></span></div>
+      <div class="inputItem">投入金券 <input v-model="gold" type="number" placeholder="请输入数量"></div>
     </div>
     <div class="fireBtn" @click="save">加入</div>
   </div>
@@ -71,24 +71,28 @@
     background: #fff;
     .inputItem{
       font-size: 17px;
-      line-height:1.2rem;
+      height: 1.2rem;
       color:rgba(0,0,0,.6);
       padding: 0 .2rem;
       border-bottom:rgba(0,0,0,.3) 1px solid;
-      &.moreInput{
-        input{
-          width:1rem;
-          margin: 0 10px;
-        }
-      }
-      span{
-        float: right;
+      display: flex;
+      align-items: center;
+      input{
+        outline: none;
+        border: none;
         text-align: right;
+        height:.8rem;
+        flex: 1;
+      }
+      div{
+        flex: 1;
+        text-align: right;
+        display: flex;
+        align-items: center;
         input{
-          outline: none;
-          border: none;
-          text-align: right;
-          height:.9rem;
+          width:.5rem;
+          margin: 0 10px;
+          text-align: center;
         }
       }
     }

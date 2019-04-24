@@ -7,22 +7,26 @@
     >
     </van-nav-bar>
     <div class="inputList">
-      <div class="inputItem">众筹名称 <span><input type="text" v-model="tickName" placeholder="请填写"></span></div>
+      <div class="inputItem">众筹名称 <input type="text" v-model="tickName" placeholder="请填写"/></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹券种 <span>金券</span></div>
+      <div class="inputItem" style="display:block;line-height: 1.2rem">众筹券种 <span style="float: right">金券</span></div>
     </div>
     <div class="inputList">
-      <div class="inputItem moreInput">券种价格 <span><input type="text" v-model="gold" placeholder="请填写">金    =<input v-model="silver" type="text" placeholder="请填写">银</span></div>
+      <div class="inputItem moreInput">券种价格
+        <div>
+          <input type="text" v-model="gold" placeholder="请填写">金=<input v-model="silver" type="text" placeholder="请填写">银
+        </div>
+      </div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹规模 <span><input v-model="dimensions" type="text" placeholder="请填写"></span></div>
+      <div class="inputItem">众筹规模 <input v-model="dimensions" type="text" placeholder="请填写"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">限量 <span><input v-model="quantity" type="text" placeholder="请填写"></span></div>
+      <div class="inputItem">限量 <input v-model="quantity" type="text" placeholder="请填写"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹介绍 <span><input v-model="recommend" type="text" placeholder="请填写"></span></div>
+      <div class="inputItem">众筹介绍 <input v-model="recommend" type="text" placeholder="请填写"></div>
     </div>
     <div class="fireBtn" @click="save">发布</div>
   </div>
@@ -86,24 +90,28 @@ export default {
     background: #fff;
     .inputItem{
       font-size: 17px;
-      line-height:1.2rem;
+      height: 1.2rem;
       color:rgba(0,0,0,.6);
       padding: 0 .2rem;
       border-bottom:rgba(0,0,0,.3) 1px solid;
-      &.moreInput{
-        input{
-          width:1rem;
-          margin: 0 10px;
-        }
-      }
-      span{
-        float: right;
+      display: flex;
+      align-items: center;
+      input{
+        outline: none;
+        border: none;
         text-align: right;
+        height:.8rem;
+        flex: 1;
+      }
+      div{
+        flex: 1;
+        text-align: right;
+        display: flex;
+        align-items: center;
         input{
-          outline: none;
-          border: none;
-          text-align: right;
-          height:.9rem;
+          width:.5rem;
+          margin: 0 10px;
+          text-align: center;
         }
       }
     }
