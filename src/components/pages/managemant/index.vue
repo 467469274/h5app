@@ -15,8 +15,8 @@
 
     <div class="typs">
       <div class="typeWarp">
-        <span @click="filter('all')">全部</span>
-        <span v-for="item in  categorys" @click="filter('')">{{item.categoryName}}</span>
+        <span  :class="{'active':nowid == 0}"  @click="getData('')">全部</span>
+        <span :class="{'active':nowid == item.categoryId}" v-for="item in  categorys" @click="getData(item.categoryId)">{{item.categoryName}}</span>
       </div>
     </div>
     <div class="goodsList">
@@ -54,7 +54,8 @@
         searchTxt: '',
         active: 0,
         categorys:[],
-        products:[]
+        products:[],
+        nowid:0
       }
     },
     created(){
@@ -81,15 +82,23 @@
             this.$toast(err)
           },'PUT')
       },
-      onchange() {
-        this.$ajax('/api/shop/product', {status: this.active ==0?1:0},
+      getData(id){
+        this.nowid = id
+        this.$ajax('/api/shop/product', {status: this.active ==0?1:0,categoryId:id},
           (res) => {
-            this.categorys = res.data.categorys
+            if(this.categorys.length==0 &&  res.data.categorys.length>0) {
+              this.categorys = res.data.categorys
+            }
             this.products = res.data.products
           },
           (err)=>{
             console.log(err)
           },'get')
+      },
+      onchange() {
+        this.nowid = 0
+        this.categorys = []
+        this.getData('')
       }
     }
   }
@@ -241,5 +250,8 @@
         }
       }
     }
+  }
+  .active{
+    border-bottom: 2px solid red;
   }
 </style>
