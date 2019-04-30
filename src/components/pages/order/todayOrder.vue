@@ -3,7 +3,8 @@
    <van-nav-bar
       title="今日订单"
       left-arrow
-    />
+      @click-left="$router.back(-1)"
+   />
     <div class="warp">
       <van-list
         v-model="loading"
@@ -32,7 +33,7 @@
             <p class="orderCount"><span>共{{item.countNum}}件 合计 ：¥{{item.allPrice}}</span><span class="delivery">{{status[item.status]}}</span></p>
           </van-cell>
           <div class="cellBtn">
-            <button class="deliveryBtn">立即接单</button>
+            <button class="deliveryBtn">立即发货</button>
             <button>取消订单</button>
           </div>
         </div>

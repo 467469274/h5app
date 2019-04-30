@@ -3,9 +3,7 @@
     <van-nav-bar
       title="添加商品"
       left-arrow
-      right-text="完成"
       @click-left="goSomePage('back')"
-      @click-right="goSomePage('back')"
     />
     <van-cell-group>
       <van-field class="hasborderb" label="名称" input-align="right" v-model="formData.name" placeholder="请输入商品名称"/>
@@ -81,41 +79,51 @@
         var result = [];
         var query = url.split("?")[1];
         var queryArr = query.split("&");
-        queryArr.forEach(function(item){
+        queryArr.forEach(function (item) {
           var obj = {};
           var value = item.split("=")[0];
           var key = item.split("=")[1];
           obj[key] = value;
           result.push(obj);
         });
-        console.log(result)
         return result;
       },
       save() {
-           this.formData.desc = this.detailInit.recommendTxt+`<img src='${this.detailInit.recommend}'/>`
-            this.formData.skus.forEach((item)=>{
+        if (this.detailInit.recommendTxt == '') {
+          this.$toast('请填写商品介绍')
+        } else if (this.formData.skus.length == 0) {
+          this.$toast('请填写sku信息')
+        } else if(this.isSelect.name == '请选择'){
+          this.$toast('请选择状态')
+        }else if(this.formData.categoryId == 0){
+          this.$toast('请选择类目')
+        }else{
+          this.formData.desc = this.detailInit.recommendTxt + `<img src='${this.detailInit.recommend}'/>`
+          this.formData.skus.forEach((item) => {
             item.imgs = item.imgs.join(',')
-              item.mainSkuId = item.mainSkuId?1:0
+            item.mainSkuId = item.mainSkuId ? 1 : 0
           })
           this.$ajax('/api/shop/product', this.formData, (res) => {
-            console.log(res)
             this.$toast('添加成功')
             this.$router.push('managemant')
           }, (msg) => {
             this.$toast(msg)
           }, 'setProduct')
-       /* this.$ajax('/api/mine/zfbwallet', {
-          money: 1000
-        }, (res) => {
-          console.log(res.data.body)
-          const div = document.createElement('div')
-          div.innerHTML = res.data.body//此处form就是后台返回接收到的数据
-          console.log(div)
-          document.body.appendChild(div)
-          document.forms[0].submit()
-        }, (err) => {
-          console.log(err)
-        }, 'post')*/
+        }
+
+        //  支付宝
+        /* this.$ajax('/api/mine/zfbwallet', {
+           money: 1000
+         }, (res) => {
+           console.log(res.data.body)
+           const div = document.createElement('div')
+           div.innerHTML = res.data.body//此处form就是后台返回接收到的数据
+           console.log(div)
+           document.body.appendChild(div)
+           document.forms[0].submit()
+         }, (err) => {
+           console.log(err)
+         }, 'post')*/
       },
       showSelect() {
         this.show = true

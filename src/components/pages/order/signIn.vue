@@ -3,6 +3,7 @@
     <van-nav-bar
       title="签到"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
         <div class="warpInfo">
@@ -34,7 +35,7 @@
                     <p class="Retroactive"></p>
                     <p class="dayNumber">第4天</p>
                 </li>
-                
+
                 <li class="RetroactiveLi">
                     <p class="Retroactive"></p>
                     <p class="dayNumber">第6天</p>
@@ -181,13 +182,13 @@ import gainCode from '../../common/gainCode.vue'
     width:100%;
     background:#fff;
     border-radius:0.3rem;
-   
+
     ul{
         margin:0.5rem auto 0.5rem auto;
         display:block;
         width:95%;
         height:5rem;
-      
+
         li{
             float:left;
             width:16.66%;
@@ -218,7 +219,7 @@ import gainCode from '../../common/gainCode.vue'
                 height:0.65rem!important;
                     background:url('../../../assets/images/hongbao2x.png') no-repeat center center!important;
                         background-size:100% 100%!important;
-            }      
+            }
         }
         .signLi{
              .Retroactive{
@@ -257,7 +258,7 @@ import gainCode from '../../common/gainCode.vue'
        margin:0 auto;
        width:5.5rem;
        font-size:12px;
-       
+
    }
 }
 </style>

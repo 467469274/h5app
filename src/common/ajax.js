@@ -5,6 +5,7 @@ import qs from 'qs';
 export function $ajax(url, data, call, err, methodsType) {
   const ajaxUrl = `http://39.105.229.26:8081${url}`
   var tk = '2'
+  // var tk = '9c000d02587948b4b2d92b26bbdfc313'
   data.token = tk
   if (methodsType == 'get') {
     axios.get(ajaxUrl, {

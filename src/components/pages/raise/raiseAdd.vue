@@ -22,15 +22,15 @@
 <script>
   export default {
     name: 'raiseFire',
-    data () {
+    data() {
       return {
         gold: '',
-        name:'',
-        phone:''
+        name: '',
+        phone: ''
       }
     },
     methods: {
-      goSomePage (type) {
+      goSomePage(type) {
         if (type == 'back') {
           this.$router.back(-1)
         } else if (type == 'my') {
@@ -39,58 +39,71 @@
           this.$router.push({name: 'raiseFire'})
         }
       },
-      save(){
-        this.$ajax('/api/tick/join',{
-            tickId:this.$route.query.value,
-            gold:this.gold,
-            name:this.name,
-            phone:this.phone
-          },
-          (res)=>{
-            console.log(res.data)
-            this.$toast('加入成功')
-            this.$router.push({name:'myraise',query:{type:1}})
-          },
-          (err)=>{
-            console.log(err)
-            this.$toast(err)
+      save() {
+        if (this.name == '') {
+          this.$toast('请填写众筹名称')
+        } else if (this.phone == '') {
+          this.$toast('请填写金券比例')
+        } else if (this.gold == '') {
+          this.$toast('请填写银券比例')
+        } else {
+          this.$ajax('/api/tick/join', {
+              tickId: this.$route.query.value,
+              gold: this.gold,
+              name: this.name,
+              phone: this.phone
+            },
+            (res) => {
+              console.log(res.data)
+              this.$toast('加入成功')
+              this.$router.push({name: 'myraise', query: {type: 1}})
+            },
+            (err) => {
+              console.log(err)
+              this.$toast(err)
 
-          },
-        'post')
+            },
+            'post')
+        }
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
-  .nav{
-    box-shadow: 0.05rem 0.05rem 0.1rem rgba(0,0,0,0.1);
+  .nav {
+    box-shadow: 0.05rem 0.05rem 0.1rem rgba(0, 0, 0, 0.1);
 
   }
-  .inputList{
+
+  .inputList {
     background: #fff;
-    .inputItem{
+
+    .inputItem {
       font-size: 17px;
       height: 1.2rem;
-      color:rgba(0,0,0,.6);
+      color: rgba(0, 0, 0, .6);
       padding: 0 .2rem;
-      border-bottom:rgba(0,0,0,.3) 1px solid;
+      border-bottom: rgba(0, 0, 0, .3) 1px solid;
       display: flex;
       align-items: center;
-      input{
+
+      input {
         outline: none;
         border: none;
         text-align: right;
-        height:.8rem;
+        height: .8rem;
         flex: 1;
       }
-      div{
+
+      div {
         flex: 1;
         text-align: right;
         display: flex;
         align-items: center;
-        input{
-          width:.5rem;
+
+        input {
+          width: .5rem;
           margin: 0 10px;
           text-align: center;
         }
@@ -98,8 +111,8 @@
     }
   }
 
-  .fireBtn{
-    background: rgb(30,153,75);
+  .fireBtn {
+    background: rgb(30, 153, 75);
     color: #fff;
     text-align: center;
     line-height: 1rem;

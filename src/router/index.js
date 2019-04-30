@@ -61,6 +61,7 @@ const fl = () => import('@/components/pages/fl/fl')
 const managemant = () => import('@/components/pages/managemant/index')
 const addGoods = () => import('@/components/pages/managemant/addGoods')
 const setPassword = () => import('@/components/pages/member/setPassword')
+const qrcode = () => import('@/components/pages/member/qrcode')
 
 //新增页面
 //到账页面
@@ -279,6 +280,11 @@ const router = new Router({
       path: '/endorsment',
       name: 'endorsment',
       component: endorsment
+    },
+    {
+      path: '/qrcode',
+      name: 'qrcode',
+      component: qrcode
     },
     {
       path: '/confirm',

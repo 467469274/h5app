@@ -9,7 +9,7 @@
     />
     <div class="main">
       <van-cell-group v-for="(item,index) in list">
-        <van-field label="商品图片" input-align="right" v-model="item.remarks" placeholder="请输入商品名称" />
+        <van-field label="商品图片" input-align="right" v-model="item.remarks" placeholder="请输入规格描述" />
         <van-cell class="hasborderb">
           <img width="100" height="100" v-for="img in item.imgs" :src="img" />
           <vueUpload @upOk="(url)=>{item.imgs.push(url)}"></vueUpload>
@@ -42,9 +42,7 @@
     data(){
       return{
         nowIndex:0,
-        list:[
-
-        ],
+        list:[],
         value:'',
         checked:true,
         show:false,
@@ -69,7 +67,43 @@
     methods:{
       goSomePage (type) {
         if(type){
-          this.$emit('back',this.list)
+          let errorFlage;
+          try{
+            let flag;
+            if(this.list.length == 0)throw new Error('请添加sku')
+            this.list.forEach((item)=>{
+              console.log(item)
+              if(item.remarks == '' ||!item.remarks){
+                throw new Error('请填写规格描述')
+              }else if(item.name == ''||!item.name){
+                throw new Error('请填写规格名称')
+              }else if(item.imgs.length==0||!item.imgs){
+                throw new Error('请填写规格图片')
+              }else if(item.price == '' || !item.price){
+                throw new Error('请填写价格')
+              }else if(item.freight == '' || !item.freight){
+                throw new Error('请填写运费')
+              }else if(item.stock == '' || !item.stock){
+                throw new Error('请填写库存')
+              }else if(item.goldCouponNum == '' || !item.goldCouponNum){
+                throw new Error('请填写金券数量')
+              }else if(typeof item.status != 'number'){
+                throw new Error('请选择状态')
+              }
+              if(item.mainSkuId && !flag){
+                flag = true
+              }
+            })
+            if(!flag)throw new Error('请选择主sku')
+          }catch (err) {
+            errorFlage = true
+            errorFlage = err.message
+          }
+          if(!errorFlage){
+            this.$emit('back',this.list)
+          }else{
+            this.$toast(errorFlage)
+          }
         }else {
           this.$emit('back')
         }

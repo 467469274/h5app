@@ -4,7 +4,7 @@
       <div class="nav" v-if="type!='search'">
         <van-nav-bar v-if="listType!='malls'" :title="searchInt">
           <van-icon @click="goSearch" name="search" color="rgba(0,0,0,0.4)" size=".4rem" slot="right"/>
-          <van-icon @click-left="goBack" name="arrow-left" color="rgba(0,0,0,0.4)" size=".4rem" slot="left"/>
+          <van-icon @click="goBack" name="arrow-left" color="rgba(0,0,0,0.4)" size=".4rem" slot="left"/>
         </van-nav-bar>
         <div class="myNav" v-if="listType=='malls'">
           <van-icon @click="goSearch" name="search" color="rgba(0,0,0,0.4)" size=".4rem" slot="right"/>
@@ -19,11 +19,10 @@
       </div>
       <searchInput @click="goSearch" v-if="type=='search'" :searchInt="searchInt"></searchInput>
       <div class="filters">
-        <div class="item" @click="changeType(1)"><span :class="{active:acitveClass ==1}">综合  <i class="jt"></i></span>
-        </div>
-        <div class="item" @click="changeType(2)"><span :class="{active:acitveClass ==2}">新品</span></div>
-        <div class="item" @click="changeType(3)"><span :class="{active:acitveClass ==3}">销量</span></div>
-        <div class="item" @click="changeType(4)"><span :class="{active:acitveClass ==4}">价格</span></div>
+        <div class="item" @click="show = true"><span :class="{active:acitveClass ==1 || acitveClass ==2}">{{choseType}}<i class="jt"></i></span></div>
+        <div class="item" @click="changeType(3)"><span :class="{active:acitveClass ==3}">新品</span></div>
+        <div class="item" @click="changeType(4)"><span :class="{active:acitveClass ==4}">销量</span></div>
+        <div class="item" @click="changeType(5)"><span :class="{active:acitveClass ==5 || acitveClass ==6}">价格</span></div>
       </div>
     </div>
     <van-swipe :autoplay="3000" class="indexWarp" v-show="routeName =='malls'" style="margin-top: 2rem">
@@ -41,6 +40,11 @@
       <goods :list="products"></goods>
     </van-list>
     <fl @back="isShowFl=false" v-if="isShowFl"></fl>
+    <van-actionsheet
+      v-model="show"
+      :actions="actions"
+      @select="select"
+    />
   </div>
 </template>
 
@@ -58,6 +62,18 @@
     },
     data() {
       return {
+        choseType:"综合",
+        show:false,
+        actions:[
+          {
+            name: '综合',
+            id:1
+          },
+          {
+            name: '评论从高到低',
+            id:2
+          }
+        ],
         isShowFl:false,
         list: [],
         loading: false,
@@ -85,6 +101,12 @@
     mounted() {
     },
     methods: {
+      select(it){
+        console.log(it)
+        this.changeType(it.id);
+        this.choseType = it.name=='评论从高到低'?'评论':'综合'
+        this.show = false
+      },
       getBanner() {
         this.$ajax('/api/mall/banner', {l: 0}, (res) => {
           this.banners = res.data
@@ -112,6 +134,9 @@
           }else{
             this.postP.l = 5
           }
+        }else if (this.type == 'fl') {
+          url = '/api/search'
+          this.postP.categoryId = this.$route.query.id
         } else {
           url = '/api/product/xrth'
         }
@@ -138,6 +163,9 @@
       },
       changeType(v) {
         this.acitveClass = v
+        this.postP.order = v
+        this.postP.currPage = 1
+        this.onLoad()
       },
       onchange(){
         this.postP.currPage = 1

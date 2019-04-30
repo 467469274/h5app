@@ -3,6 +3,7 @@
     <van-nav-bar
       title="支付"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
        <van-cell>
@@ -31,9 +32,9 @@
       </van-cell>
       <p class="consent"><i @click="consent" :class="{'select':consentTrue}"></i>我同意<span>《家家商城永华服务协议》</span></p>
     </div>
-    
+
     <div class="sure">立即支付</div>
-       
+
   </div>
 </template>
 
@@ -66,7 +67,7 @@
 
 <style scoped lang="scss">
     $colorG: rgba(0, 0, 0, 0.6);
- 
+
   .sure{
     background: #25AE42;
     color: #fff;
@@ -131,8 +132,8 @@
          background:url('../../../assets/images/zhifubao2x.png') no-repeat left center!important;
       background-size:cover;
     }
-   
-  
+
+
   }
 
 

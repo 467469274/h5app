@@ -3,6 +3,7 @@
     <van-nav-bar
       title="到账"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
         <van-cell>
@@ -44,7 +45,7 @@
         margin:0.3rem auto;
         width:0.5rem;
         height:0.5rem;
-        
+
     }
   }
   .interval{
@@ -83,7 +84,7 @@
     }
   }
   .cell {
-   
+
     font-size: 15px;
     text-align:center;
   }

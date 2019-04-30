@@ -39,7 +39,9 @@
       }
     },
     methods: {
-      goBack(){},
+      goBack(){
+        this.$router.back(-1)
+      },
       over(){
         if(this.password!=this.agpassword){
           this.$toast('重复密码错误，请重新输入')

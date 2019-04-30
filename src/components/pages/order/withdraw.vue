@@ -3,6 +3,7 @@
     <van-nav-bar
       title="提现"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
        <van-cell>
@@ -26,11 +27,11 @@
                 <span :class="{'selectPay':payNumber == 2}"  @click="payType(2)"></span>
             </div>
       </van-cell>
-      
+
     </div>
-    
+
     <div class="sure">下一步</div>
-       
+
   </div>
 </template>
 
@@ -58,7 +59,7 @@
   .van-cell{
     line-height: 1rem;
   }
- 
+
   .sure{
     background: #F1B23E;
     color: #fff;
@@ -105,7 +106,7 @@
     }
   }
   .cellPay{
-   
+
     div {
     float:left;
       font-size: 12px;
@@ -136,7 +137,7 @@
         background:url('../../../assets/images/duihao2x.png') no-repeat center center!important;
         background-size:cover;
     }
-  
+
   }
   .checkbox{
     .van-checkbox__icon{

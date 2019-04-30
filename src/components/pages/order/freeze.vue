@@ -3,6 +3,7 @@
     <van-nav-bar
       title="冻结"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
 

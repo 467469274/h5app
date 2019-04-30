@@ -3,6 +3,7 @@
     <van-nav-bar
       title="支付结果"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
         <p class="paySuccessText">支付失败，重新支付吧！</p>
@@ -31,7 +32,7 @@
 
 <style scoped lang="scss">
   $colorG: rgba(0, 0, 0, 0.6);
-  
+
   .warp{
      position:absolute;
      top:1.1rem;
@@ -45,7 +46,7 @@
         text-align:center;
     }
     .payJump{
-       
+
         margin:0 auto;
         width:80%;
         background:red;
@@ -71,6 +72,6 @@
         }
     }
   }
-  
-  
+
+
 </style>

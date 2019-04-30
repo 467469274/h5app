@@ -7,7 +7,8 @@
       </div>
       <div class="meberBottom">
         <div class="imgWarp">
-          <img src="../../../assets/images/default-head.png">
+          <img src="/static/default-head.png" v-if="!userInfo.head">
+          <img :src="userInfo.head" v-if="userInfo.head">
         </div>
         <p class="shopName" @click="goSomePage('userCenter')">{{userInfo.username}}</p>
         <p class="fid" @click="goSomePage('userCenter')">FID：{{userInfo.incode}}</p>
@@ -174,9 +175,11 @@ export default {
         background: #fff;
         border-radius: 50%;
         transform: translate(-50%,-50%);
+        overflow: hidden;
         img{
           width: 100%;
           height: 100%;
+          border-radius: 50%;
         }
       }
       .shopName{

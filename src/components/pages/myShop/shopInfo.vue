@@ -9,7 +9,7 @@
     />
     <div class="shopTop">
       <div class="imgWarp">
-        <img src="../../../assets/images/default-head.png">
+        <img src="/static/default-head.png">
       </div>
     </div>
     <div class="warp">

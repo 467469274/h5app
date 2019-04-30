@@ -85,24 +85,35 @@
         }
       },
       save(){
-        if((this.code == this.serviceCode && this.serviceCode!='')){
+        if(this.serviceCode == ''){
+          this.$toast('请获取验证码')
+        }else if(this.code == ''){
+          this.$toast('请填写验证码')
+        }else if((this.code == this.serviceCode && this.serviceCode!='')){
           this.$ajax('/api/mine/withdrawPassword',{
             password:this.password
           },(res)=>{
-            this.$ajax('/api/mine/goldsale',
-              {
-                saleCount:this.phone,
-                unitMoney:this.gold,
-                totalMoney:this.phone*this.gold
-              },
-              (data)=>{
-                this.$toast('出售成功')
-              },
-              (e)=>{
-                this.$toast(e)
-              },
-              'post'
-            )
+            if(this.phone== ''){
+              this.$toast('请输入数量')
+            }else if(this.gold == ''){
+              this.$toast('请输入价格')
+            }else{
+              this.$ajax('/api/mine/goldsale',
+                {
+                  saleCount:this.phone,
+                  unitMoney:this.gold,
+                  totalMoney:this.phone*this.gold
+                },
+                (data)=>{
+                  this.$toast('出售成功')
+                  this.$router.push({name:'saleOrder'})
+                },
+                (e)=>{
+                  this.$toast(e)
+                },
+                'post'
+              )
+            }
           },(err)=>{
             this.$toast(err)
           },'PUT')

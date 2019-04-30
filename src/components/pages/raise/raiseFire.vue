@@ -56,26 +56,39 @@ export default {
       }
     },
     save(){
-//      POST
-      this.$ajax('/api/tick/save',
-        {
-          coupon:1,
-          tickName:this.tickName,
-          gold:this.gold,
-          silver:this.silver,
-          dimensions:this.dimensions,
-          quantity:this.quantity,
-          recommend:this.recommend,
-        },
-        (res)=>{
-          this.$toast('发布成功')
-          this.$router.push({name:'allRaise'})
-        },
-        (err)=>{
-          this.$toast(err)
-        },
-        'post'
-      )
+      if(this.tickName==''){
+        this.$toast('请填写众筹名称')
+      }else if(this.gold == ''){
+        this.$toast('请填写金券比例')
+      }else if(this.silver == ''){
+        this.$toast('请填写银券比例')
+      }else if(this.dimensions == ''){
+        this.$toast('请填写众筹规模')
+      }else if(this.quantity == ''){
+        this.$toast('请填写限购数量')
+      }else if(this.recommend == ''){
+        this.$toast('请填写众筹介绍')
+      }else {
+        this.$ajax('/api/tick/save',
+          {
+            coupon:1,
+            tickName:this.tickName,
+            gold:this.gold,
+            silver:this.silver,
+            dimensions:this.dimensions,
+            quantity:this.quantity,
+            recommend:this.recommend,
+          },
+          (res)=>{
+            this.$toast('发布成功')
+            this.$router.push({name:'allRaise'})
+          },
+          (err)=>{
+            this.$toast(err)
+          },
+          'post'
+        )
+      }
     }
   }
 }

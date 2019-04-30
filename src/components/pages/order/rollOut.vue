@@ -4,6 +4,7 @@
       title="转出"
        right-text="转出记录"
       left-arrow
+      @click-left="$router.back(-1)"
     />
     <div class="warp">
        <van-cell>
@@ -13,7 +14,7 @@
         <div class="cell"><span>转出金额</span><input v-model="gold" placeholder="请输入转出金额" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>备注说明</span><input v-model="remarks" placeholder="请填写" type="text" class="input"/></div>
+        <div class="cell"><span>备注说明</span><input v-model="remarks" placeholder="请填写备注" type="text" class="input"/></div>
       </van-cell>
        <van-cell>
         <div class="cell"><span>支付密码</span><input placeholder="请填写支付密码" v-model="password" type="password" class="input"/></div>
@@ -85,25 +86,40 @@ import gainCode from '../../common/gainCode.vue'
         }
       },
       save(){
-        if((this.code == this.serviceCode && this.serviceCode!='')){
+        if(this.serviceCode == ''){
+          this.$toast('请获取验证码')
+        }else if(this.code == ''){
+          this.$toast('请填写验证码')
+        }else if((this.code == this.serviceCode && this.serviceCode!='')){
+          if(this.password == ''){
+            this.$toast('请填写支付密码')
+            return
+          }
           this.$ajax('/api/mine/withdrawPassword',{
             password:this.password
           },(res)=>{
-            console.log(res)
-            this.$ajax('/api/mine/goldinter',
-              {
-                phone:this.phone,
-                gold:this.gold,
-                remarks:this.remarks
-              },
-              (data)=>{
-                this.$toast('转账成功')
-              },
-              (e)=>{
-                this.$toast(e)
-              },
-              'post'
-            )
+            if(this.phone== ''){
+              this.$toast('请输入对方账户')
+            }else if(this.gold == ''){
+              this.$toast('请输入转出金额')
+            }else if(this.remarks == ''){
+              this.$toast('请输入转出备注')
+            }else{
+              this.$ajax('/api/mine/goldinter',
+                {
+                  phone:this.phone,
+                  gold:this.gold,
+                  remarks:this.remarks
+                },
+                (data)=>{
+                  this.$toast('转账成功')
+                },
+                (e)=>{
+                  this.$toast(e)
+                },
+                'post'
+              )
+            }
           },(err)=>{
             this.$toast(err)
           },'PUT')

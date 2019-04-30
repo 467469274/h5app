@@ -27,6 +27,7 @@ export default {
       this.$emit('click')
     },
     goSomePage () {
+      console.log(123123)
       if(this.clickRight){
         this.clickRight()
       }else{

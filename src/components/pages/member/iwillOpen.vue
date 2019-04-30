@@ -34,9 +34,7 @@
         </div>
       </van-cell>
       <van-cell>
-        <div class="cell" style="border-bottom: 0"><span>店铺介绍:</span><input v-model="recommend"
-                                                                            style="text-align: left;" type="text"
-                                                                            class="input" placeholder="输入店铺介绍"/>
+        <div class="cell" style="border-bottom: 0"><span>店铺介绍:</span><input v-model="recommend"style="text-align: left;" type="text"class="input" placeholder="输入店铺介绍"/>
         </div>
       </van-cell>
       <van-cell>
@@ -88,28 +86,45 @@
         this.isShowFl = false
       },
       save() {
-        this.$ajax('/api/shop', {
-          username: this.username,
-          phone: this.phone,
-          cardnum: this.cardnum,
-          name: this.name,
-          mobile: this.mobile,
-          address: this.address,
-          recommend: this.recommend,
-          imgs: this.imgs,
-          categoryIds: this.fls.map(item => item.id).join(',')
-        }, (res) => {
-          this.$toast('提交成功')
-          this.$router.push({name: 'member'})
-        }, (msg) => {
-          this.$toast(msg)
-        }, 'PUT')
+        if(this.username ==''){
+          this.$toast('请填写姓名')
+        }else if(this.phone == ''){
+          this.$toast('请填写手机号')
+        }else if(this.cardnum == ''){
+          this.$toast('请填写身份证号')
+        }else if(this.name == ''){
+          this.$toast('请填写店铺名称')
+        }else if(this.address == ''){
+          this.$toast('请填写营业地址')
+        }else if(this.recommend == ''){
+          this.$toast('请填写店铺介绍')
+        }else if(this.imgs == ''){
+          this.$toast('请上传店铺图片')
+        }else if(this.fls.length==0){
+          this.$toast('请选择主营业务')
+        }else{
+          this.$ajax('/api/shop', {
+            username: this.username,
+            phone: this.phone,
+            cardnum: this.cardnum,
+            name: this.name,
+            mobile: this.mobile,
+            address: this.address,
+            recommend: this.recommend,
+            imgs: this.imgs,
+            categoryIds: this.fls.map(item => item.id).join(',')
+          }, (res) => {
+            this.$toast('提交成功')
+            this.$router.push({name: 'member'})
+          }, (msg) => {
+            this.$toast(msg)
+          }, 'PUT')
+        }
       }
     },
     created() {
       this.$ajax('/api/shop', {}, (res) => {
         if(!res){
-
         }else{
           let data = res.data
           this.fls =  [],

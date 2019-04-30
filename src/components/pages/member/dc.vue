@@ -29,6 +29,10 @@
       },
       dc(){
         let obj,url;
+        if(this.value == ''){
+          this.$toast('请输入兑冲数量')
+          return;
+        }
         if(this.$route.query.type == 1){
           obj = {
             gold : this.value,

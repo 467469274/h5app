@@ -57,6 +57,8 @@
       doSomeThing(err){
         if(this.type == 'choseType'){
           this.$emit('choseOk',err)
+        }else{
+          this.$router.push({name:'goodsList',query:{type:'fl',v:err.name,id:err.id}})
         }
       }
     },
