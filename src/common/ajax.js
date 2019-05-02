@@ -1,11 +1,16 @@
 import {getCookie, setCookie} from './cookies.js'
 import axios from 'axios';
 import qs from 'qs';
-
 export function $ajax(url, data, call, err, methodsType) {
   const ajaxUrl = `http://39.105.229.26:8081${url}`
-  var tk = '2'
-  // var tk = '9c000d02587948b4b2d92b26bbdfc313'
+  const errFunction = function (data) {
+    if(data.data.code == 1){
+      window.location.href = '/#/login';
+    }else {
+      err(data.data.msg)
+    }
+  };
+  var tk = getCookie('token')
   data.token = tk
   if (methodsType == 'get') {
     axios.get(ajaxUrl, {
@@ -14,7 +19,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(re.data.code ==0){
         call(re.data)
       }else{
-        err(re.data.msg)
+        errFunction(re)
       }
     }).catch(function (error) {
     })
@@ -27,7 +32,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(re.data.code ==0){
         call(re.data)
       }else{
-        err(re.data.msg)
+        errFunction(re)
       }
     }).catch(function (error) {
     })
@@ -44,7 +49,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(re.data.code ==0){
         call(re.data)
       }else{
-        err(re.data.msg)
+        errFunction(re)
       }
     }).catch(function (error) {
 
@@ -58,7 +63,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(res.data.code ==0){
         call(res.data)
       }else{
-        err(res.data.msg)
+        errFunction(res)
       }
     }).catch((err) => {
     })
@@ -73,7 +78,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(re.data.code ==0){
         call(re.data)
       }else{
-        err(re.data.msg)
+        errFunction(re)
       }
     }).catch(function (error) {
 
@@ -87,7 +92,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(re.data.code ==0){
         call(re.data)
       }else{
-        err(re.data.msg)
+        errFunction(re)
       }
     }).catch(function (error) {
 
@@ -101,7 +106,7 @@ export function $ajax(url, data, call, err, methodsType) {
       if(re.data.code ==0){
         call(re.data)
       }else{
-        err(re.data.msg)
+        errFunction(re)
       }
     }).catch(function (error) {
 

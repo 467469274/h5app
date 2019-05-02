@@ -59,11 +59,7 @@
     },
     methods: {
       goSomePage(type) {
-        if (type == 'back') {
-          this.$router.back(-1)
-        } else {
-          this.$router.push({name: type})
-        }
+        this.$router.push({name: 'choseLocation',params:this.$route.params})
       },
       sure(a) {
         this.ssq = a.map(item => item.name);
@@ -122,7 +118,9 @@
         this.$ajax('/api/product/address', data, (res) => {
           this.$toast(message);
           this.goSomePage('back')
-
+          if(this.$route.params){  //下单
+            console.log(res)
+          }
         }, () => {
         }, type)
       }

@@ -4,7 +4,7 @@
       title="购物车"
       :right-text="!isEdit?'编辑':'完成'"
       left-arrow
-      @click-left="$router.back(-1)"
+      @click-left="goSomePage('malls')"
       @click-right="isEdit = !isEdit"
     />
     <div class="goodsList">
@@ -71,6 +71,9 @@
         allPrices(){}
       },
       methods:{
+        goSomePage (type,query) {
+          this.$router.push({name: type})
+        },
         changeAll(type){
           this.list.forEach((item)=>{
             item.checked = type;
@@ -135,8 +138,7 @@
               })
             })
             this.$ajax('/api/order/confirmOrder',list,(res)=>{
-//              res.data
-              this.$router.push({name:'confirm',params:res.data})
+              this.$router.push({name:'confirm',params:{...res.data,from:'cart'}})
             },(err)=>{
               this.$toast(err)
             },'upOrder')

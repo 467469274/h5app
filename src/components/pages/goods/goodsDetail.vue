@@ -64,12 +64,12 @@
       </van-tabs>
     </div>
     <van-goods-action>
-      <van-goods-action-mini-btn
+   <!--   <van-goods-action-mini-btn
         class="greey"
         icon="chat-o"
         text="咨询"
         @click=""
-      />
+      />-->
       <van-goods-action-mini-btn
         class="greey"
         :icon="nowSku.collection==0?'star-o':'star'"
@@ -79,21 +79,20 @@
       <van-goods-action-big-btn
         text="加入购物车"
         class="yellow"
-        @click="add"
+        @click="showBase = true"
       />
       <van-goods-action-big-btn
         primary
         class="red"
         text="立即购买"
-        @click="goSomePage('confirm')"
+        @click="showBase = true"
       />
     </van-goods-action>
   </div>
 </template>
-
+<!--@click="goSomePage('confirm')"-->
 <script>
   import comments from '../../common/comments'
-
   export default {
     name: 'endorsement',
     data() {
@@ -150,17 +149,30 @@
       },
       add() {
         console.log(this.detail)
-        this.$toast('加入购物车成功');
+
+      },
+      onAddCartClicked(data) {
         this.$ajax('/api/product/car', {
-          skuId:this.nowSku.skuId,
-          num:1
+          skuId:data.selectedSkuComb.id,
+          num:data.selectedNum
         }, (res) => {
-        }, () => {
+          this.$toast('加入购物车成功');
+          this.showBase = false
+        }, (err) => {
+          this.$toast.fail(err)
         }, 'post')
       },
-      onAddCartClicked() {
-      },
-      onBuyClicked() {
+      onBuyClicked(data) {
+        console.log(data)
+
+        this.$ajax('/api/order/confirmOrder', [ {
+          skuId:data.selectedSkuComb.id,
+          num:data.selectedNum
+        }], (res) => {
+          this.$router.push({name:'confirm',params:{...res.data,from:'cart'}})
+        }, (err) => {
+          this.$toast.fail(err)
+        }, 'upOrder')
       },
       changeCollect() {
         let type = this.nowSku.collection == 0?1:0
@@ -358,7 +370,5 @@
   }
 </style>
 <style>
-  .van-sku-stepper-container {
-    display: none;
-  }
+
 </style>

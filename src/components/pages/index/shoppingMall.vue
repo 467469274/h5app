@@ -27,7 +27,7 @@
         <img v-lazy="'static/baokuan-@2x.png'" alt="" width="100%">
         <span>爆款热卖</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="$toast('敬请期待')">
         <img v-lazy="'static/msg4@2x.png'" alt="" width="100%">
         <span>促销活动</span>
       </div>
@@ -35,7 +35,7 @@
         <img v-lazy="'static/zhongchou@2x.png'" alt="" width="100%">
         <span>众筹联盟</span>
       </div>
-      <div class="category-item">
+      <div class="category-item"@click="$toast('敬请期待')">
         <img v-lazy="'static/zhongchou@2x.png'" alt="" width="100%">
         <span>游戏娱乐</span>
       </div>
@@ -49,11 +49,11 @@
         <img v-lazy="'static/shangjia@2x.png'" alt="" width="100%">
         <span>商家联盟</span>
       </div>
-      <div class="category-item">
+      <div class="category-item"@click="$toast('敬请期待')">
         <img v-lazy="'static/xueyuan@2x.png'" alt="" width="100%">
         <span>家家商学院</span>
       </div>
-      <div class="category-item">
+      <div class="category-item"@click="$toast('敬请期待')">
         <img v-lazy="'static/jiankang@2x.png'" alt="" width="100%">
         <span>健康之家</span>
       </div>

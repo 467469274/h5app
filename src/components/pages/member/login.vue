@@ -10,9 +10,9 @@
       </div>
       <div class="loginInput">
         <img src="/static/loginlock.png" alt="">
-        <input type="text" placeholder="请输入密码" v-model="password">
+        <input type="password" placeholder="请输入密码" v-model="password">
       </div>
-      <p class="otherBtn"><span class="forgetPassword">忘记密码</span> <span class="remenberPassword"><i></i> 记住密码</span></p>
+      <p class="otherBtn"><!--<span class="forgetPassword">忘记密码</span>--> <span class="remenberPassword" @click="changeRemenber(isRemeber==1?'no':1)"><i :class="{'org':isRemeber==1}"></i>记住密码</span></p>
       <div class="loginBtn" @click="gologin">登录</div>
       <p class="register">如果您还没有账号，请 <span @click="goRegister">注册</span></p>
     </div>
@@ -23,8 +23,9 @@
 export default {
   data () {
     return {
-      phone:'',
-      password:''
+      phone:window.localStorage.phone|| '',
+      password:window.localStorage.pas|| '',
+      isRemeber:window.localStorage.isRemeber||'0'
     }
   },
   created () {
@@ -33,13 +34,25 @@ export default {
     goRegister(){
       this.$router.push({name:'register'})
     },
+    changeRemenber(type){
+      this.isRemeber = type
+      window.localStorage.isRemeber = type
+    },
     gologin(){
+      if(this.phone == '' || this.password == ''){
+        this.$toast('请填写好用户信息')
+        return
+      }
       this.$ajax('/api/login',
           {
             mobile:this.phone,
             password:this.password
           },
           (res)=>{
+        if(this.isRemeber == 1){
+          window.localStorage.pas = this.password
+          window.localStorage.phone = this.phone
+        }
             this.$toast('登录成功')
             this.$router.push({name:'shoppingMall'})
             this.setCookie('token',res.token)
@@ -133,5 +146,8 @@ export default {
         }
       }
     }
+  }
+  .org{
+    background: rgb(248,73,33);
   }
 </style>

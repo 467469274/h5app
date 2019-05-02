@@ -23,16 +23,16 @@
         <div class="myOrderCell" v-for="(item,index) in list" @click="goDetail(item.id)">
           <van-cell>
             <div class="cell" style="color:#666666;">
-              <span>物流单号:{{item.expressNo}}</span>
+              <span v-if="status == -1 || status == 0 || status == 30">订单号:{{item.id}}</span>
+              <span v-else>物流单号:{{item.expressNo}}</span>
             </div>
           </van-cell>
           <van-cell class="main">
             <div class="imageList" v-for="(sku,index) in item.skus">
               <img :src="sku.skuMainImg"/>
               <div class="imageinfo">
-                <p class="imageTitle">{{item.productName}}产品名称</p>
-                <p class="imageType">规格：普通代言人</p>
-                <p class="imagePrcie">¥{{sku.skuPrice}} <span>x1</span></p>
+                <p class="imageTitle">{{sku.productName}}</p>
+                <p class="imagePrcie">{{sku.skuPrice?'￥'+sku.skuPrice:''}} {{(sku.skuGoldCouponNum&&sku.skuPrice)?'+':''}}{{sku.skuGoldCouponNum?sku.skuGoldCouponNum+"券":''}}<span>x{{sku.skuNum}}</span></p>
               </div>
             </div>
           </van-cell>

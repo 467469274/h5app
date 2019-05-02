@@ -35,6 +35,7 @@
             <div class="operBtns">
               <!--<span class="red">设为打折</span>-->
               <span @click="xj(item.productId)" v-if="active==0">下架</span>
+              <span @click="sj(item.productId)" v-if="active!=0">上架</span>
             </div>
           </div>
           <van-icon size=".4rem" name="arrow"/>
@@ -76,6 +77,16 @@
         this.$ajax('/api/shop/lowerShelf', {productId:id},
           (res) => {
             this.$toast('下架成功')
+            this.onchange()
+          },
+          (err)=>{
+            this.$toast(err)
+          },'PUT')
+      },
+      sj(id){
+        this.$ajax('/api/shop/upShelf', {productId:id},
+          (res) => {
+            this.$toast('已提交审核')
             this.onchange()
           },
           (err)=>{

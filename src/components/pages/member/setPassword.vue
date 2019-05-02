@@ -11,13 +11,13 @@
     <div class="inputWarp">
       <div class="loginInput">
         <img src="/static/loginlock.png" alt="">
-        <input type="text" placeholder="密码" v-model="password">
+        <input type="password" placeholder="密码" v-model="password">
       </div>
     </div>
     <div class="inputWarp">
       <div class="loginInput">
         <img src="/static/loginlock.png" alt="">
-        <input type="text" placeholder="确认密码"v-model="agpassword">
+        <input type="password" placeholder="确认密码"v-model="agpassword">
       </div>
     </div>
     <div class="loginBtn" @click="over">完成</div>
@@ -43,25 +43,29 @@
         this.$router.back(-1)
       },
       over(){
-        if(this.password!=this.agpassword){
+        if(this.password==''){
+          this.$toast('请输入密码')
+        }else if(this.agpassword==''){
+          this.$toast('请确认密码')
+        }else if(this.password!=this.agpassword){
           this.$toast('重复密码错误，请重新输入')
-          return
+        }else{
+          this.$ajax('/api/setPassword',
+            {
+              password:this.password,
+              userId:this.$route.params.userId
+            },
+            (res)=>{
+              if(res.code == 0){
+                this.$toast('设置成功,请登录')
+                this.$router.push({name:'login'})
+              }else{
+                this.$toast(res.msg)
+              }
+            },
+            ()=>{},
+            'post')
         }
-        this.$ajax('/api/setPassword',
-          {
-            password:this.password,
-            userId:this.$route.params.userId
-          },
-          (res)=>{
-            if(res.code == 0){
-              this.$toast('设置成功,请登录')
-              this.$router.push({name:'login'})
-            }else{
-              this.$toast(res.msg)
-            }
-          },
-          ()=>{},
-          'post')
       }
     }
   }

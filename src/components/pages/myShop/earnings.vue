@@ -6,9 +6,9 @@
       @click-left="goSomePage('back')"
     />
     <div class="section">
-      <p class="title">本周收益 (券)  <span>共17单</span></p>
-      <p class="price">9999</p>
-      <div class="flexs">
+      <p class="title">本周收益 (券)  <span>共{{detail.weekOrderNum}}单</span></p>
+      <p class="price">{{detail.weekProfit}}</p>
+     <!-- <div class="flexs">
         <div class="item">
           <p class="itemTitle">交易额</p>
           <p class="number">9999</p>
@@ -25,12 +25,12 @@
           <p class="itemTitle">平台费用</p>
           <p class="number">9999</p>
         </div>
-      </div>
+      </div>-->
     </div>
     <div class="section">
-      <p class="title">本月收益 (券)  <span>共17单</span></p>
-      <p class="price">9999</p>
-      <div class="flexs">
+      <p class="title">本月收益 (券)  <span>共{{detail.monthOrderNum}}单</span></p>
+      <p class="price">{{detail.monthProfit}}</p>
+    <!--  <div class="flexs">
         <div class="item">
           <p class="itemTitle">交易额</p>
           <p class="number">9999</p>
@@ -47,24 +47,34 @@
           <p class="itemTitle">平台费用</p>
           <p class="number">9999</p>
         </div>
-      </div>
+      </div>-->
     </div>
     <div class="section ff">
-      <div class="sectionInner">
+      <!--<div class="sectionInner">
         <p class="ttle">可用金券</p>
         <p class="num">99999</p>
-      </div>
-      <div class="sectionInner">
-        <div class="sectionInner">
-          <p class="ttle">总收入</p>
-          <p class="num">99999</p>
-        </div>
+      </div>-->
+
+      <div class="sectionInner" style="border: none!important;">
+        <p class="ttle">总收入</p>
+        <p class="num">{{detail.allPrice}}</p>
       </div>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
   export default {
+    data(){
+      return{
+        detail:{}
+      }
+    },
+    created(){
+      this.$ajax('/api/shop/profit',{},(res)=>{
+        console.log(res)
+        this.detail = res.data
+      },()=>{},'get')
+    },
     methods: {
       goSomePage(type) {
         if (type == 'back') {

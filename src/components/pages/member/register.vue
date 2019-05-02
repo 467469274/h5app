@@ -56,6 +56,10 @@
       getCode() {
         if (this.canClick) {
           this.canClick = false;
+          if(this.userName == ''){
+            this.$toast('请输入手机号')
+            return
+          }
           this.$ajax('/api/getcode', {mobile: this.userName},
             (res) => {
               if (res.code == 0) {
@@ -77,24 +81,31 @@
         }
       },
       next() {
-        this.$ajax('/api/register',
-          {
-            mobile: this.userName,
-            code: this.code,
-            vicode: this.vicode,
-          },
-          (res) => {
-            this.$router.push(
-              {
-                name: 'setPassword',
-                params: {
-                  userId: res.data.userId
+        if(this.userName == ''){
+          this.$toast('请输入手机号')
+        }else if(this.code == ''){
+          this.$toast('请输入验证码')
+        }else{
+          this.$ajax('/api/register',
+            {
+              mobile: this.userName,
+              code: this.code,
+              vicode: this.vicode,
+            },
+            (res) => {
+              this.$toast('注册成功')
+              this.$router.push(
+                {
+                  name: 'setPassword',
+                  params: {
+                    userId: res.data.userId
+                  }
                 }
-              }
-            )
-          }, (msg) => {
-            this.$toast.fail(msg);
-          }, 'post')
+              )
+            }, (msg) => {
+              this.$toast.fail(msg);
+            }, 'post')
+        }
       },
       registerUserAction() {
         if (this.checkForm()) {

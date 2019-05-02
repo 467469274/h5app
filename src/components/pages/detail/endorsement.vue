@@ -41,12 +41,12 @@
       </van-tabs>
     </div>
     <van-goods-action>
-      <van-goods-action-mini-btn
+     <!-- <van-goods-action-mini-btn
         class="greey"
         icon="chat-o"
         text="咨询"
         @click=""
-      />
+      />-->
       <van-goods-action-mini-btn
         class="greey"
         icon="star-o"
