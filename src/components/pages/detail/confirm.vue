@@ -8,19 +8,19 @@
     <div class="confirmWarp">
       <div class="location" @click="goSomePage('choseLocation')">
         <p class="title">
-          <span class="name">张大龙</span>
-          <span class="phone">18610904457</span>
+          <span class="name">{{orderDetail.address.name}}</span>
+          <span class="phone">{{orderDetail.address.phone}}</span>
         </p>
         <div class="detailLocation">
-          <span class="isDefaule">默认</span>
-          <span class="local">山东市淄博市调往第九期我我哦掉全局</span>
+          <!--<span class="isDefaule">默认</span>-->
+          <span class="local">{{orderDetail.address.address}}</span>
           <van-icon name="arrow" class="arrow" size=".5rem" color="rgba(0,0,0,0.6)"/>
         </div>
       </div>
     </div>
     <div class="goodsList">
-      <div class="goodsItem" v-for="item in 30">
-        <p class="shopName">专卖店</p>
+      <div class="goodsItem" v-for="item in orderDetail.shopProducts">
+        <p class="shopName">{{item.shopName}}</p>
         <div class="goodsInfo">
           <div class="avatar"></div>
           <div class="goodsDetail">
@@ -64,6 +64,11 @@
 </template>
 <script type="text/ecmascript-6">
   export default {
+    data(){
+      return{
+        orderDetail:this.$route.params
+      }
+    },
     methods: {
       goSomePage(type) {
         if (type == 'back') {
@@ -72,6 +77,14 @@
           this.$router.push({name: type})
         }
       }
+    },
+    created(){
+    /*  if(!this.$route.params.shopProducts){
+        this.$toast('订单有误，请重新下单')
+        this.$router.push({name:'myCart'})
+      }*/
+    this.orderDetail = {"address":{"id":14,"name":"霍潇飞","phone":"17695929894","address":"   北京通州"},"shopProducts":[{"shopId":1,"shopName":"鑫鑫店铺","products":[{"productId":1,"skuId":1,"num":6,"productName":"小辣椒 红辣椒7X  学生智能手机 美颜双摄 微Q多开 人脸识别 移动联通电信4G全网通 黑色","mainImg":"https://img13.360buyimg.com/n1/s450x450_jfs/t1/9085/2/12381/146200/5c371c5bE08328383/4f4ba51aed682207.jpg","skuName":"梦幻蓝  3GB+32GB","price":1199,"goldCouponNum":0}]}],"allPrice":7194,"goldCouponNum":0,"allFreight":10}
+    console.log(this.orderDetail)
     }
   }
 </script>

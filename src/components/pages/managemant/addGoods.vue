@@ -55,11 +55,11 @@
         actions: [
           {
             name: '上架',
-            id: 0
+            id: 5
           },
           {
             name: '下架',
-            id: 5
+            id: 0
           }
         ],
         detailInit: {},
@@ -98,6 +98,7 @@
         }else if(this.formData.categoryId == 0){
           this.$toast('请选择类目')
         }else{
+          this.formData.status = this.isSelect.id
           this.formData.desc = this.detailInit.recommendTxt + `<img src='${this.detailInit.recommend}'/>`
           this.formData.skus.forEach((item) => {
             item.imgs = item.imgs.join(',')

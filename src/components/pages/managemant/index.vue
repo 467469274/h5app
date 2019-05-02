@@ -84,6 +84,7 @@
       },
       getData(id){
         this.nowid = id
+        this.products = []
         this.$ajax('/api/shop/product', {status: this.active ==0?1:0,categoryId:id},
           (res) => {
             if(this.categorys.length==0 &&  res.data.categorys.length>0) {

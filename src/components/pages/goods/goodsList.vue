@@ -19,10 +19,12 @@
       </div>
       <searchInput @click="goSearch" v-if="type=='search'" :searchInt="searchInt"></searchInput>
       <div class="filters">
-        <div class="item" @click="show = true"><span :class="{active:acitveClass ==1 || acitveClass ==2}">{{choseType}}<i class="jt"></i></span></div>
+        <div class="item" @click="show = true"><span
+          :class="{active:acitveClass ==1 || acitveClass ==2}">{{choseType}}<i class="jt"></i></span></div>
         <div class="item" @click="changeType(3)"><span :class="{active:acitveClass ==3}">新品</span></div>
         <div class="item" @click="changeType(4)"><span :class="{active:acitveClass ==4}">销量</span></div>
-        <div class="item" @click="changeType(5)"><span :class="{active:acitveClass ==5 || acitveClass ==6}">价格</span></div>
+        <div class="item price" @click="changeType(5)"><span :class="{active:acitveClass ==5 || acitveClass ==6}">价格 <i
+          :class="{'up':acitveClass==5,'down':acitveClass==6}"></i></span></div>
       </div>
     </div>
     <van-swipe :autoplay="3000" class="indexWarp" v-show="routeName =='malls'" style="margin-top: 2rem">
@@ -62,19 +64,19 @@
     },
     data() {
       return {
-        choseType:"综合",
-        show:false,
-        actions:[
+        choseType: "综合",
+        show: false,
+        actions: [
           {
             name: '综合',
-            id:1
+            id: 1
           },
           {
             name: '评论从高到低',
-            id:2
+            id: 2
           }
         ],
-        isShowFl:false,
+        isShowFl: false,
         list: [],
         loading: false,
         finished: false,
@@ -101,10 +103,9 @@
     mounted() {
     },
     methods: {
-      select(it){
-        console.log(it)
+      select(it) {
         this.changeType(it.id);
-        this.choseType = it.name=='评论从高到低'?'评论':'综合'
+        this.choseType = it.name == '评论从高到低' ? '评论' : '综合'
         this.show = false
       },
       getBanner() {
@@ -129,12 +130,12 @@
         } else if (this.routeName == 'malls') {
           url = '/api/search'
           this.postP.k = ''
-          if(this.active2 == 0){
+          if (this.active2 == 0) {
             this.postP.l = 0
-          }else{
+          } else {
             this.postP.l = 5
           }
-        }else if (this.type == 'fl') {
+        } else if (this.type == 'fl') {
           url = '/api/search'
           this.postP.categoryId = this.$route.query.id
         } else {
@@ -146,7 +147,7 @@
           } else {
             this.products = res.data.products
           }
-          this.postP.currPage+=1
+          this.postP.currPage += 1
           this.finished = true
           this.loading = false
         }, () => {
@@ -162,12 +163,15 @@
         this.$router.push({name: 'search'})
       },
       changeType(v) {
+        if (v == 5 && this.acitveClass == 5) {
+          v = 6
+        }
         this.acitveClass = v
         this.postP.order = v
         this.postP.currPage = 1
         this.onLoad()
       },
-      onchange(){
+      onchange() {
         this.postP.currPage = 1
         this.onLoad()
       }
@@ -244,7 +248,7 @@
       margin-top: 1.9rem;
     }
     .marginTop02 {
-      margin-top:.2rem;
+      margin-top: .2rem;
     }
     .list {
       flex: 1;
@@ -301,6 +305,26 @@
         content: '';
         display: block;
         padding-bottom: 40%;
+      }
+    }
+  }
+
+  .price {
+    position: relative;
+    i {
+      position: absolute;
+      height: 50%;
+      width: .2rem;
+      right: 20%;
+      background: url("/static/active.png") no-repeat;
+      background-size: 100% 100%;
+      top: 30%;
+      transform: translateY(-50%);
+      &.up {
+        background-image: url("/static/up.png");
+      }
+      &.down {
+        background-image: url("/static/down.png");
       }
     }
   }

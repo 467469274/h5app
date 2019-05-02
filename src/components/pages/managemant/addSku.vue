@@ -52,11 +52,11 @@
         actions:[
           {
             name: '上架',
-            id:0
+            id:5
           },
           {
             name: '下架',
-            id:5
+            id:0
           }
         ]
       }

@@ -55,10 +55,10 @@ export function $ajax(url, data, call, err, methodsType) {
       formData.append(key, data[key])
     }
     axios.delete(ajaxUrl, {data: formData}).then((res) => {
-      if(re.data.code ==0){
-        call(re.data)
+      if(res.data.code ==0){
+        call(res.data)
       }else{
-        err(re.data.msg)
+        err(res.data.msg)
       }
     }).catch((err) => {
     })
@@ -83,6 +83,20 @@ export function $ajax(url, data, call, err, methodsType) {
       method: 'post',
       url: ajaxUrl,
       data: data
+    }).then(function (re) {
+      if(re.data.code ==0){
+        call(re.data)
+      }else{
+        err(re.data.msg)
+      }
+    }).catch(function (error) {
+
+    })
+  }else if(methodsType == 'upOrder'){
+    axios({
+      method: 'post',
+      url:`${ajaxUrl}?token=${tk}` ,
+      data: data,
     }).then(function (re) {
       if(re.data.code ==0){
         call(re.data)

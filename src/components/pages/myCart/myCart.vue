@@ -9,9 +9,10 @@
     />
     <div class="goodsList">
       <div class="goodsItem" v-for="item in list">
-        <p class="shopName"><van-checkbox class="check" v-model="item.checked"></van-checkbox>{{item.shopName}}</p>
+        <p class="shopName">
+          <van-checkbox class="check" @click="fatherChange(item)" v-model="item.checked"></van-checkbox>{{item.shopName}}</p>
         <div class="goodsInfo" v-for="(product,index) in item.products">
-          <van-checkbox class="check" v-model="product.checked"></van-checkbox>
+          <van-checkbox class="check" @click="checkIsAll" v-model="product.checked"></van-checkbox>
           <div class="avatar" :style="{backgroundImage:'url('+product.mainImg+')'}"></div>
           <div class="goodsDetail">
             <p class="sl goodsName">{{product.productName}}</p>
@@ -30,10 +31,10 @@
       :button-text="!isEdit?'去结算':'删除'"
       @submit="onSubmit"
     >
-      <div><van-checkbox class="check" v-model="allCheck"></van-checkbox> <span>全选</span></div>
+      <div><van-checkbox class="check" v-model="allCheck" @change="changeAll" ></van-checkbox> <span>全选</span></div>
       <div class="txt" v-show="!isEdit">
-        <p>合计 <span>100万</span></p>
-        <p>总价 <span>100万</span></p>
+        <!--<p>合计 <span>{{allPrice}}</span></p>-->
+        <p>总价 <span>{{allPrice}}</span></p>
       </div>
     </van-submit-bar>
   </div>
@@ -53,7 +54,55 @@
       created(){
         this.getData()
       },
+      computed:{
+        allPrice(){
+          let num = 0,
+            gold = 0;
+          this.list.forEach((item)=>{
+            item.products.forEach((it)=>{
+              if(it.checked){
+                num+= it.price * it.num
+                gold += it.goldCouponNum * it.num
+              }
+            })
+          })
+          return `￥${num} + ${gold}券`
+        },
+        allPrices(){}
+      },
       methods:{
+        changeAll(type){
+          this.list.forEach((item)=>{
+            item.checked = type;
+            item.products.forEach((ite)=>{
+              ite.checked = type
+            })
+          })
+        },
+        fatherChange(item){
+          this.list.forEach((item)=>{
+            item.products.forEach((ite)=>{
+              ite.checked = item.checked
+            })
+          })
+          this.checkIsAll()
+        },
+        checkIsAll(){
+          let flag = true
+          this.list.forEach((item)=>{
+            let itemFlag = true;
+            item.products.forEach((ite)=>{
+              if(!ite.checked){
+                itemFlag = false;
+              }
+            })
+            item.checked = itemFlag
+            if(!item.checked){
+              flag = false
+            }
+          })
+          this.allCheck = flag
+        },
         onSubmit(){
           if(this.isEdit){
             let delList = [];
@@ -68,17 +117,41 @@
             this.$ajax('/api/product/car',{
               skuIds:delList
             },(res)=>{
-              console.log(res)
               this.$toast('删除成功');
-            },()=>{},'DELETE')
+              this.getData()
+            },(err)=>{
+              this.$toast(err);
+            },'DELETE')
+          }else{
+            let list = []
+            this.list.forEach((item)=>{
+              item.products.forEach((ite)=>{
+                if(ite.checked){
+                  list.push({
+                    "num":ite.num,
+                    "skuId": ite.skuId
+                  })
+                }
+              })
+            })
+            this.$ajax('/api/order/confirmOrder',list,(res)=>{
+//              res.data
+              this.$router.push({name:'confirm',params:res.data})
+            },(err)=>{
+              this.$toast(err)
+            },'upOrder')
           }
         },
         getData(){
-
           this.$ajax('/api/product/car',{
           },(res)=>{
+            res.data.forEach((item)=>{
+              item.checked = false
+              item.products.forEach((it)=>{
+                it.checked = false
+              })
+            })
             this.list = res.data
-            console.log(res.data)
           },()=>{
 
           },'get')
@@ -93,7 +166,6 @@
               console.log(res)
             },()=>{},'PUT')
           },1000)
-          this.$toast('更改成功');
         }
       }
     }
