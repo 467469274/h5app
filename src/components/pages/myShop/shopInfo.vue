@@ -27,7 +27,7 @@
         <div class="cell"><span>联系电话</span><input v-model="shopInfo.phone" :disabled="!isEdit" type="text" :placeholder="isEdit?'请填写':''" class="input"/></div>
       </van-cell>
     </div>
-    <div class="sure bgr" @click="goSomePage('backCard')" v-if="isEdit">确认并提交材料</div>
+    <div class="sure bgr" @click="save" v-if="isEdit">确认并提交材料</div>
     <fl @choseOk="choseOk" @back="isShowFl=false" :type="'choseType'" v-if="isShowFl"></fl>
   </div>
 </template>
@@ -57,7 +57,6 @@
         }
       },
       showFl(){
-        console.log(123)
         if(this.isEdit){
           this.isShowFl = true
         }
@@ -68,11 +67,13 @@
         this.shopInfo.categoryIds = item.id
       },
       save(){
+        console.log(122222)
         this.$ajax('/api/mine/info',this.shopInfo, (res) => {
           this.isEdit = false;
           this.$toast('编辑成功')
-        }, () => {
-        }, 'put')
+        }, (err) => {
+          console.log(err)
+        },'PUT')
       },
       getAvatar() {
         this.$ajax('/api/mine/info', {}, (res) => {

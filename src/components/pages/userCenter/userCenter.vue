@@ -16,7 +16,7 @@
         <div class="cell"><span>昵称:</span><input type="text" v-model="userInfo.username" @blur="changeUserInfo({username:userInfo.username},()=>{$toast('设置成功')})" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号:</span><input type="text" v-model="userInfo.phone" @blur="changeUserInfo({phone:userInfo.phone},()=>{$toast('设置成功')})" class="input"/></div>
+        <div class="cell"><span>手机号:</span><input type="number" v-model="userInfo.phone" @blur="changeUserInfo({phone:userInfo.phone},()=>{$toast('设置成功')})" class="input"/></div>
       </van-cell>
       <van-cell title="性别"  @click="goSomePage('sex')" is-link>{{userInfo.sex == 2?'女':'男'}}</van-cell>
       <van-cell title="收货地址" to="choseLocation" is-link />
@@ -63,6 +63,7 @@
         }else if(type=='qrcode'){
           this.$router.push({name: 'qrcode',params:{url:this.userInfo.qrcode}})
         }else if(type=='sex'){
+          console.log(this.userInfo.sex)
           this.$router.push({name: 'sex',query:{type:this.userInfo.sex}})
         } else {
           this.$router.push({name: type})

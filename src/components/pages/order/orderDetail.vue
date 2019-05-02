@@ -8,7 +8,7 @@
     <div class="status">{{status[detail.status]}}</div>
 
     <div class="confirmWarp">
-      <div class="location" @click="goSomePage('choseLocation')">
+      <div class="location">
         <p class="title">
           <span class="name">{{detail.name}}</span>
           <span class="phone">{{detail.phone}}</span>

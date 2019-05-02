@@ -36,6 +36,10 @@
         if(type == 'back'){
           this.$router.back(-1)
         }else{
+          if(this.phone == ''){
+            this.$toast('卡号不能为空')
+            return
+          }
           this.$router.push({name: type,query:{phone:this.phone,cardType:this.$route.query.type}})
         }
       }

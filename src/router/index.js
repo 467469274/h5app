@@ -73,6 +73,9 @@ const rollOut = () => import('@/components/pages/order/rollOut')
 //体现页面
 const withdraw = () => import('@/components/pages/order/withdraw')
 
+//提现页面
+const getMoney = () => import('@/components/pages/order/getMoney')
+
 //签到页面
 const signIn = () => import('@/components/pages/order/signIn')
 //今日订单
@@ -394,6 +397,12 @@ const router = new Router({
       path:'/withdraw',
       name: 'withdraw',
       component: withdraw
+    },
+    //提现
+    {
+      path:'/getMoney',
+      name: 'getMoney',
+      component: getMoney
     },
     //签到
     {

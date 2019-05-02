@@ -3,7 +3,6 @@
     <div class="searchBox">
       <van-icon name="arrow-left" @click="goSomePage('myShop')" size=".3rem" style="margin-right: .2rem" />
       <input type="text" v-model="searchTxt" @keyup="change" placeholder="请输入搜索内容.....">
-      <!--<span class="iconn" @click="goSomePage('classList')"></span>-->
       <span class="iconn add" @click="goSomePage('addGoods')"></span>
     </div>
     <van-tabs @change="onchange" v-model="active">
@@ -68,7 +67,14 @@
       goSomePage(type) {
         this.$router.push({name: type})
       },
-      change() {
+      change(v) {
+       let arrs =  this.copyp.filter((item)=>{
+          if(item.name.indexOf(this.searchTxt)>=0){
+            return item
+          }
+       })
+        console.log(arrs)
+        this.products = arrs
       },
       goDetail(id){
 //        goodsId
@@ -102,6 +108,7 @@
               this.categorys = res.data.categorys
             }
             this.products = res.data.products
+            this.copyp = JSON.parse(JSON.stringify(res.data.products))
           },
           (err)=>{
             console.log(err)

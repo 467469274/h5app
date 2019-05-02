@@ -39,7 +39,7 @@
         </div>-->
       </div>
     </div>
-    <p class="title">待处理订单</p>
+    <p class="title" v-if="userDetail.orders.length>0">待处理订单</p>
     <div class="orderList">
       <div class="order" v-for="(item,index) in userDetail.orders">
         <p class="text">

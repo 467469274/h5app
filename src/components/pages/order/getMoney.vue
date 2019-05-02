@@ -1,13 +1,13 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="提现"
+      title="充值"
       left-arrow
       @click-left="$router.back(-1)"
     />
     <div class="warp">
        <van-cell>
-        <div class="cell"><span>金额（元）</span><input placeholder="请输入提现金额" type="number" class="input"/></div>
+        <div class="cell"><span>金额（元）</span><input placeholder="请输入充值金额" type="number" class="input"/></div>
       </van-cell>
        <van-cell>
             <div class="cellPay">

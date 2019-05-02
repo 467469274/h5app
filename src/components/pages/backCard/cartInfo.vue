@@ -14,10 +14,10 @@
       </van-cell>
       <van-cell title="证件类型" to="choseType"><span style="color: #CD0000;float: right">身份证</span></van-cell>
       <van-cell>
-        <div class="cell"><span>证件号</span><input v-model="idcard" placeholder="请输入身份证号" type="text" class="input"/></div>
+        <div class="cell"><span>证件号</span><input v-model="idcard" placeholder="请输入身份证号" type="number" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号</span><input v-model="phone" placeholder="请输入预留手机号" type="text" class="input"/></div>
+        <div class="cell"><span>手机号</span><input v-model="phone" placeholder="请输入预留手机号" type="number" class="input"/></div>
       </van-cell>
       <p class="message" style="color: #CD0000">请绑定持卡本人的银行卡</p>
       <van-checkbox shape="0" class="checkbox" style="margin-left:.3rem" v-model="checked" checked-color="red">同意用户协议</van-checkbox>
@@ -43,25 +43,34 @@
       goSomePage (type) {
         if(type == 'back'){
           this.$router.back(-1)
-
         }else{
           this.$router.push({name: type})
         }
       },
       submit(){
-        this.$ajax('/api/mine/cardSave',{
-          bankName:this.cartType,
-          bankId:this.$route.query.cardType,
-          cardno:this.$route.query.phone,
-          username:this.username,
-          idcard:this.idcard,
-          phone:this.phone,
-        },()=>{
-          this.$toast('添加成功')
-          this.$router.push({name:'backCard'})
-        },()=>{
-
-        },'PUT')
+        if(this.username == ''){
+          this.$toast('请填写真实姓名')
+        }else if(this.idcard == ''){
+          this.$toast('请输入身份证号')
+        }else if(this.phone == ''){
+          this.$toast('请输入预留手机号')
+        }else if(!this.checked){
+          this.$toast('请勾选用户协议')
+        }else{
+          this.$ajax('/api/mine/cardSave',{
+            bankName:this.cartType,
+            bankId:this.$route.query.cardType,
+            cardno:this.$route.query.phone,
+            username:this.username,
+            idcard:this.idcard,
+            phone:this.phone,
+          },()=>{
+            this.$toast('添加成功')
+            this.$router.push({name:'backCard'})
+          },(err)=>{
+            this.$toast(err)
+          },'PUT')
+        }
       }
     },
     computed:{

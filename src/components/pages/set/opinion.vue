@@ -34,13 +34,21 @@
       },
       submit(){
 //        PUT
-        this.$ajax('/api/system/feedBack',{
-          content:this.content,
-          phone:this.phone
-        },()=>{
-          this.$toast('反馈成功,感谢您的反馈');
-          this.onClickRight()
-        },()=>{},'PUT')
+        if(this.content == ''){
+          this.$toast('请填写内容');
+        }else if(this.phone == ''){
+          this.$toast('请填写手机号');
+        }else if(this.phone.length<18){
+          this.$toast('请填写正确的手机号');
+        }else{
+          this.$ajax('/api/system/feedBack',{
+            content:this.content,
+            phone:this.phone
+          },()=>{
+            this.$toast('反馈成功,感谢您的反馈');
+            this.onClickRight()
+          },()=>{},'PUT')
+        }
       }
     }
   }

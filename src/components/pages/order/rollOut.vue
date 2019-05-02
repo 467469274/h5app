@@ -8,10 +8,10 @@
     />
     <div class="warp">
        <van-cell>
-        <div class="cell"><span>对方账户</span><input v-model="phone" placeholder="请输入手机号" type="text" class="input"/></div>
+        <div class="cell"><span>对方账户</span><input v-model="phone" placeholder="请输入手机号" type="number" class="input"/></div>
       </van-cell>
        <van-cell>
-        <div class="cell"><span>转出金额</span><input v-model="gold" placeholder="请输入转出金额" type="text" class="input"/></div>
+        <div class="cell"><span>转出金额</span><input v-model="gold" placeholder="请输入转出金额" type="number" class="input"/></div>
       </van-cell>
        <van-cell>
         <div class="cell"><span>备注说明</span><input v-model="remarks" placeholder="请填写备注" type="text" class="input"/></div>
@@ -51,14 +51,10 @@ import gainCode from '../../common/gainCode.vue'
       }
     },
     created(){
-//      PUT
-
-    /*  this.$ajax('/api/mine/withdrawCheck', {},
-        (res) => {
-        }, (err) => {
-        console.log(err)
-          this.$router.push('setPassword')
-        }, 'PUT')*/
+      if(!this.$route.query.mobile){
+        this.$toast('用户信息有误，请重新尝试')
+        this.$router.push({name:'wallet'})
+      }
     },
     methods:{
       getCode() {
@@ -81,7 +77,8 @@ import gainCode from '../../common/gainCode.vue'
                   }
                 }, 1000)
               }
-            }, () => {
+            }, (err) => {
+              this.$toast(err)
             }, 'post')
         }
       },

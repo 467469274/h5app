@@ -10,7 +10,8 @@ export function $ajax(url, data, call, err, methodsType) {
       err(data.data.msg)
     }
   };
-  var tk = getCookie('token')
+  // var tk = getCookie('token')
+  var tk = '2'
   data.token = tk
   if (methodsType == 'get') {
     axios.get(ajaxUrl, {

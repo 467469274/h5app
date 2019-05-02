@@ -8,10 +8,10 @@
     />
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>挂卖数量</span><input v-model="phone" placeholder="请输入数量" type="text" class="input"/></div>
+        <div class="cell"><span>挂卖数量</span><input v-model="phone" placeholder="请输入数量" type="number" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>卖出价格</span><input v-model="gold" placeholder="请输入价格" type="text" class="input"/></div>
+        <div class="cell"><span>卖出价格</span><input v-model="gold" placeholder="请输入价格" type="number" class="input"/></div>
       </van-cell>
       <van-cell>
         <div class="cell"><span>支付密码</span><input placeholder="请填写支付密码" v-model="password" type="password" class="input"/></div>
@@ -55,6 +55,11 @@
           console.log(err)
             this.$router.push('setPassword')
           }, 'PUT')*/
+
+      if(!this.$route.query.mobile){
+        this.$toast('用户信息有误，请重新尝试')
+        this.$router.push({name:'wallet'})
+      }
     },
     methods:{
       goSomepage (type,query) {
@@ -80,7 +85,8 @@
                   }
                 }, 1000)
               }
-            }, () => {
+            }, (err) => {
+              this.$toast(err)
             }, 'post')
         }
       },
@@ -117,6 +123,8 @@
           },(err)=>{
             this.$toast(err)
           },'PUT')
+        }else{
+          this.$toast('请检查验证码')
         }
 //        phone
 //        gold

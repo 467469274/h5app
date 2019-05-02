@@ -8,7 +8,7 @@
     <div class="warp">
 
        <van-cell>
-        <div class="cell"><span>冻结金额</span><input placeholder="请输入冻结金额" type="text" class="input"/></div>
+        <div class="cell"><span>冻结金额</span><input placeholder="请输入冻结金额" type="number" class="input"/></div>
       </van-cell>
       <p class="message firstMargin">冻结金额：</p>
       <p class="message">遇到以下情形，您可以申请<span>冻结账户金额</span>冻结后吗您的金额不能进行任何交易。</p>

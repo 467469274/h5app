@@ -80,7 +80,13 @@
           'PUT')
       },
       next(){
-        if(this.serviceCode == this.code){
+        if(this.phone == ''){
+          this.$toast('请填写手机号')
+        }else if(this.code == ''){
+          this.$toast('验证码不能为空')
+        }else if(this.serviceCode != this.code){
+          this.$toast('请检查验证码')
+        }else if(this.serviceCode == this.code){
           this.showSet = true
         }
       },

@@ -45,7 +45,15 @@
         del(){
          let list = this.list.map((item)=>item.checked&&item.skuId)
           console.log(list)
-//          /api/product/collection
+          this.$ajax('/api/mine/collection',{
+            ids:list
+          },(res)=>{
+            this.$toast('删除成功')
+            this.getData()
+            this.isEdit = false
+          },(err)=>{
+            this.$toast(err)
+          },"DELETE")
         },
         getData(){
           this.$ajax('/api/mine/collection',{},(res)=>{

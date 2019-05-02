@@ -27,7 +27,7 @@
       }
     },
     created() {
-      this.radio = this.$route.query.type.toString()
+      this.radio = this.$route.query.type?this.$route.query.type+'':'1'
     },
     methods: {
       goSomePage(type) {

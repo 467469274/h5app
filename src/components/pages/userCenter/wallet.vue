@@ -11,17 +11,17 @@
       <van-tab title="普通账户">
         <div class="strip"></div>
         <div class="member-user">
-          <div class="topWarp" @click="goSomePage('userCenter')">
+          <div class="topWarp">
             <p class="userCenter">{{userInfo.money}}元</p>
             <p class="name">当前收益</p>
           </div>
           <div class="meberBottom">
             <div class="btns">
-              <div class="btn" @click="$toast('敬请期待')">
+              <div class="btn" @click="goSomePage('getMoney')">
                 <img src="/static/qian@2x.png" alt="">
                 <p>充值</p>
               </div>
-              <div class="btn" @click="$toast('敬请期待')">
+              <div class="btn"@click="goSomePage('withdraw')">
                 <img src="/static/tiqu@2x.png" alt="">
                 <p>提现</p>
               </div>
