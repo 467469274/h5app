@@ -21,6 +21,7 @@
       </div>
     </div>
     <div class="loginBtn" @click="over">完成</div>
+    <colorBox :color="'#fff'"></colorBox>
   </div>
 </template>
 
@@ -72,14 +73,6 @@
 </script>
 
 <style scoped lang="scss">
-  .register {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-  }
   .loginInput{
     width: 90%;
     margin: 0 auto;

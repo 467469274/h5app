@@ -10,13 +10,13 @@
     <p class="strip" style="background: #EAEBEC"></p>
     <div class="inputWarp">
       <div class="loginInput">
-        <img src="/static/loginsj.png" alt="">
+        <img src="/static/loginsj.png">
         <input type="text" placeholder="请输入手机号" v-model="userName">
         <span class="clear"></span>
       </div>
       <div class="codeWarp">
         <div class="loginInput">
-          <img src="/static/yanzhengma@2x.png" alt="">
+          <img src="/static/yanzhengma@2x.png">
           <input type="text" placeholder="请输入验证码" v-model="code">
         </div>
         <div class="getCodeBtn" @click="getCode">
@@ -33,6 +33,7 @@
     <p class="otherTxt">
       <van-checkbox v-model="checked"></van-checkbox>
       我同意<span>《家家商城永华服务协议》</span></p>
+    <colorBox color="#fff"></colorBox>
   </div>
 </template>
 
@@ -76,7 +77,9 @@
                   }
                 }, 1000)
               }
-            }, () => {
+            }, (err) => {
+              this.$toast(err)
+              this.canClick = true;
             }, 'post')
         }
       },
@@ -107,11 +110,6 @@
             }, 'post')
         }
       },
-      registerUserAction() {
-        if (this.checkForm()) {
-          this.axiosRegisterUser()
-        }
-      },
       // 验证手机号吗和密码
       /*checkForm () {
         let username = this.userName
@@ -136,15 +134,6 @@
 </script>
 
 <style scoped lang="scss">
-  .register {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-  }
-
   .loginInput {
     width: 90%;
     margin: 0 auto;
@@ -225,10 +214,11 @@
     width: 90%;
     margin: 0 auto;
     margin-top: .3rem;
+    line-height: 2;
     .van-checkbox {
       display: inline-block;
       margin-right: .3rem;
-      vertical-align: -0.08rem
+      vertical-align: top;
     }
     span {
       color: red;

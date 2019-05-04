@@ -27,6 +27,7 @@
         </van-cell>
       </van-cell-group>
     </van-radio-group>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">

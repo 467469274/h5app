@@ -27,6 +27,7 @@
     <div class="sureConatiner">
       <div class="sure" @click="save">创建订单</div>
     </div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

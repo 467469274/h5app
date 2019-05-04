@@ -12,6 +12,7 @@
         </div>
         <router-view v-if="!$route.meta.keepAlive" />
     </div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

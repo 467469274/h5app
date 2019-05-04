@@ -24,6 +24,7 @@
       </van-cell>
     </div>
     <div class="sure" style="background: #598ACF" @click="clear">注销登录</div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

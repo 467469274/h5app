@@ -44,7 +44,7 @@
         <div v-if="orderlist.length==0" style="line-height: 2rem;text-align: center;color: rgba(0,0,0,.6);font-size:.4rem">暂无订单</div>
       </div>
     </div>
-
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

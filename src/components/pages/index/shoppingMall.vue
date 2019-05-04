@@ -86,6 +86,8 @@
     >
       <goods :list="hotGoods"></goods>
     </van-list>
+    <colorBox :color="'#fff'"></colorBox>
+
   </div>
 </template>
 
@@ -199,11 +201,8 @@ export default {
 <style scoped lang="scss">
 $border-1px: 1PX solid #666;
 .shoppingMall {
-  width: 100%;
-  height: 100%;
   overflow: hidden;
   overflow-y: auto;
-  background: #fff;
   .banner {
     width: 100%;
     height: 3.4rem;

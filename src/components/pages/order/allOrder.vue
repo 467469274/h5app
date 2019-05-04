@@ -51,7 +51,7 @@
         </van-list>
       </div>
     </div>
-
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

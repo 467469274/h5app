@@ -29,6 +29,7 @@
     </div>
     <div class="sure bgr" @click="save" v-if="isEdit">确认并提交材料</div>
     <fl @choseOk="choseOk" @back="isShowFl=false" :type="'choseType'" v-if="isShowFl"></fl>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">

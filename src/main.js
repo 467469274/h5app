@@ -6,6 +6,7 @@ import 'vant/lib/index.css';
 import Vue from 'vue';
 import Vant from 'vant';
 import vueUpload from '@/components/common/upload';
+import colorBox from '@/components/common/colorBox';
 import {$ajax} from '@/common/ajax';
 import {setCookie,getCookie} from '@/common/cookies';
 import 'vant/lib/index.css';
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 // options 为可选参数，无则不传
 Vue.use(Lazyload);Vue.use(Toast);
 Vue.component('vueUpload',vueUpload)
+Vue.component('colorBox',colorBox)
 Vue.prototype.$ajax = $ajax
 Vue.prototype.setCookie = setCookie;
 Vue.prototype.getCookie = getCookie;

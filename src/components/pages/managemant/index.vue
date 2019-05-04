@@ -41,6 +41,7 @@
         </div>
       </div>
     </div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -136,7 +137,7 @@
       background: #fff;
       position: fixed;
       top: 2.9rem;
-      bottom: 0rem;
+      bottom: 0;
       width: 100%;
       left: 0;
       overflow-y: scroll;

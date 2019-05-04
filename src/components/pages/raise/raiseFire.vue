@@ -15,20 +15,21 @@
     <div class="inputList">
       <div class="inputItem moreInput">券种价格
         <div>
-          <input type="text" v-model="gold" placeholder="请填写">金=<input v-model="silver" type="text" placeholder="请填写">银
+          <input type="number" v-model="gold" placeholder="请填写">金=<input v-model="silver" type="number" placeholder="请填写">银
         </div>
       </div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹规模 <input v-model="dimensions" type="text" placeholder="请填写"></div>
+      <div class="inputItem">众筹规模 <input v-model="dimensions" type="number" placeholder="请填写"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">限量 <input v-model="quantity" type="text" placeholder="请填写"></div>
+      <div class="inputItem">限量 <input v-model="quantity" type="number" placeholder="请填写"></div>
     </div>
     <div class="inputList">
       <div class="inputItem">众筹介绍 <input v-model="recommend" type="text" placeholder="请填写"></div>
     </div>
     <div class="fireBtn" @click="save">发布</div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

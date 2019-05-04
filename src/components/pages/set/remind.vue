@@ -16,6 +16,7 @@
     <van-cell-group>
       <van-switch-cell v-model="checkedb" size=".4rem" title="震动" />
     </van-cell-group>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">

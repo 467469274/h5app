@@ -31,6 +31,7 @@
         <div class="sure" @click="save">保存</div>
         <p>提示：转出后无法收回，请确认转账信息</p>
     </div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

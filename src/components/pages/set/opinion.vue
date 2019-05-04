@@ -18,6 +18,7 @@
                           v-model="phone" placeholder="请输入手机号" />
     </van-cell-group>
     <div class="sure" style="background: #4EA264" @click="submit">提交</div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">

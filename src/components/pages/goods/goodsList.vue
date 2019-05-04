@@ -47,6 +47,7 @@
       :actions="actions"
       @select="select"
     />
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

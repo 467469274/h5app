@@ -1,21 +1,22 @@
 <template>
   <div class="login">
     <div class="top">
-      <img src="/static/loginlogo.png" alt="">
+      <img src="/static/loginlogo.png">
     </div>
     <div class="loginMain">
       <div class="loginInput">
-        <img src="/static/loginsj.png" alt="">
+        <img src="/static/loginsj.png">
         <input type="text" placeholder="请输入手机号" v-model="phone">
       </div>
       <div class="loginInput">
-        <img src="/static/loginlock.png" alt="">
+        <img src="/static/loginlock.png">
         <input type="password" placeholder="请输入密码" v-model="password">
       </div>
-      <p class="otherBtn"><!--<span class="forgetPassword">忘记密码</span>--> <span class="remenberPassword" @click="changeRemenber(isRemeber==1?'no':1)"><i :class="{'org':isRemeber==1}"></i>记住密码</span></p>
+      <p class="otherBtn"><span class="forgetPassword" @click="forget">忘记密码</span> <span class="remenberPassword" @click="changeRemenber(isRemeber==1?'no':1)"><i :class="{'org':isRemeber==1}"></i>记住密码</span></p>
       <div class="loginBtn" @click="gologin">登录</div>
       <p class="register">如果您还没有账号，请 <span @click="goRegister">注册</span></p>
     </div>
+    <colorBox color="#fff"></colorBox>
   </div>
 </template>
 
@@ -31,6 +32,9 @@ export default {
   created () {
   },
   methods: {
+    forget(){
+
+    },
     goRegister(){
       this.$router.push({name:'register'})
     },
@@ -69,14 +73,15 @@ export default {
 
 <style scoped lang="scss">
   .login{
-    position:fixed;
+ /*   position:fixed;
     left: 0;
     top: 0;
-    background: #fff;
     width: 100%;
     height: 100%;
+    z-index: 1;*/
+    background: #fff;
     .top{
-      height:4.85rem;
+      height:4rem;
       background:url("/static/loginTop.png") no-repeat;
       background-size: 100% 100%;
       position: relative;
@@ -112,6 +117,7 @@ export default {
         }
       }
       .otherBtn{
+        line-height: 2.5;
         margin-top: -.1rem;
         .forgetPassword{
           color: rgb(248,73,33);
@@ -139,7 +145,8 @@ export default {
         font-size: 16px;
       }
       .register{
-        margin-top: .35rem;
+        line-height: 2;
+        margin-top:.4rem;
         text-align: center;
         span{
           color: rgb(248,73,33);

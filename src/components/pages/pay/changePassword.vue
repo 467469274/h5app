@@ -33,6 +33,7 @@
       @delete="onDelete"
       @blur="showKeyboard = false"
     />
+    <colorBox :color="'#fff'"></colorBox>
   </div>
 </template>
 
@@ -126,12 +127,6 @@
 
 <style scoped lang="scss">
   .sexWarp{
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
     .nav{
       margin-bottom: 1.3rem;
       border-bottom: .2rem solid rgb(231,233,234);

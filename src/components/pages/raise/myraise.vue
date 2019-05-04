@@ -85,6 +85,7 @@
         </van-list>
       </van-tab>
     </van-tabs>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

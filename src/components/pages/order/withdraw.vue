@@ -31,7 +31,7 @@
     </div>
 
     <div class="sure">下一步</div>
-
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

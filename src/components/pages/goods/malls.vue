@@ -2,6 +2,7 @@
   <div>
     <goodList listType="malls"></goodList>
     <div class="cart" @click="$router.push({name:'myCart'})"></div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">

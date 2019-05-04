@@ -23,6 +23,7 @@
     <addSku v-show="showSku" :initD2ata="formData.skus" @back="hideSku"></addSku>
     <goodsDetail :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
     <fl @back="isShowFl=false" :type="'choseType'" @choseOk="choseOk" v-if="isShowFl"></fl>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

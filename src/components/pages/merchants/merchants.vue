@@ -98,6 +98,7 @@
       </div>
       <img src="../../../assets/images/merchants2.png">
     </div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 

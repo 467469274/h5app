@@ -62,8 +62,8 @@
         </van-cell-group>
       </div>
     </div>
-    <!-- <div class="sign-out"> -->
-      <van-button size="large" @click="signOut" v-show="isLogin">退出登录</van-button>
+      <!--<van-button size="large" @click="signOut" v-show="isLogin">退出登录</van-button>-->
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 
