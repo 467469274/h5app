@@ -76,6 +76,7 @@ const withdraw = () => import('@/components/pages/order/withdraw')
 
 //提现页面
 const getMoney = () => import('@/components/pages/order/getMoney')
+const buygold = () => import('@/components/pages/order/buygold')
 
 //签到页面
 const signIn = () => import('@/components/pages/order/signIn')
@@ -404,6 +405,11 @@ const router = new Router({
       path:'/getMoney',
       name: 'getMoney',
       component: getMoney
+    },
+    {
+      path:'/buygold',
+      name: 'buygold',
+      component: buygold
     },
     //签到
     {

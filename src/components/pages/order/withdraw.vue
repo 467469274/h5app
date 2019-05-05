@@ -7,7 +7,8 @@
     />
     <div class="warp">
        <van-cell>
-        <div class="cell"><span>金额（元）</span><input placeholder="请输入提现金额" type="number" class="input"/></div>
+         <div class="cell"><span>提现账户</span><input placeholder="请输入提现账户" v-model="user" type="text" class="input"/></div>
+         <div class="cell"><span>金额（元）</span><input placeholder="请输入提现金额" v-model="price"  type="number" class="input"/></div>
       </van-cell>
        <van-cell>
             <div class="cellPay">
@@ -30,7 +31,7 @@
 
     </div>
 
-    <div class="sure">下一步</div>
+    <div class="sure" @click="save">下一步</div>
     <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
@@ -40,15 +41,36 @@
     name: "sex",
     data(){
       return{
-        radio:1,
-        checked:true,
+        price:'',
+        user:'',
         payNumber:1
       }
     },
     methods:{
         payType (type) {
           this.payNumber = type
-        }
+        },
+      save(){
+          if(this.user == ''){
+            this.$toast('请填写提现账户')
+          }else if(this.price == ''){
+            this.$toast('请填写提现金额')
+          }else if(this.price > this.$route.money){
+            this.$toast('提现金额超出账户余额')
+          }else{
+            this.$ajax('/api/mine/withdraw',{
+                numberno:this.user,
+                money:this.price,
+                type:this.payNumber
+              },
+              (res)=>{
+                this.$toast('提交成功')
+                this.$router.push({name:'wallet'})
+            },(err)=>{
+                this.$toast(err)
+            },'PUT')
+          }
+      }
     }
   }
 </script>
@@ -95,6 +117,10 @@
   }
   .cell {
     display: flex;
+    border-bottom: 1px solid #ccc;
+    &:last-child{
+      border-bottom: none;
+    }
     div {
       flex: 1.5rem 0 0;
       font-size: 15px;

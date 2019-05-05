@@ -64,6 +64,7 @@
     >
       <p class="payTxt">实付款 <span class="redTxt">{{orderDetail.allPrice?'￥'+orderDetail.allPrice:''}} {{(orderDetail.allPrice && orderDetail.goldCouponNum)?'+':''}} {{orderDetail.goldCouponNum?orderDetail.goldCouponNum+'券':''}}</span></p>
     </van-submit-bar>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -103,6 +104,18 @@
           (res)=>{
             console.log(res)
             this.$toast('下单成功')
+//            payNo
+
+            this.$ajax('/api/order/pay', {
+              id:res.data.payNo
+            }, (res) => {
+              const div = document.createElement('div')
+              div.innerHTML = res.data//此处form就是后台返回接收到的数据
+              document.body.appendChild(div)
+              document.forms[0].submit()
+            }, (err) => {
+              this.$toast(err)
+            }, 'PUT')
           },
           (err)=>{
             console.log(err)
