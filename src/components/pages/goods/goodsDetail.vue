@@ -148,8 +148,6 @@
         }
       },
       add() {
-        console.log(this.detail)
-
       },
       onAddCartClicked(data) {
         this.$ajax('/api/product/car', {

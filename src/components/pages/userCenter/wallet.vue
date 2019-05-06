@@ -21,7 +21,7 @@
                 <img src="/static/qian@2x.png" alt="">
                 <p>充值</p>
               </div>
-              <div class="btn"@click="goSomePage('withdraw')">
+              <div class="btn"@click="goSomePage('withdraw',{money:userInfo.money})">
                 <img src="/static/tiqu@2x.png" alt="">
                 <p>提现</p>
               </div>

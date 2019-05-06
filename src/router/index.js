@@ -76,6 +76,7 @@ const withdraw = () => import('@/components/pages/order/withdraw')
 
 //提现页面
 const getMoney = () => import('@/components/pages/order/getMoney')
+const buygold = () => import('@/components/pages/order/buygold')
 
 //签到页面
 const signIn = () => import('@/components/pages/order/signIn')
@@ -346,6 +347,11 @@ const router = new Router({
       component: forget
     },
     {
+      path: '/forgetpassword',
+      name: 'forgetpassword',
+      component: forgetpassword
+    },
+    {
       path: '/changePassword',
       name: 'changePassword',
       component: changePassword
@@ -404,6 +410,11 @@ const router = new Router({
       path:'/getMoney',
       name: 'getMoney',
       component: getMoney
+    },
+    {
+      path:'/buygold',
+      name: 'buygold',
+      component: buygold
     },
     //签到
     {
@@ -628,8 +639,6 @@ const router = new Router({
   ]
 })
 router.beforeEach((to, from, next) => {
-  console.log(to.name)
-  console.log()
   next()
 })
 export default router

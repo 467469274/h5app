@@ -20,8 +20,8 @@
       :actions="actions"
       @select="select"
     />
-    <addSku v-show="showSku" :initD2ata="formData.skus" @back="hideSku"></addSku>
-    <goodsDetail :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
+    <addSku ref="$addsku" v-show="showSku" :initD2ata="formData.skus" @back="hideSku"></addSku>
+    <goodsDetail ref="goodsDetail" :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
     <fl @back="isShowFl=false" :type="'choseType'" @choseOk="choseOk" v-if="isShowFl"></fl>
     <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
@@ -112,9 +112,6 @@
             this.$toast(msg)
           }, 'setProduct')
         }
-
-        //  支付宝
-       
       },
       showSelect() {
         this.show = true
@@ -142,6 +139,35 @@
         this.formData.categoryId = obj.id
         this.flName = obj.name
         this.isShowFl = false
+      }
+    },
+    created(){
+      if(this.$route.query.goodsid){
+        this.$ajax('/api/shop/productDetail',{
+          id:this.$route.query.goodsid
+        },(res)=>{
+          let data = res.data
+          data.skus = data.skus.map((item)=>{
+            item.imgs = item.imgs.split(',')
+            item.statusChinese = item.status==5?'上架':'下架'
+            item.mainSkuId = item.mainSkuId?true:false
+            return item
+          })
+          this.isSelect = this.actions[data.status==5?0:1]
+          this.formData = data
+          this.$refs.$addsku.setDat(data.skus)
+          this.$refs.goodsDetail.setDat(data.desc)
+          /*{
+            "categoryId": 0,
+              "desc": "",
+              "name": "",
+              "skus": [],
+              "status": 0
+          }*/
+          console.log(this.formData)
+        },(err)=>{
+          this.$toast('商品有误，请联系管理员')
+        },'get')
       }
     },
     components: {

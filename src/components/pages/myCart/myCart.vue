@@ -37,6 +37,7 @@
         <p>总价 <span>{{allPrice}}</span></p>
       </div>
     </van-submit-bar>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -181,7 +182,6 @@
     display: inline-block;
     vertical-align: middle;
   }
-
     .goodsList {
       padding: .2rem;
       margin-bottom: .2rem;

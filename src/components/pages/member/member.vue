@@ -62,7 +62,6 @@
         </van-cell-group>
       </div>
     </div>
-      <!--<van-button size="large" @click="signOut" v-show="isLogin">退出登录</van-button>-->
     <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
@@ -239,6 +238,7 @@ export default {
       }
       .myShop{
         line-height:.9rem;
+        margin-bottom: .4rem;
         i{
           line-height:.9rem;
         }

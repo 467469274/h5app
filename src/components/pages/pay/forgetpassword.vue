@@ -54,6 +54,7 @@
         showSet:false,
         password:'',
         agpassword:'',
+        userId:''
       }
     },
     methods: {
@@ -66,7 +67,8 @@
           return
         }
         this.$ajax('/api/setPassword', {
-            password:this.password
+            password:this.password,
+            userId:this.userId
           },
           (res)=>{
             if(res.code == 0){
@@ -76,8 +78,10 @@
               this.$toast(res.msg)
             }
           },
-          ()=>{},
-          'PUT')
+          (err)=>{
+            this.$toast(err)
+          },
+          'post')
       },
       next(){
         if(this.phone == ''){
@@ -88,17 +92,27 @@
           this.$toast('请检查验证码')
         }else if(this.serviceCode == this.code){
           this.showSet = true
+         /* this.$router.push(
+            {
+              name: 'setPassword',
+              params: {
+                userId: this.userId
+              }
+            }
+          )*/
         }
       },
       getCode() {
         if (this.canClick) {
           this.canClick = false;
-          this.$ajax('/api/getcode', {mobile:this.phone},
+          this.$ajax('/api/forgetcode', {mobile:this.phone},
             (res) => {
               if (res.code == 0) {
                 this.$toast('获取成功');
+                console.log(res.data.code.code)
                 let num = 60
-                this.serviceCode = res.data.code
+                this.serviceCode = res.data.code.code
+                this.userId = res.data.userId
                 this.intervals = setInterval(() => {
                   if (num == -1) {
                     clearInterval(this.intervals)
@@ -111,8 +125,8 @@
                 }, 1000)
               }
             }, (err) => {
-              this.canClick = false;
               this.$toast(err)
+              this.canClick = true;
             }, 'post')
         }
       },

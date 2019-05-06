@@ -3,7 +3,7 @@
     <van-nav-bar
       title="买入"
       left-arrow
-      @click-left="goSomePage('back')"
+      @click-left="goSomePage('wallet')"
     />
     <div class="warp">
         <div class="orderCell" v-for="item in list">
@@ -27,13 +27,14 @@
                     <span class="priceText">数量/份</span>
                   </p>
                     <p class="btnP">
-                       <button @click="$toast('敬请期待')">点击购买</button>
+                       <button @click="goSomePage('buygold',item.totalMoney,item.ordernum)">点击购买</button>
                    </p>
                 </div>
             </van-cell>
         </div>
       <div v-if="list.length==0" style="line-height: 3rem;color:rgba(0,0,0,0.6);text-align: center;font-size:.4rem">暂无订单</div>
     </div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 
@@ -55,9 +56,11 @@
       },'post')
     },
     methods: {
-      goSomePage(type) {
+      goSomePage(type,money,ordernum) {
         if (type == 'back') {
           this.$router.back(-1)
+        } else if(type =='buygold'){
+          this.$router.push({name: 'buygold',params:{money:money,ordernum:ordernum}})
         } else {
           this.$router.push({name: type})
         }

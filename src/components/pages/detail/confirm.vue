@@ -64,6 +64,7 @@
     >
       <p class="payTxt">实付款 <span class="redTxt">{{orderDetail.allPrice?'￥'+orderDetail.allPrice:''}} {{(orderDetail.allPrice && orderDetail.goldCouponNum)?'+':''}} {{orderDetail.goldCouponNum?orderDetail.goldCouponNum+'券':''}}</span></p>
     </van-submit-bar>
+    <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -102,7 +103,9 @@
         this.$ajax('/api/order/submitOrder',obj,
           (res)=>{
             console.log(res)
+            let data = res.data
             this.$toast('下单成功')
+            this.$router.push({name:'pay',query:{payPrice:data.payPrice,payNo:data.payNo}})
           },
           (err)=>{
             console.log(err)
@@ -123,7 +126,6 @@
 <style lang="scss" scoped>
   $colorG: rgba(0, 0, 0, 0.6);
   $red: rgb(247, 16, 15);
-
   .confirm {
     .confirmWarp {
       padding: .2rem;

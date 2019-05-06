@@ -65,6 +65,9 @@
       if(this.initData)this.list  = this.initData;
     },
     methods:{
+      setDat(list){
+        this.list = list
+      },
       goSomePage (type) {
         if(type){
           let errorFlage;

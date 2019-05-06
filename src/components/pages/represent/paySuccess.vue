@@ -3,13 +3,13 @@
     <van-nav-bar
       title="支付结果"
       left-arrow
-      @click-left="$router.back(-1)"
+      @click-left="goSomePage('myCart')"
     />
     <div class="warp">
         <p class="paySuccessText">支付成功</p>
         <p class="payJump">
-            <a href="">查看订单</a>
-            <a href="" class="look">稍后查看</a>
+            <a @click="goSomePage('myOrder')">查看订单</a>
+            <a @click="goSomePage('shoppingMall')" class="look">稍后查看</a>
         </p>
     </div>
   </div>
@@ -25,7 +25,9 @@
       }
     },
     methods:{
-
+      goSomePage (type) {
+        this.$router.push({name: type})
+      }
     }
   }
 </script>

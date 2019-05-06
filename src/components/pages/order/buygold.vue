@@ -1,13 +1,13 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="购买金券"
+      title="充值"
       left-arrow
       @click-left="$router.back(-1)"
     />
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>金额（元）</span><input placeholder="请输入充值金额" type="number" v-model="number" class="input"/></div>
+        <div class="cell"><span>金额（元）</span><input placeholder="请输入充值金额" type="number" disabled v-model="this.$route.params.money" class="input"/></div>
       </van-cell>
       <!--  <van-cell>
              <div class="cellPay">
@@ -39,26 +39,28 @@
     name: "sex",
     data() {
       return {
-        number:'',
         payNumber: true
+      }
+    },
+    created(){
+      if(!this.$route.params.money || !this.$route.params.ordernum){
+        this.$toast('订单信息有误，请重新尝试')
+        this.$router.push({name:'buyOrder'})
       }
     },
     methods: {
       sub(){
-        if(this.number == '' || this.number<=0){
-          this.$toast('请填写有效金额')
-        }else{
-           this.$ajax('/api/mine/zfbwallet', {
-           money: this.number
-         }, (res) => {
-           const div = document.createElement('div')
-           div.innerHTML = res.data//此处form就是后台返回接收到的数据
-           document.body.appendChild(div)
-           document.forms[0].submit()
-         }, (err) => {
-             this.$toast(err)
-         }, 'post')
-        }
+        this.$ajax('/api/mine/zfbgold', {
+          money:this.$route.params.money,
+          ordernum  :this.$route.params.ordernum
+        }, (res) => {
+          const div = document.createElement('div')
+          div.innerHTML = res.data//此处form就是后台返回接收到的数据
+          document.body.appendChild(div)
+          document.forms[0].submit()
+        }, (err) => {
+          this.$toast(err)
+        }, 'post')
       }
     }
   }

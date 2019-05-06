@@ -8,7 +8,7 @@
       @click-right="isEdit = !isEdit"
     />
     <div class="goodsList">
-      <div class="goodsItem" v-for="item in list">
+      <div class="goodsItem" v-for="item in list" @click="goDetail(item)">
         <div class="goodsInfo">
           <van-checkbox v-show="isEdit" class="check" v-model="item.checked"></van-checkbox>
           <div class="avatar"><img :src="item.img" alt=""></div>
@@ -43,6 +43,9 @@
         this.getData()
         },
       methods:{
+        goDetail(item){
+          this.$router.push({name:'goodsDetail',query:{goodsId:item.productId}})
+        },
         del(){
          let list = this.list.map((item)=>item.checked&&item.skuId)
           console.log(list)

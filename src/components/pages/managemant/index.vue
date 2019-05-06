@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="goodsList">
-      <div class="goodsItem" v-for="item in products" @click="goDetail(item.productId)">
+      <div class="goodsItem" v-for="item in products" @click="goDetail(item)">
         <div class="goodsInfo">
           <van-checkbox v-show="isEdit" class="check" v-model="checked"></van-checkbox>
           <div class="avatar" :style="{'background-image':'url('+item.img+')'}"></div>
@@ -77,8 +77,17 @@
         console.log(arrs)
         this.products = arrs
       },
-      goDetail(id){
+      goDetail(item){
 //        goodsId
+//        active!=0
+        if(this.active == 0){
+          //goodsDetail?goodsId=1&type=malls
+          console.log('去详情')
+          this.$router.push({name:'goodsDetail',query:{goodsId:item.productId,type:'goodsList'}})
+        }else{
+          this.$router.push({name:'addGoods',query:{goodsid:item.productId}})
+          console.log('去编辑')
+        }
       },
       xj(id){
         this.$ajax('/api/shop/lowerShelf', {productId:id},

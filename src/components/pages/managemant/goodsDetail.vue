@@ -65,6 +65,23 @@
       upOk3(url){
         this.sh = url
       },
+      setDat(data){
+        this.recommendTxt = data.replace(/<.*?>/g, "")
+        this.recommend = this.getSrc(data)[0]
+      },
+      getSrc(str){
+        let imgReg = /<img.*?(?:>|\/>)/gi //匹配图片中的img标签
+        let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i // 匹配图片中的src
+        let arr = str.match(imgReg)  //筛选出所有的img
+        console.log(arr)
+        let srcArr = []
+        for (let i = 0; i < arr.length; i++) {
+          let src = arr[i].match(srcReg)
+          // 获取图片地址
+          srcArr.push(src[1])
+        }
+        return srcArr
+      },
       goSomePage(over){
         if(over){
           let recommend = this.recommend

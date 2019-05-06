@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     forget(){
-
+      this.$router.push({name:'forgetpassword'})
     },
     goRegister(){
       this.$router.push({name:'register'})
