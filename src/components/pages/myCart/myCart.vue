@@ -33,7 +33,6 @@
     >
       <div><van-checkbox class="check" v-model="allCheck" @change="changeAll" ></van-checkbox> <span>全选</span></div>
       <div class="txt" v-show="!isEdit">
-        <!--<p>合计 <span>{{allPrice}}</span></p>-->
         <p>总价 <span>{{allPrice}}</span></p>
       </div>
     </van-submit-bar>
@@ -118,6 +117,10 @@
               })
             })
             delList = delList.join(',')
+              if(delList.length==0){
+                this.$toast('请选择要删除的商品')
+                return
+              }
             this.$ajax('/api/product/car',{
               skuIds:delList
             },(res)=>{
@@ -138,6 +141,10 @@
                 }
               })
             })
+            if(list.length==0){
+              this.$toast('请选择要下单的商品')
+              return
+            }
             this.$ajax('/api/order/confirmOrder',list,(res)=>{
               this.$router.push({name:'confirm',params:{...res.data,from:'cart'}})
             },(err)=>{

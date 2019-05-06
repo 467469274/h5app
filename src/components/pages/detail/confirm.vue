@@ -53,7 +53,7 @@
         </div>-->
         <div class="bottomTxt">
           <span>总金额</span>
-          <span class="right red">{{orderDetail.allPrice?'￥'+orderDetail.allPrice:''}}{{orderDetail.goldCouponNum?orderDetail.goldCouponNum+'券':''}}</span>
+          <span class="right red">{{orderDetail.allPrice?'￥'+orderDetail.allPrice:''}}+{{orderDetail.goldCouponNum?orderDetail.goldCouponNum+'券':''}}</span>
         </div>
       </div>
     </div>
@@ -102,20 +102,18 @@
         }
         this.$ajax('/api/order/submitOrder',obj,
           (res)=>{
-            console.log(res)
             let data = res.data
             this.$toast('下单成功')
             this.$router.push({name:'pay',query:{payPrice:data.payPrice,payNo:data.payNo}})
           },
           (err)=>{
-            console.log(err)
+            this.$toast(err)
           },'upOrder')
       }
     },
     created(){
       if(!this.$route.params.shopProducts){
         this.$toast('订单有误，请重新下单')
-        this.$router.push({name:'myCart'})
       }
       console.log(this.$route.params)
 //    this.orderDetail = {"address":{"id":14,"name":"霍潇飞","phone":"17695929894","address":"   北京通州"},"shopProducts":[{"shopId":1,"shopName":"鑫鑫店铺","products":[{"productId":1,"skuId":1,"num":6,"productName":"小辣椒 红辣椒7X  学生智能手机 美颜双摄 微Q多开 人脸识别 移动联通电信4G全网通 黑色","mainImg":"https://img13.360buyimg.com/n1/s450x450_jfs/t1/9085/2/12381/146200/5c371c5bE08328383/4f4ba51aed682207.jpg","skuName":"梦幻蓝  3GB+32GB","price":1199,"goldCouponNum":0}]}],"allPrice":7194,"goldCouponNum":0,"allFreight":10}

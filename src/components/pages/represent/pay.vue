@@ -72,7 +72,9 @@
             id:this.payNo
           },(res)=>{
             this.$toast('支付成功')
-            this.$router.push({name:'paySuccess'})
+            this.$router.push({name:'paySuccess',query:{
+              from:'myOrder'
+            }})
           },(err)=>{
             this.$toast(err)
             this.$router.push({name:'payFail'})
@@ -80,7 +82,7 @@
         }else if(this.radio == '3'){
           this.$ajax('/api/order/aliPay', {
             id:this.payNo,
-            returnUrl:window.location.origin+'/#/paySuccess'
+            returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
           }, (res) => {
             const div = document.createElement('div')
             div.innerHTML = res.data//此处form就是后台返回接收到的数据

@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="shopBtns">
-          <!--<span class="bgr">立即接单</span>-->
+          <span class="bgr" @click="send">立即发货</span>
           <!--<span class="bgy" @click="goSomePage('cencelOrder')">取消订单</span>-->
           <span class="bgy" @click="cancel(item.id,index)">取消订单</span>
         </div>

@@ -8,7 +8,7 @@
     <div class="warp">
         <p class="paySuccessText">支付成功</p>
         <p class="payJump">
-            <a @click="goSomePage('myOrder')">查看订单</a>
+            <a @click="goSomePage(form)">{{form=='myOrder'?'查看订单':'立即查看'}}</a>
             <a @click="goSomePage('shoppingMall')" class="look">稍后查看</a>
         </p>
     </div>
@@ -21,8 +21,12 @@
     data(){
       return{
         radio:1,
-        checked:true
+        checked:true,
+        form:this.$route.query.from
       }
+    },
+    created(){
+//
     },
     methods:{
       goSomePage (type) {

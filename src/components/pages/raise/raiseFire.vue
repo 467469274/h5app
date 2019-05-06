@@ -81,7 +81,7 @@ export default {
             recommend:this.recommend,
           },
           (res)=>{
-            this.$toast('发布成功')
+            this.$toast('提交成功，请等候审核')
             this.$router.push({name:'allRaise'})
           },
           (err)=>{

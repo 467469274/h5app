@@ -46,12 +46,12 @@
           </div>
           <div class="bottomTxt">
             <span>订单编号</span>
-            <span class="right red" style="margin-left: .3rem">复制</span>
+            <!--<span class="right red" style="margin-left: .3rem">复制</span>-->
             <span class="right">{{detail.orderNo}}</span>
           </div>
           <div class="bottomTxt">
             <span>物流编号</span>
-            <span class="right red" style="margin-left: .3rem">复制</span>
+            <!--<span class="right red" style="margin-left: .3rem">复制</span>-->
             <span class="right">123123123123123</span>
           </div>
           <div class="bottomTxt">
@@ -65,7 +65,10 @@
         </div>
       </div>
     </div>
-    <div class="sure" style="background-color:rgb(247, 16, 15);">去支付</div>
+    <colorBox :color="'#F5F6F7'"></colorBox>
+
+    <div class="sure" style="background-color:rgb(247, 16, 15);" @click="pay" v-if="detail.status == 0">去支付</div>
+    <div class="sure" style="background-color:rgb(247, 16, 15);" @click="sh" v-if="detail.status == 40">确认收货</div>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -91,6 +94,30 @@
         } else {
           this.$router.push({name: type})
         }
+      },
+      sh(){
+        this.$ajax('/api/order/receivingGoods', {
+          id:this.detail.id
+        }, (res) => {
+          this.$toast('收货成功')
+          this.$router.push({name:'myOrder',query:{type:50}})
+        }, (err) => {
+          this.$toast(err)
+        }, 'PUT')
+//        PUT
+      },
+      pay(){
+        this.$ajax('/api/order/aliPay', {
+          id:this.detail.payNo,
+          returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
+        }, (res) => {
+          const div = document.createElement('div')
+          div.innerHTML = res.data//此处form就是后台返回接收到的数据
+          document.body.appendChild(div)
+          document.forms[0].submit()
+        }, (err) => {
+          this.$toast(err)
+        }, 'PUT')
       }
     },
     created(){
