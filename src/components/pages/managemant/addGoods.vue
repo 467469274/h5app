@@ -114,18 +114,7 @@
         }
 
         //  支付宝
-        /* this.$ajax('/api/mine/zfbwallet', {
-           money: 1000
-         }, (res) => {
-           console.log(res.data.body)
-           const div = document.createElement('div')
-           div.innerHTML = res.data.body//此处form就是后台返回接收到的数据
-           console.log(div)
-           document.body.appendChild(div)
-           document.forms[0].submit()
-         }, (err) => {
-           console.log(err)
-         }, 'post')*/
+       
       },
       showSelect() {
         this.show = true

@@ -140,6 +140,18 @@ export default {
   },
   created () {
     this.getImg()
+  /*   this.$ajax('/api/mine/zfbwallet', {
+          money: 1
+        }, (res) => {
+          console.log()
+          const div = document.createElement('div')
+          div.innerHTML = res.data//此处form就是后台返回接收到的数据
+          console.log(div)
+          document.body.appendChild(div)
+          document.forms[0].submit()
+        }, (err) => {
+          console.log(err)
+        }, 'post')*/
   },
   computed: {
     swiper () {
