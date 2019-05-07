@@ -49,7 +49,8 @@
           this.$toast('请填写有效金额')
         }else{
            this.$ajax('/api/mine/zfbwallet', {
-           money: this.number
+           money: this.number,
+             backurl:window.location.origin+'/#/paySuccess?from=wallet'
          }, (res) => {
            const div = document.createElement('div')
            div.innerHTML = res.data//此处form就是后台返回接收到的数据

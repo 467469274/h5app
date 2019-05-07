@@ -52,7 +52,8 @@
       sub(){
         this.$ajax('/api/mine/zfbgold', {
           money:this.$route.params.money,
-          ordernum  :this.$route.params.ordernum
+          ordernum  :this.$route.params.ordernum,
+          backurl:window.location.origin+'/#/paySuccess?from=wallet'
         }, (res) => {
           const div = document.createElement('div')
           div.innerHTML = res.data//此处form就是后台返回接收到的数据

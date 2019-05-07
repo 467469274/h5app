@@ -32,7 +32,6 @@
   import goodsDetail from './goodsDetail.vue'
   import classList from '../class/classList'
   import fl from '../fl/fl.vue'
-
   export default {
     name: "sex",
     data() {
