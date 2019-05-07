@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 const Index = () => import('@/components/pages/index/index')
 const ShoppingMall = () => import('@/components/pages/index/shoppingMall')
 const malls = () => import('@/components/pages/goods/malls')
@@ -103,7 +104,6 @@ const paySuccess = () => import('@/components/pages/represent/paySuccess')
 const payFail = () => import('@/components/pages/represent/payFail')
 //支付
 const pay = () => import('@/components/pages/represent/pay')
-
 
 
 //全部订单模块
@@ -294,7 +294,11 @@ const router = new Router({
     {
       path: '/confirm',
       name: 'confirm',
-      component: confirm
+      component: confirm,
+      meta: {
+        keepAlive: false,
+        keepAliveApp: true
+      }
     },
     {
       path: '/locations',
@@ -383,74 +387,74 @@ const router = new Router({
     },
     //到账的页面路由
     {
-      path:'/account',
+      path: '/account',
       name: 'account',
       component: account
     },
     //冻结的页面
     {
-      path:'/freeze',
+      path: '/freeze',
       name: 'freeze',
       component: freeze
     },
     //转出
     {
-      path:'/rollOut',
+      path: '/rollOut',
       name: 'rollOut',
       component: rollOut
     },
     //提现
     {
-      path:'/withdraw',
+      path: '/withdraw',
       name: 'withdraw',
       component: withdraw
     },
     //提现
     {
-      path:'/getMoney',
+      path: '/getMoney',
       name: 'getMoney',
       component: getMoney
     },
     {
-      path:'/buygold',
+      path: '/buygold',
       name: 'buygold',
       component: buygold
     },
     //签到
     {
 
-      path:'/signIn',
+      path: '/signIn',
       name: 'signIn',
       component: signIn
     },
     //我要代言模块
     //支付成功
     {
-      path:'/paySuccess',
+      path: '/paySuccess',
       name: 'paySuccess',
       component: paySuccess
     },
     //支付失败
     {
-      path:'/payFail',
+      path: '/payFail',
       name: 'payFail',
       component: payFail
     },
     //支付
     {
-      path:'/pay',
+      path: '/pay',
       name: 'pay',
       component: pay
     },
     //今日订单
     {
 
-      path:'/todayOrder',
+      path: '/todayOrder',
       name: 'todayOrder',
       component: todayOrder
     },
     {
-      path:'/nowOrder',
+      path: '/nowOrder',
       name: 'nowOrder',
       component: nowOrder
     },
@@ -458,47 +462,47 @@ const router = new Router({
 
     //全部订单
     {
-      path:'/allOrder',
+      path: '/allOrder',
       name: 'allOrder',
       component: allOrder
     },
     //我的订单
     {
-      path:'/myOrder',
+      path: '/myOrder',
       name: 'myOrder',
       component: myOrder
     },
     {
 
-      path:'/myFans',
+      path: '/myFans',
       name: 'myFans',
       component: myFans,
-      children:[
+      children: [
         {
-          path:'/directFans',
+          path: '/directFans',
           name: 'directFans',
           component: directFans
         },
         {
-          path:'/indirect',
+          path: '/indirect',
           name: 'indirect',
           component: indirect
         }
       ]
     },
     {
-      path:'/saleOrder',
+      path: '/saleOrder',
       name: 'saleOrder',
       component: saleOrder
     },
     {
-      path:'/buyOrder',
+      path: '/buyOrder',
       name: 'buyOrder',
       component: buyOrder
     },
     //卖出订单
     {
-      path:'/sellOrder',
+      path: '/sellOrder',
       name: 'sellOrder',
       component: sellOrder
     },

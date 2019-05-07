@@ -4,7 +4,7 @@
       title="我的钱包"
       right-text="账单"
       left-arrow
-      @click-left="goBack()"
+      @click-left="goSomePage('member')"
       @click-right="goSomePage('bill')"
     />
     <van-tabs v-model="active">
@@ -135,6 +135,11 @@
       }
     },
     computed: {
+    },
+    watch: {
+      active(n, o) {
+        this.$router.replace({name: 'wallet', query: {type: n}})
+      }
     }
   }
 </script>

@@ -3,7 +3,7 @@
     <van-nav-bar
       title="买入"
       left-arrow
-      @click-left="goSomePage('wallet')"
+      @click-left="goSomePage('wallet',{type:1})"
     />
     <div class="warp">
         <div class="orderCell" v-for="item in list">
@@ -62,7 +62,7 @@
         } else if(type =='buygold'){
           this.$router.push({name: 'buygold',params:{money:money,ordernum:ordernum}})
         } else {
-          this.$router.push({name: type})
+          this.$router.push({name: type,query:money})
         }
       }
     }

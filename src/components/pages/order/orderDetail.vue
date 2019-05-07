@@ -30,7 +30,7 @@
               规格 <span>{{item.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥{{item.skuPrice}}+{{item.freight}}券</span>
+              <span class="redColor">￥{{item.skuPrice}}</span>
               <span class="num">x{{item.skuNum}}</span>
             </p>
           </div>
@@ -107,17 +107,18 @@
 //        PUT
       },
       pay(){
-        this.$ajax('/api/order/aliPay', {
-          id:this.detail.payNo,
-          returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
-        }, (res) => {
-          const div = document.createElement('div')
-          div.innerHTML = res.data//此处form就是后台返回接收到的数据
-          document.body.appendChild(div)
-          document.forms[0].submit()
-        }, (err) => {
-          this.$toast(err)
-        }, 'PUT')
+        this.$router.push({name:'pay',query:{payPrice:this.detail.allPrice,payNo:this.detail.payNo}})
+        /* this.$ajax('/api/order/aliPay', {
+           id:this.detail.payNo,
+           returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
+         }, (res) => {
+           const div = document.createElement('div')
+           div.innerHTML = res.data//此处form就是后台返回接收到的数据
+           document.body.appendChild(div)
+           document.forms[0].submit()
+         }, (err) => {
+           this.$toast(err)
+         }, 'PUT')*/
       }
     },
     created(){

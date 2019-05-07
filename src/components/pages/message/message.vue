@@ -79,6 +79,11 @@
       },
       activated(){
         this.getData()
+        if(this.$route.query.type){
+          this.active = this.$route.query.type
+        }
+      },
+      created(){
       },
       methods:{
         onClickRight(){

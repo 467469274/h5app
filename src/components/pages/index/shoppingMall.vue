@@ -8,7 +8,7 @@
             搜索你需要的......
           </span>
         </div>
-        <van-icon class="bell" name="bell" color="#fff" size=".45rem" />
+        <van-icon class="bell" @click="goSomePage('message')" name="bell" color="#fff" size=".45rem" />
       </div>
       <van-swipe :autoplay="3000" class="indexWarp">
         <van-swipe-item v-for="item in banner" :key="item.goodsId">
@@ -170,6 +170,8 @@ export default {
         loca = {name: 'goodsList', query: {type: 'hot', v: '爆款专区'}}
       }else if (type == 'newperson') {
         loca = {name: 'goodsList', query: {type: 'hot',v : '新人特惠'}}
+      }else if (type == 'message') {
+        loca = {name: 'message', query: {type:1}}
       }else if (type == 'bkzq') {
         loca = {name: 'goodsList', query: {type: 'hot',v : '爆款专区'}}
       } else if (type == 'overseas') {

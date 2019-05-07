@@ -33,7 +33,7 @@
         <div class="myOrders">
           <van-cell title="我的订单" class="myShop" to="myOrder" is-link />
           <div class="iconBtn">
-            <div class="btn" @click="goSomePage('myOrder',{type:0})">
+            <div class="btn" @click="goSomePage('myOrder',{type:'0'})">
               <van-icon name="idcard" :info="waitinfo.waitPay" size=".6rem" color="rgba(0,0,0,0.7)"/>
               <p>待付款</p>
             </div>

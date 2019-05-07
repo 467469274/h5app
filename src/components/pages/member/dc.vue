@@ -3,7 +3,7 @@
     <van-nav-bar
       title="兑冲"
       left-arrow
-      @click-left="goSomePage('back')"
+      @click-left="goSomePage('wallet',{type:1})"
     />
     <van-field label="兑冲数量" input-align="right" v-model="value" :placeholder="'请输入要兑冲的'+(this.$route.query.type==1?'金券':'银券')" />
     <div class="sure" @click="dc">确认兑冲</div>

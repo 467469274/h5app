@@ -4,7 +4,7 @@
     <div class="historySearch" v-if="searchKey==''">
       <p class="top">
         <span class="history">历史搜索</span>
-        <van-icon class="del" size=".4rem" name="delete" />
+        <van-icon class="del" @click="del" size=".4rem" name="delete" />
       </p>
       <div class="historys">
         <span @click="goDetail(item)" v-for="(item,index) in historyKey">{{item}}</span>
@@ -62,6 +62,13 @@ export default {
       this.$ajax('/api/search/getHistory', {}, (res) => {
         this.historyKey = res.data
       }, () => {}, 'get')
+    },
+    del(){
+//      /api/search/clearHistory
+      this.$ajax('/api/search/clearHistory',{},()=>{
+        this.$toast('删除成功')
+        this.getHistory()
+      },()=>{},'DELETE')
     },
     search (v) {
       this.searchKey = v

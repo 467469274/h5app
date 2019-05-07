@@ -77,7 +77,7 @@
             }})
           },(err)=>{
             this.$toast(err)
-            this.$router.push({name:'payFail'})
+            this.$router.push({name:'payFail',query:{from:'myOrder'}})
           },'PUT')
         }else if(this.radio == '3'){
           this.$ajax('/api/order/aliPay', {

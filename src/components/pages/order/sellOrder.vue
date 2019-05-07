@@ -4,6 +4,7 @@
       title="卖出"
       right-text="订单"
       left-arrow
+      @click-left="goSomepage('wallet',{type:1})"
       @click-right="goSomepage('saleOrder')"
     />
     <div class="warp">

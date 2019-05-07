@@ -4,7 +4,7 @@
       title="转出"
        right-text="转出记录"
       left-arrow
-      @click-left="$router.back(-1)"
+      @click-left="goSomepage('wallet',{type:1})"
     />
     <div class="warp">
        <van-cell>
@@ -58,6 +58,9 @@ import gainCode from '../../common/gainCode.vue'
       }
     },
     methods:{
+      goSomepage (type,query) {
+        this.$router.push({name: type,query:query})
+      },
       getCode() {
         if (this.canClick) {
           this.canClick = false;

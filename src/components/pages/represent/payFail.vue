@@ -47,7 +47,7 @@
     right: 0;
     bottom: 0;
     background: url('../../../assets/images/gantanhao2x.png') no-repeat center 1.4rem, #fff;
-
+    background-size: 1rem 1rem;
     .paySuccessText {
       margin: 3rem 0 1rem 0;
       font-size: 15px;

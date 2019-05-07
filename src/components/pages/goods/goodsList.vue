@@ -24,7 +24,7 @@
         <div class="item" @click="changeType(3)"><span :class="{active:acitveClass ==3}">新品</span></div>
         <div class="item" @click="changeType(4)"><span :class="{active:acitveClass ==4}">销量</span></div>
         <div class="item price" @click="changeType(5)"><span :class="{active:acitveClass ==5 || acitveClass ==6}">价格 <i
-          :class="{'up':acitveClass==5,'down':acitveClass==6}"></i></span></div>
+          :class="{'up':acitveClass==6,'down':acitveClass==5}"></i></span></div>
       </div>
     </div>
     <van-swipe :autoplay="3000" class="indexWarp" v-show="routeName =='malls'" style="margin-top: 2rem">

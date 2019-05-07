@@ -21,7 +21,8 @@
                 <img src="/static/2181555986749_.pic_hd.jpg" alt="">
               </div>
               <div class="txt">
-                <p class="title">{{item.tickName}} <span>当前人数  <i @click="goSomePage('user',{id:item.tickId})">{{item.present}}</i></span></p>
+                <p class="title">{{item.tickName}} <span>当前人数  <i
+                  @click="goSomePage('user',{id:item.tickId})">{{item.present}}</i></span></p>
                 <p class="des">{{item.recommend}}</p>
               </div>
             </div>
@@ -32,7 +33,7 @@
               </div>
               <div class="bottomItem second">
                 <div class="title">接收券种</div>
-                <div class="des"><span>{{item.coupon==1?'金券':'银券'}}</span></div>
+                <div class="des"><span>{{item.coupon == 1 ? '金券' : '银券'}}</span></div>
               </div>
               <div class="bottomItem">
                 <div class="title">价格</div>
@@ -60,7 +61,8 @@
                 <img src="/static/2181555986749_.pic_hd.jpg" alt="">
               </div>
               <div class="txt">
-                <p class="title">{{item.tickName}} <span>当前人数  <i @click="goSomePage('user',{id:item.tickId})">{{item.present}}</i></span></p>
+                <p class="title">{{item.tickName}} <span>当前人数  <i
+                  @click="goSomePage('user',{id:item.tickId})">{{item.present}}</i></span></p>
                 <p class="des">{{item.recommend}}</p>
               </div>
             </div>
@@ -71,7 +73,7 @@
               </div>
               <div class="bottomItem second">
                 <div class="title">接收券种</div>
-                <div class="des"><span>{{item.coupon==1?'金券':'银券'}}</span></div>
+                <div class="des"><span>{{item.coupon == 1 ? '金券' : '银券'}}</span></div>
               </div>
               <div class="bottomItem">
                 <div class="title">价格</div>
@@ -90,89 +92,112 @@
 </template>
 
 <script>
-export default {
-  name: 'myraise',
-  data () {
-    return {
-      active: 0,
-      myformData:{
-        currPage:0,
-        pageSize:10
-      },
-      firemyformData:{
-        currPage:0,
-        pageSize:10
-      },
-      loading:false,
-      finished:false,
-      myJoin:[],
-      fireloading:false,
-      firefinished:false,
-      firemyJoin:[]
-    }
-  },
-  methods: {
-    stop(id){
-      this.$ajax('/api/tick/finish',{tickId:id},
-        (res)=>{
-          this.$toast('结束成功')
-          this.firemyformData.currPage = 0
-          this.getMyFire()
+  export default {
+    name: 'myraise',
+    data() {
+      return {
+        active: 0,
+        myformData: {
+          currPage: 0,
+          pageSize: 10
         },
-        (err)=>{
-          this.$toast(err)
+        firemyformData: {
+          currPage: 0,
+          pageSize: 10
         },
-        'post')
-    },
-    goSomePage (type,query) {
-      if (type == 'back') {
-        this.$router.back(-1)
-      } else if (type == 'my') {
-        this.$router.push({name: 'myraise'})
-      }else if (type == 'detail') {
-        this.$router.push({name: 'raiseDetail',query:query})
-      } else if (type == 'user') {
-        this.$router.push({name: 'raiseUser',query:query})
-      } else {
-        this.$router.push({name: 'raiseFire'})
+        loading: false,
+        finished: false,
+        myJoin: [],
+        fireloading: false,
+        firefinished: false,
+        firemyJoin: []
       }
     },
-    getMyData(){
-      console.log(2)
-      this.loading = true
-      this.myformData.currPage+=1
-      this.$ajax('/api/tick/joinlist',this.myformData,
-        (res)=>{
-          this.loading = false
-          this.myJoin = this.myJoin.concat(res.data)
-          if(res.data.length<this.myformData.pageSize){
-            this.finished = true
-          }
-        },
-        ()=>{},
-      'post')
+    created() {
+      if (this.$route.query.type) {
+        this.active = this.$route.query.type
+        this.firemyJoin = []
+        this.myJoin = []
+        this.myformData = {
+          currPage: 0,
+          pageSize: 10
+        }
+        this.firemyformData = {
+          currPage: 0,
+          pageSize: 10
+        }
+        this.getMyData()
+        this.getMyFire()
+      }
     },
-    getMyFire(){
-      this.fireloading = true
-      this.firemyformData.currPage+=1
-      this.$ajax('/api/tick/mylist',this.firemyformData,
-        (res)=>{
-          this.fireloading = false
-          console.log(res.data)
-          this.firemyJoin = this.firemyJoin.concat(res.data)
-          if(res.data.length<this.firemyformData.pageSize){
-            this.firefinished = true
-          }
-        },
-        ()=>{},
-      'post')
+    methods: {
+      stop(id) {
+        this.$ajax('/api/tick/finish', {tickId: id},
+          (res) => {
+            this.$toast('结束成功')
+            this.firemyJoin = []
+            this.firemyformData.currPage = 0
+            this.getMyFire()
+          },
+          (err) => {
+            this.$toast(err)
+          },
+          'post')
+      },
+      goSomePage(type, query) {
+        if (type == 'back') {
+          this.$router.back(-1)
+        } else if (type == 'my') {
+          this.$router.push({name: 'myraise'})
+        } else if (type == 'detail') {
+          this.$router.push({name: 'raiseDetail', query: query})
+        } else if (type == 'user') {
+          this.$router.push({name: 'raiseUser', query: query})
+        } else {
+          this.$router.push({name: 'raiseFire'})
+        }
+      },
+      getMyData() {
+        this.loading = true
+        this.myformData.currPage += 1
+        this.$ajax('/api/tick/joinlist', this.myformData,
+          (res) => {
+            this.loading = false
+            this.myJoin = this.myJoin.concat(res.data)
+            if (res.data.length < this.myformData.pageSize) {
+              this.finished = true
+            }
+          },
+          () => {
+          },
+          'post')
+      },
+      getMyFire() {
+        this.fireloading = true
+        this.firemyformData.currPage += 1
+        this.$ajax('/api/tick/mylist', this.firemyformData,
+          (res) => {
+            this.fireloading = false
+            this.firemyJoin = this.firemyJoin.concat(res.data)
+            if (res.data.length < this.firemyformData.pageSize) {
+              this.firefinished = true
+            }
+          },
+          () => {
+          },
+          'post')
+      }
+    },
+      watch: {
+        active(n, o) {
+          this.$router.replace({name: 'myraise', query: {type: n}})
+        }
     }
   }
-}
 </script>
 
 <style scoped lang="scss">
-  .allraise{
+  .allraise {
     .item {
       border-radius: .2rem;
       background: #fff;
@@ -189,7 +214,7 @@ export default {
           height: .85rem;
           background: rgb(232, 234, 235);
           border-radius: .1rem;
-          img{
+          img {
             width: 100%;
             height: 100%;
           }
@@ -207,9 +232,9 @@ export default {
             font-size: 16px;
             line-height: 1.3;
             margin-bottom: .15rem;
-            span{
+            span {
               float: right;
-              i{
+              i {
                 font-style: normal;
                 color: red;
                 font-weight: 600;
@@ -229,12 +254,12 @@ export default {
       }
       .itemBottom {
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
         align-items: center;
         .bottomItem {
           flex: 1;
           text-align: center;
-          &.first{
+          &.first {
             flex: initial;
             .des {
               font-weight: 600;
@@ -246,7 +271,7 @@ export default {
             }
           }
           &.second .des {
-            color: rgb(248, 0, 0)!important;
+            color: rgb(248, 0, 0) !important;
           }
           .title {
             font-size: 14px;
@@ -256,8 +281,8 @@ export default {
           .des {
             height: .4rem;
             font-size: 14px;
-            span{
-              display:inline-block;
+            span {
+              display: inline-block;
               vertical-align: middle;
             }
           }
@@ -266,27 +291,27 @@ export default {
             line-height: .5rem;
             height: .5rem;
             border-radius: 3px;
-            background:rgb(249,159,11);
+            background: rgb(249, 159, 11);
             text-align: center;
             margin-left: .4rem;
             color: #fff;
-            &.jb{
-              background:linear-gradient(to right bottom,rgb(249,89,62),rgb(247,21,9));;
+            &.jb {
+              background: linear-gradient(to right bottom, rgb(249, 89, 62), rgb(247, 21, 9));;
 
             }
           }
         }
       }
     }
-    .fire{
+    .fire {
       position: fixed;
       width: 1.4rem;
       height: 1.4rem;
       background: #fff;
       border-radius: 50%;
-      right:1%;
+      right: 1%;
       bottom: 5%;
-      box-shadow: 0.05rem 0.05rem 0.1rem rgba(0,0,0,0.1);
+      box-shadow: 0.05rem 0.05rem 0.1rem rgba(0, 0, 0, 0.1);
 
     }
   }

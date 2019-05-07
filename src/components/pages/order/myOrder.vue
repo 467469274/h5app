@@ -37,8 +37,9 @@
             </div>
           </van-cell>
           <div class="cellBtn">
-            <button v-if="item.status == 0">去支付</button>
-            <button v-if="item.status == 40">确认收货</button>
+            <button v-if="item.status == 0" @click.stop="pay(item)">去支付</button>
+            <button v-if="item.status == 0" @click.stop="cancel(item.id,index)">取消订单</button>
+            <button v-if="item.status == 40" @click.stop="sh(item.id)">确认收货</button>
             <button v-if="item.status == 50">立即评价</button>
             <button v-if="item.status == 50" class="receipt">再次购买</button>
           </div>
@@ -65,6 +66,7 @@
       }
     },
     created() {
+      console.log( this.$route.query.type)
       if(this.$route.query.type){
         this.status = this.$route.query.type
       }
@@ -87,7 +89,6 @@
         this.$ajax('/api/order/userOrders', {...this.formData, status: this.status}, (res) => {
           this.list = res.data
           this.loading = false
-          console.log(res.data)
           if (res.data.length < 10) {
             this.finished = true
           } else {
@@ -98,6 +99,49 @@
       },
       goDetail(id){
         this.$router.push({name: 'orderDetail',query:{id:id}})
+      },
+    sh(id){
+      this.$ajax('/api/order/receivingGoods', {
+        id:id
+      }, (res) => {
+        this.$toast('收货成功')
+        this.$router.push({name:'myOrder',query:{type:50}})
+      }, (err) => {
+        this.$toast(err)
+      }, 'PUT')
+//        PUT
+    },
+      pay(item){
+        this.$router.push({name:'pay',query:{payPrice:item,payNo:item.payNo}})
+        console.log(item)
+        /*this.$ajax('/api/order/aliPay', {
+          id:item,
+          returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
+        }, (res) => {
+          const div = document.createElement('div')
+          div.innerHTML = res.data//此处form就是后台返回接收到的数据
+          document.body.appendChild(div)
+          document.forms[0].submit()
+        }, (err) => {
+          this.$toast(err)
+        }, 'PUT')*/
+      },
+      cancel(id,index){
+        console.log(id)
+        this.$ajax('/api/shop/cancelOrder',{
+            orderId:id
+          },
+          (res)=>{
+            this.userDetail.orders.splice(index,1)
+            this.$toast('取消成功')
+          },(err)=>{
+            this.$toast(err)
+          },'PUT')
+      }
+    },
+    watch: {
+      status(n, o) {
+        this.$router.replace({name: 'myOrder', query: {type: n}})
       }
     }
   }
