@@ -125,6 +125,7 @@
         let url;
         if (this.type == 'search') {
           this.postP.k = this.$route.query.v
+          this.postP.l = 20
           url = '/api/search'
         } else if (this.searchInt == '爆款专区') {
           url = '/api/product/bkzq'
@@ -139,6 +140,7 @@
         } else if (this.type == 'fl') {
           url = '/api/search'
           this.postP.categoryId = this.$route.query.id
+          this.postP.l = 25
         } else {
           url = '/api/product/xrth'
         }

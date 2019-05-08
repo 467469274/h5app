@@ -146,7 +146,8 @@
               return
             }
             this.$ajax('/api/order/confirmOrder',list,(res)=>{
-              this.$router.push({name:'confirm',params:{...res.data,from:'cart'}})
+              this.$store.commit('setInfo',{...res.data,from:'cart'})
+              this.$router.push({name:'confirm'})
             },(err)=>{
               this.$toast(err)
             },'upOrder')

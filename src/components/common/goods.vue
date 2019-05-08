@@ -82,7 +82,7 @@ export default {
         display:-webkit-box;
         -webkit-box-orient:vertical;
         -webkit-line-clamp:2;
-        min-height: .8rem;
+        height: .8rem;
       }
       .goods-price{
         font-size:16px;

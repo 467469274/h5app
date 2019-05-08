@@ -39,8 +39,11 @@
                 <div class="title">价格</div>
                 <div class="des"><span>{{item.gold}}金券={{item.silver}}银券</span></div>
               </div>
-              <div class="bottomItem joinBtn jb" @click.stop="stop(item.tickId)">
+              <div class="bottomItem joinBtn jb" v-if="item.status==2" @click.stop="stop(item.tickId)">
                 结束
+              </div>
+              <div class="bottomItem joinBtn grey" v-if="item.status==4">
+                已结束
               </div>
             </div>
           </div>
@@ -297,7 +300,10 @@
             color: #fff;
             &.jb {
               background: linear-gradient(to right bottom, rgb(249, 89, 62), rgb(247, 21, 9));;
-
+            }
+            &.grey {
+              background: gray;
+              color: #fff;
             }
           }
         }

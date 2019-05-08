@@ -9,6 +9,7 @@ import vueUpload from '@/components/common/upload';
 import colorBox from '@/components/common/colorBox';
 import {$ajax} from '@/common/ajax';
 import {setCookie,getCookie} from '@/common/cookies';
+import store from './store'
 import 'vant/lib/index.css';
 import { Lazyload,Toast } from 'vant';
 Vue.use(Vant);
@@ -25,6 +26,7 @@ Vue.prototype.getCookie = getCookie;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -24,6 +24,7 @@
         </van-cell>
         <van-switch-cell @change="onchange(index)" v-model="item.mainSkuId" size=".4rem" title="主规格" />
           <div class="strip" style="background:#EDEEEF;"></div>
+        <div class="delBtn" @click="list.splice(index,1)">删除</div>
       </van-cell-group>
     </div>
     <div class="sure" @click="addSku">增加规格</div>
@@ -136,6 +137,12 @@
 </script>
 
 <style scoped lang="scss">
+  .delBtn{
+    line-height: 1rem;
+    text-align: center;
+    background: red;
+    color: #fff;
+  }
   .sexWarp{
     position:fixed;
     left: 0;
