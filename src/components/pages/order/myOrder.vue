@@ -112,7 +112,7 @@
 //        PUT
     },
       pay(item){
-        this.$router.push({name:'pay',query:{payPrice:item,payNo:item.payNo}})
+        this.$router.push({name:'pay',query:{payPrice:item.allPrice,payNo:item.payNo}})
         console.log(item)
         /*this.$ajax('/api/order/aliPay', {
           id:item,
