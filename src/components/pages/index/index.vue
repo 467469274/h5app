@@ -14,7 +14,7 @@
         >
           <van-tabbar-item icon="wap-home" :to="{name:'shoppingMall'}">首页</van-tabbar-item>
           <van-tabbar-item icon="shop-o" :to="{name:'malls'}">商城</van-tabbar-item>
-          <van-tabbar-item icon="envelop-o" :to="{name:'message'}">消息</van-tabbar-item>
+          <van-tabbar-item icon="envelop-o" :to="{name:'message'}" :info="allnum">消息</van-tabbar-item>
           <van-tabbar-item icon="contact" :to="{name:'member'}">我的</van-tabbar-item>
         </van-tabbar>
       <!-- </keep-alive> -->
@@ -30,10 +30,20 @@ export default {
     return {
       info: '',
       isShowTab: true,
-      active:0
+      active:0,
+      allnum:0
     }
   },
   created(){
+    this.$ajax('/api/message/message',{},(res)=>{
+      let num = 0
+      res.data.forEach(item=>{
+        num+=item.count
+        console.log(item.count)
+      })
+      this.allnum = num
+      console.log(num)
+    },()=>{},'post')
   },
   watch:{
     $route:{

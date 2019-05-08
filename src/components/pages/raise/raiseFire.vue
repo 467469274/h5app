@@ -15,18 +15,18 @@
     <div class="inputList">
       <div class="inputItem moreInput">券种价格
         <div>
-          <input type="number"  oninput="value=value.replace(/[^\d]/g,'')" v-model="gold" placeholder="请填写">金=<input v-model="silver" oninput="value=value.replace(/[^\d]/g,'')" type="number" placeholder="请填写">银
+          <input type="number" @keyup="keyup(gold)" v-model="gold" placeholder="请填写">金=<input v-model="silver" oninput="value=value.replace(/[^\d]/g,'')" type="number" placeholder="请填写">银
         </div>
       </div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹规模 <input v-model="dimensions" oninput="value=value.replace(/[^\d]/g,'')" type="number" placeholder="请填写"></div>
+      <div class="inputItem">众筹规模 <input v-model="dimensions" @keyup="keyup(dimensions)" type="number" placeholder="请填写"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">限量 <input v-model="quantity" oninput="value=value.replace(/[^\d]/g,'')" type="number" placeholder="请填写"></div>
+      <div class="inputItem">限量 <input v-model="quantity" @keyup="keyup(quantity)"  type="number" placeholder="请填写"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹介绍 <input v-model="recommend" type="text" placeholder="请填写"></div>
+      <div class="inputItem">众筹介绍 <input v-model="recommend"  type="text" placeholder="请填写"></div>
     </div>
     <div class="fireBtn" @click="save">发布</div>
     <colorBox :color="'#F5F6F7'"></colorBox>
@@ -34,7 +34,8 @@
 </template>
 
 <script>
-export default {
+  const re = /^\+?[1-9][0-9]*$/
+  export default {
   name: 'raiseFire',
   data () {
     return {
@@ -47,6 +48,11 @@ export default {
     }
   },
   methods: {
+    keyup(v){
+      if (!re.test(v)) {
+        this.$toast("请输入数字");
+      }
+    },
     goSomePage (type) {
       if (type == 'back') {
         this.$router.back(-1)

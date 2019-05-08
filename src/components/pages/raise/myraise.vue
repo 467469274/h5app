@@ -26,7 +26,7 @@
                 <p class="des">{{item.recommend}}</p>
               </div>
             </div>
-            <div class="itemBottom" @click.stop="goSomePage('detail',{id:item.tickId})">
+            <div class="itemBottom">
               <div class="bottomItem first">
                 <div class="title">众筹规模</div>
                 <div class="des">{{item.dimensions}}</div>

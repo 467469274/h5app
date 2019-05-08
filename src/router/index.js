@@ -236,11 +236,7 @@ const router = new Router({
     {
       path: '/allRaise',
       name: 'allRaise',
-      component: allRaise,
-      meta: {
-        keepAliveApp: true,
-        keepAlive: true
-      }
+      component: allRaise
     },
     {
       path: '/merchants',

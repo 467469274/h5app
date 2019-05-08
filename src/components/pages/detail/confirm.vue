@@ -101,6 +101,10 @@
           "leavingMessage": "string",
           "skus": skus
         }
+        if(!confirmDetail.address){
+          this.$toast('请选择收货地址')
+          return
+        }
         this.$ajax('/api/order/submitOrder', obj,
           (res) => {
             let data = res.data

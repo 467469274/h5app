@@ -10,7 +10,7 @@
       <div class="inputItem">姓名 <input type="text" v-model="name" placeholder="请输入姓名"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">手机号 <input type="text" v-model="phone" placeholder="请输入手机号"/></div>
+      <div class="inputItem">手机号 <input type="number" v-model="phone" placeholder="请输入手机号"/></div>
     </div>
     <div class="inputList">
       <div class="inputItem">投入金券 <input v-model="gold" type="number" placeholder="请输入数量"></div>
@@ -40,12 +40,15 @@
         }
       },
       save() {
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
         if (this.name == '') {
-          this.$toast('请填写众筹名称')
+          this.$toast('请输入有效的姓名')
         } else if (this.phone == '') {
           this.$toast('请填写金券比例')
         } else if (this.gold == '') {
           this.$toast('请填写银券比例')
+        } else if (this.phone == '' || !myreg.test(this.phone)) {
+          this.$toast('请填写正确的手机号')
         } else {
           this.$ajax('/api/tick/join', {
               tickId: this.$route.query.value,

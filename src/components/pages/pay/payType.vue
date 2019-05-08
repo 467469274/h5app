@@ -7,10 +7,10 @@
     />
     <van-radio-group v-model="radio">
       <van-cell-group>
-        <van-cell :title="type" @click="goSomePage('changePassword')">
+        <van-cell title="修改支付密码" v-if="type == '修改支付密码'" @click="goSomePage('changePassword')">
           <van-icon color="rgba(0,0,0,0.5)" name="arrow"/>
         </van-cell>
-        <van-cell title="忘记支付密码" @click="goSomePage('forget')">
+        <van-cell :title="type" @click="goSomePage('forget')">
           <van-icon color="rgba(0,0,0,0.5)" name="arrow"/>
         </van-cell>
       </van-cell-group>
@@ -38,9 +38,9 @@
     },
     created(){
       this.$ajax('/api/mine/withdrawCheck',{},(res)=>{
-        console.log(res)
+        console.log('res')
       },(err)=>{
-        console.log(err)
+        console.log('err')
         this.type = '设置支付密码'
       },'PUT')
     }

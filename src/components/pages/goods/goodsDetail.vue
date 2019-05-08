@@ -161,13 +161,12 @@
         }, 'post')
       },
       onBuyClicked(data) {
-        console.log(data)
-
         this.$ajax('/api/order/confirmOrder', [ {
           skuId:data.selectedSkuComb.id,
           num:data.selectedNum
         }], (res) => {
-          this.$router.push({name:'confirm',params:{...res.data,from:'cart'}})
+          this.$store.commit('setInfo',{...res.data,from:'cart'})
+          this.$router.push({name:'confirm'})
         }, (err) => {
           this.$toast.fail(err)
         }, 'upOrder')

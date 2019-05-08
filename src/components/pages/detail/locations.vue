@@ -10,7 +10,7 @@
         <div class="cell"><span>收货人:</span><input type="text" v-model="name" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号码:</span><input type="text" v-model="phone" class="input"/></div>
+        <div class="cell"><span>手机号码:</span><input type="number" v-model="phone" class="input"/></div>
       </van-cell>
       <van-cell>
         <div class="cell" @click="show = true"><span>所在地区:</span><input type="text" v-model="ssq" disabled
@@ -96,7 +96,41 @@
         }, 'get')
       },
       save() {
-        let data = {
+        if(this.name == ''){
+          this.$toast('请填写收货人')
+        }else if(this.phone == ''){
+          this.$toast('请填写手机号码')
+        }else if(this.cityName == ''){
+          this.$toast('请选择地址')
+        }else if(this.address == ''){
+          this.$toast('请填写详细地址')
+        }else{
+          let data = {
+              name: this.name,
+              phone: this.phone,
+              provinceId: this.provinceId,
+              provinceName: this.provinceName,
+              cityId: this.cityId,
+              cityName: this.cityName,
+              countyId: this.countyId,
+              countyName: this.countyName,
+              address: this.address,
+              isDefault: this.checked ? 1 : 0,
+              token: 3
+            },
+            type = 'post',message='保存成功'
+          if(this.$route.query.location){
+            data.id = this.$route.query.location
+            type = 'PUT'
+            message='修改成功'
+          }
+          this.$ajax('/api/product/address', data, (res) => {
+            this.$toast(message);
+            this.goSomePage('back')
+          }, () => {
+          }, type)
+        }
+        /*
           name: this.name,
           phone: this.phone,
           provinceId: this.provinceId,
@@ -106,20 +140,8 @@
           countyId: this.countyId,
           countyName: this.countyName,
           address: this.address,
-          isDefault: this.checked ? 1 : 0,
-          token: 3
-        },
-          type = 'post',message='保存成功'
-        if(this.$route.query.location){
-          data.id = this.$route.query.location
-          type = 'PUT'
-          message='修改成功'
-        }
-        this.$ajax('/api/product/address', data, (res) => {
-          this.$toast(message);
-          this.goSomePage('back')
-        }, () => {
-        }, type)
+          isDefault: this.checked ? 1 : 0,*/
+
       }
     }
   }
