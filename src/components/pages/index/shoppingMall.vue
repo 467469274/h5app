@@ -12,7 +12,7 @@
       </div>
       <van-swipe :autoplay="3000" class="indexWarp">
         <van-swipe-item v-for="item in banner" :key="item.goodsId">
-          <img width="100%" @click="goGoodsDetail(item.goodsId)" v-lazy="item.image" />
+          <img width="100%" @click="goGoodsDetail(item)" v-lazy="item.image" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -182,7 +182,9 @@ export default {
       this.$router.push(loca)
     },
     goGoodsDetail (id) {
-      this.$router.push({name: 'goodsDetail', params: {goodsId: id}})
+      if(id.type == 2){
+        this.$router.push({name: 'goodsDetail', params: {goodsId: id.placed}})
+      }
     },
     goSearch () {
       this.$router.push({name: 'search'})

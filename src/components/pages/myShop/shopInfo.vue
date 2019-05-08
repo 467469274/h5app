@@ -15,7 +15,7 @@
     </div>
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>名称</span><input type="text" :disabled="!isEdit"  :placeholder="isEdit?'请填写':''" v-model="shopInfo.name" class="input"/></div>
+        <div class="cell"><span>名称</span><input type="text" :disabled="!isEdit" @blur="change()" :placeholder="isEdit?'请填写':''" v-model="shopInfo.name" class="input"/></div>
       </van-cell>
       <van-cell  @click="showFl" >
         <div class="cell"><span>主营业务</span><input type="text" v-model="shopInfo.categoryNames" disabled class="input"/></div>
@@ -57,6 +57,15 @@
           this.$router.push({name: type})
         }
       },
+      change(){
+        this.$ajax('/api/shop',{id:2,username:'123123mmm'}, (res) => {
+          this.isEdit = false;
+          this.$toast('编辑成功')
+        }, (err) => {
+          this.$toast(err)
+          console.log(err)
+        },'PUT')
+      },
       showFl(){
         if(this.isEdit){
           this.isShowFl = true
@@ -68,11 +77,11 @@
         this.shopInfo.categoryIds = item.id
       },
       save(){
-        console.log(122222)
         this.$ajax('/api/mine/info',this.shopInfo, (res) => {
           this.isEdit = false;
           this.$toast('编辑成功')
         }, (err) => {
+          this.$toast(err)
           console.log(err)
         },'PUT')
       },

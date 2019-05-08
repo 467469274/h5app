@@ -127,12 +127,12 @@
         }, 'PUT')*/
       },
       cancel(id,index){
-        console.log(id)
         this.$ajax('/api/shop/cancelOrder',{
             orderId:id
           },
           (res)=>{
-            this.userDetail.orders.splice(index,1)
+            this.formData.currPage = 0
+            this.onLoad()
             this.$toast('取消成功')
           },(err)=>{
             this.$toast(err)

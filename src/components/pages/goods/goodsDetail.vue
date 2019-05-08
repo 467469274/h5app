@@ -21,7 +21,7 @@
       <div class="txt">
         <div class="redTxt"><span class="b">￥{{nowSku.price}}</span></div>
         <div class="redTxt" v-if="type!='goodsList'"><span>￥</span><span>99.9</span></div>
-        <div class="redTxt chinese" v-if="type!='goodsList'"><span class="grey">购买返现</span><span class="b">￥1.00</span>
+        <div class="redTxt chinese" v-if="type!='goodsList'"><!--<span class="grey">购买返现</span><span class="b">￥1.00</span>-->
         </div>
       </div>
       <p class="isChose" @click="showBase = true"><span>已选</span>{{nowSku.name}}
