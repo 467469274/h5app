@@ -143,14 +143,19 @@
           url = '/api/product/xrth'
         }
         this.$ajax(url, this.postP, (res) => {
+          let list;
           if (this.searchInt == '新人特惠' || this.searchInt == '爆款专区') {
-            this.products = res.data
+            this.products = this.products.concat(res.data)
+            list = res.data
           } else {
-            this.products = res.data.products
+            this.products = this.products.concat(res.data.products)
+            list = res.data.products
           }
           this.postP.currPage += 1
-          this.finished = true
           this.loading = false
+          if(list.length<this.postP.pageSize){
+            this.finished = true
+          }
         }, () => {
         }, 'get')
       },

@@ -7,7 +7,7 @@
     />
     <van-radio-group v-model="radio">
       <van-cell-group>
-        <van-cell title="修改支付密码" @click="goSomePage('changePassword')">
+        <van-cell :title="type" @click="goSomePage('changePassword')">
           <van-icon color="rgba(0,0,0,0.5)" name="arrow"/>
         </van-cell>
         <van-cell title="忘记支付密码" @click="goSomePage('forget')">
@@ -24,7 +24,7 @@
     name: "sex",
     data() {
       return {
-        radio: 1
+        radio: 1,type:'修改支付密码'
       }
     },
     methods: {
@@ -35,6 +35,14 @@
           this.$router.push({name: type})
         }
       }
+    },
+    created(){
+      this.$ajax('/api/mine/withdrawCheck',{},(res)=>{
+        console.log(res)
+      },(err)=>{
+        console.log(err)
+        this.type = '设置支付密码'
+      },'PUT')
     }
   }
 </script>
