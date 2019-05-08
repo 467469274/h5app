@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import {setCookie,getCookie} from '@/common/cookies';
   export default {
     name: "sex",
     data() {
@@ -53,7 +54,7 @@
       DelCookie(name) {
         let exp = new Date();
         exp.setTime(exp.getTime() - 1);
-        let cval = GetCookie(name);
+        let cval = getCookie(name);
         document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
       }
     }

@@ -294,11 +294,7 @@ const router = new Router({
     {
       path: '/confirm',
       name: 'confirm',
-      component: confirm,
-      meta: {
-        keepAlive: false,
-        keepAliveApp: true
-      }
+      component: confirm
     },
     {
       path: '/locations',

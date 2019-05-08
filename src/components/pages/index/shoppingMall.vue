@@ -24,52 +24,52 @@
     </div>
     <div class="category">
       <div class="category-item" @click="goSomePage('hot')">
-        <img v-lazy="'static/baokuan-@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/baokuan-@2x.png'" width="100%">
         <span>爆款热卖</span>
       </div>
       <div class="category-item" @click="$toast('敬请期待')">
-        <img v-lazy="'static/msg4@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/msg4@2x.png'" width="100%">
         <span>促销活动</span>
       </div>
       <div class="category-item" @click="goSomePage('allRaise')">
-        <img v-lazy="'static/zhongchou@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/zhongchou@2x.png'" width="100%">
         <span>众筹联盟</span>
       </div>
       <div class="category-item"@click="$toast('敬请期待')">
-        <img v-lazy="'static/zhongchou@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/zhongchou@2x.png'" width="100%">
         <span>游戏娱乐</span>
       </div>
     </div>
     <div class="category">
       <div class="category-item" @click="goSomePage('overseas')">
-        <img v-lazy="'static/iconfontyouxihudong@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/iconfontyouxihudong@2x.png'" width="100%">
         <span>海外专营</span>
       </div>
       <div class="category-item" @click="goSomePage('merchants')">
-        <img v-lazy="'static/shangjia@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/shangjia@2x.png'" width="100%">
         <span>商家联盟</span>
       </div>
       <div class="category-item"@click="$toast('敬请期待')">
-        <img v-lazy="'static/xueyuan@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/xueyuan@2x.png'" width="100%">
         <span>家家商学院</span>
       </div>
       <div class="category-item"@click="$toast('敬请期待')">
-        <img v-lazy="'static/jiankang@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/jiankang@2x.png'" width="100%">
         <span>健康之家</span>
       </div>
     </div>
     <getout></getout>
     <div class="threeType">
       <div class="item" @click="goSomePage('endorsment')">
-        <img v-lazy="'static/daiyanren@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/daiyanren@2x.png'" width="100%">
         <p>我要代言</p>
       </div>
       <div class="item"  @click="goSomePage('invitation')">
-        <img v-lazy="'static/yaoqing@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/yaoqing@2x.png'" width="100%">
         <p>邀请好友</p>
       </div>
       <div class="item" @click="goSomePage('signIn')">
-        <img v-lazy="'static/qiandao@2x.png'" alt="" width="100%">
+        <img v-lazy="'static/qiandao@2x.png'" width="100%">
         <p>签到</p>
       </div>
     </div>
@@ -289,7 +289,6 @@ $border-1px: 1PX solid #666;
     border-radius: .15rem;
     .category-item {
       text-align: center;
-      touch-action: none;
       flex: 1;
       padding: .2rem;
       color: rgb(130,130,130);

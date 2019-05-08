@@ -27,13 +27,13 @@
       <div class="inputWarp">
         <div class="loginInput">
           <img src="/static/loginlock.png" alt="">
-          <input type="text" placeholder="密码" v-model="password">
+          <input type="password" placeholder="密码" v-model="password">
         </div>
       </div>
       <div class="inputWarp">
         <div class="loginInput">
           <img src="/static/loginlock.png" alt="">
-          <input type="text" placeholder="确认密码"v-model="agpassword">
+          <input type="password" placeholder="确认密码"v-model="agpassword">
         </div>
       </div>
       <div class="loginBtn" @click="over">确定</div>
