@@ -44,13 +44,22 @@
             </van-cell>
 
             <div class="cellBtn">
-              <button class="deliveryBtn" v-if="form.status == 30">立即发货</button>
-              <button v-if="form.status != 10 || form.status != 20">取消订单</button>
+              <button class="deliveryBtn" v-if="form.status == 30"  @click="nowId = item.id,show = true">立即发货</button>
+              <button v-if="form.status != 10 || form.status != 20"@click="cancel(item.id,index)">取消订单</button>
             </div>
           </div>
         </van-list>
       </div>
     </div>
+    <van-popup v-model="show">
+      <div class="sendWarp">
+        <van-field v-model="value" type="number" @keypress="keypress" placeholder="请输入物流编号"/>
+        <div class="btnWarp">
+          <van-button plain type="danger" @click="show=false,nowId='',value=''">取消</van-button>
+          <van-button plain type="primary" @click="send">确定</van-button>
+        </div>
+      </div>
+    </van-popup>
     <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
@@ -60,6 +69,9 @@
     name: "sex",
     data() {
       return {
+        nowId:'',
+        value:'',
+        show:false,
         status:{
           0:"待支付",
           10:"取消支付",
@@ -80,6 +92,29 @@
       }
     },
     methods: {
+      send() {
+        if (this.value == '') {
+          this.$toast('请输入物流编号')
+        } else {
+          this.$ajax('/api/shop/fahuo',
+            {
+              id: this.nowId,
+              expressNo: this.value
+            }, (res) => {
+              this.$toast('发货成功')
+              this.form.currPage = 1
+              this.list = []
+              this.getData()
+              this.nowId=''
+              this.value=''
+              this.show = false
+            }, (err) => {
+              this.$toast(err)
+              this.nowId=''
+              this.value=''
+            }, 'PUT')
+        }
+      },
       StatusChange(id) {
         this.form.status = id
         this.form.currPage = 0
@@ -100,6 +135,17 @@
         }, () => {
           this.loading = false;
         }, 'get')
+      },
+      cancel(id,index){
+        this.$ajax('/api/shop/cancelOrder',{
+            orderId:id
+          },
+          (res)=>{
+            this.list.splice(index,1)
+            this.$toast('取消成功')
+          },(err)=>{
+            this.$toast(err)
+          },'PUT')
       }
     }
   }
@@ -147,4 +193,21 @@
     }
   }
 
+  .sendWarp {
+    width: 6rem;
+    .btnWarp {
+      display: flex;
+      margin: .2rem 0;
+      justify-content: space-evenly;
+      .van-button {
+        width: 1.2rem;
+        line-height: .45rem;
+        height: .6rem;
+        text-align: center;
+        font-size: 12px;
+        padding: 0;
+        display: block;
+      }
+    }
+  }
 </style>

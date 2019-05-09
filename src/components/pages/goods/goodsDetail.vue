@@ -196,8 +196,14 @@
               imgUrl: item.mainImg
             }
           })
+          /*price: '1.00', // 默认价格（单位元）
+            stock_num: 227, // 商品总库存*/
           this.sku.tree[0].v = v
+          //
+          let stock_num = 0;
           this.sku.list = res.data.skus.map((itm) => {
+            stock_num += itm.stock
+            if(itm.skuId == res.data.mainSkuId)this.sku.price = itm.price
             return {
               id: itm.skuId, // skuId，下单时后端需要
               price: itm.price * 100, // 价格（单位分）
@@ -205,6 +211,7 @@
               stock_num: itm.stock // 当前 sku 组合对应的库存
             }
           })
+          this.sku.stock_num = stock_num
         }, () => {
         }, 'get')
       }

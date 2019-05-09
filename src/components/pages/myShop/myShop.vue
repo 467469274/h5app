@@ -67,19 +67,31 @@
           </div>
         </div>
         <div class="shopBtns">
-          <span class="bgr" @click="send">立即发货</span>
+          <span class="bgr" v-if="item.status == 30" @click="nowId = item.id,show = true">立即发货</span>
           <!--<span class="bgy" @click="goSomePage('cencelOrder')">取消订单</span>-->
-          <span class="bgy" @click="cancel(item.id,index)">取消订单</span>
+          <span class="bgy" v-if="item.status!=60 &&  item.status!=20 " @click="cancel(item.id,index)">取消订单</span>
         </div>
       </div>
     </div>
     <colorBox :color="'#F5F6F7'"></colorBox>
+    <van-popup v-model="show">
+      <div class="sendWarp">
+        <van-field v-model="value" type="number" @keypress="keypress" placeholder="请输入物流编号"/>
+        <div class="btnWarp">
+          <van-button plain type="danger" @click="show=false,nowId='',value=''">取消</van-button>
+          <van-button plain type="primary" @click="send">确定</van-button>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 <script type="text/ecmascript-6">
   export default {
     data(){
       return{
+        nowId:'',
+        value:'',
+        show:false,
         userDetail:{
           orders:[]
         },
@@ -92,6 +104,30 @@
       this.getData()
     },
     methods: {
+      send() {
+        if (this.value == '') {
+          this.$toast('请输入物流编号')
+        } else {
+          this.$ajax('/api/shop/fahuo',
+            {
+              id: this.nowId,
+              expressNo: this.value
+            }, (res) => {
+              this.$toast('发货成功')
+              this.form.currPage = 1
+              this.list = []
+              this.getData()
+              this.nowId=''
+              this.value=''
+              this.show = false
+            }, (err) => {
+              this.$toast(err)
+              this.show = false
+              this.nowId=''
+              this.value=''
+            }, 'PUT')
+        }
+      },
       goSomePage(type) {
         if (type == 'back') {
           this.$router.back(-1)
@@ -111,7 +147,6 @@
         )
       },
       cancel(id,index){
-        console.log(id)
         this.$ajax('/api/shop/cancelOrder',{
             orderId:id
           },
@@ -254,6 +289,23 @@
             margin-left: .25rem;
           }
         }
+      }
+    }
+  }
+  .sendWarp {
+    width: 6rem;
+    .btnWarp {
+      display: flex;
+      margin: .2rem 0;
+      justify-content: space-evenly;
+      .van-button {
+        width: 1.2rem;
+        line-height: .45rem;
+        height: .6rem;
+        text-align: center;
+        font-size: 12px;
+        padding: 0;
+        display: block;
       }
     }
   }

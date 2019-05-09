@@ -39,7 +39,7 @@
           this.$toast('请填写内容');
         }else if(this.phone == ''){
           this.$toast('请填写手机号');
-        }else if(this.phone.length<18){
+        }else if(this.phone.length<11){
           this.$toast('请填写正确的手机号');
         }else{
           this.$ajax('/api/system/feedBack',{

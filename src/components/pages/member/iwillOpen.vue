@@ -11,10 +11,10 @@
         <div class="cell"><span>姓名:</span><input type="text" class="input" v-model="username" placeholder="输入姓名"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号:</span><input v-model="phone" type="text" class="input" placeholder="输入手机号"/></div>
+        <div class="cell"><span>手机号:</span><input v-model="phone" @keypress="keypress" type="number" class="input" placeholder="输入手机号"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>身份证号:</span><input v-model="cardnum" type="text" class="input" placeholder="输入身份证号"/>
+        <div class="cell"><span>身份证号:</span><input v-model="cardnum" @keypress="keypress" type="number" class="input" placeholder="输入身份证号"/>
         </div>
       </van-cell>
     </div>
@@ -30,7 +30,7 @@
       <van-cell title="主营业务" is-link @click="isShowFl = true">{{showNames}}</van-cell>
       <!--类型为选择-->
       <van-cell>
-        <div class="cell"><span>店铺电话:</span><input type="text" v-model="mobile" class="input" placeholder="输入店铺电话"/>
+        <div class="cell"><span>店铺电话:</span><input type="number" @keypress="keypress" v-model="mobile" class="input" placeholder="输入店铺电话"/>
         </div>
       </van-cell>
       <van-cell>

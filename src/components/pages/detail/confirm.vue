@@ -44,7 +44,7 @@
       <div class="goodsBottom">
         <div class="bottomTxt">
           <span>买家留言</span>
-          <span class="right">{{confirmDetail.leavingMessage}}</span>
+          <span class="right"><input type="text" v-model="confirmDetail.leavingMessage" style="text-align: right" placeholder="用户留言"></span>
         </div>
         <div class="bottomTxt">
           <span>运费</span>
@@ -98,7 +98,7 @@
         })
         let obj = {
           "addressId": confirmDetail.address.id,
-          "leavingMessage": "string",
+          "leavingMessage":confirmDetail.leavingMessage,
           "skus": skus
         }
         if(!confirmDetail.address){

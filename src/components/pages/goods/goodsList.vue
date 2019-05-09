@@ -177,6 +177,7 @@
         this.acitveClass = v
         this.postP.order = v
         this.postP.currPage = 1
+        this.products = []
         this.onLoad()
       },
       onchange() {
@@ -211,7 +212,6 @@
       left: 0;
       top: 0;
       width: 100%;
-      touch-action: none;
       z-index: 1;
       .filters {
         display: flex;
