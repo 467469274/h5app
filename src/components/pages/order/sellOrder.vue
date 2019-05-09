@@ -9,10 +9,10 @@
     />
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>挂卖数量</span><input v-model="phone" placeholder="请输入数量" type="number" class="input"/></div>
+        <div class="cell"><span>挂卖数量</span><input v-model="phone" placeholder="请输入数量" @keypress="keypress" type="number" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>卖出价格</span><input v-model="gold" placeholder="请输入价格" type="number" class="input"/></div>
+        <div class="cell"><span>卖出价格</span><input v-model="gold" placeholder="请输入价格" @keypress="keypress" type="number" class="input"/></div>
       </van-cell>
       <van-cell>
         <div class="cell"><span>支付密码</span><input placeholder="请填写支付密码" v-model="password" type="password" class="input"/></div>

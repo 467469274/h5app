@@ -9,18 +9,19 @@ import vueUpload from '@/components/common/upload';
 import colorBox from '@/components/common/colorBox';
 import {$ajax} from '@/common/ajax';
 import {setCookie,getCookie} from '@/common/cookies';
+import keypress from '@/common/keypress';
 import 'vant/lib/index.css';
 import store from './store';
 import { Lazyload,Toast } from 'vant';
 Vue.use(Vant);
 Vue.config.productionTip = false
-
 // options 为可选参数，无则不传
 Vue.use(Lazyload);Vue.use(Toast);
 Vue.component('vueUpload',vueUpload)
 Vue.component('colorBox',colorBox)
 Vue.prototype.$ajax = $ajax
 Vue.prototype.setCookie = setCookie;
+Vue.prototype.keypress = keypress;
 Vue.prototype.getCookie = getCookie;
 /* eslint-disable no-new */
 new Vue({

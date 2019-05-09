@@ -10,7 +10,7 @@
         <div class="cell"><span>收货人:</span><input type="text" v-model="name" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号码:</span><input type="number" v-model="phone" class="input"/></div>
+        <div class="cell"><span>手机号码:</span><input type="number" @keypress="keypress" v-model="phone" class="input"/></div>
       </van-cell>
       <van-cell>
         <div class="cell" @click="show = true"><span>所在地区:</span><input type="text" v-model="ssq" disabled

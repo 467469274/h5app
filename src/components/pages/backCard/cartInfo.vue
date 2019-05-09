@@ -14,10 +14,10 @@
       </van-cell>
       <van-cell title="证件类型" to="choseType"><span style="color: #CD0000;float: right">身份证</span></van-cell>
       <van-cell>
-        <div class="cell"><span>证件号</span><input v-model="idcard" placeholder="请输入身份证号" type="number" class="input"/></div>
+        <div class="cell"><span>证件号</span><input v-model="idcard" placeholder="请输入身份证号" @keypress="keypress" type="number" class="input"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号</span><input v-model="phone" placeholder="请输入预留手机号" type="number" class="input"/></div>
+        <div class="cell"><span>手机号</span><input v-model="phone" placeholder="请输入预留手机号" @keypress="keypress" type="number" class="input"/></div>
       </van-cell>
       <p class="message" style="color: #CD0000">请绑定持卡本人的银行卡</p>
       <van-checkbox shape="0" class="checkbox" style="margin-left:.3rem" v-model="checked" checked-color="red">同意用户协议</van-checkbox>

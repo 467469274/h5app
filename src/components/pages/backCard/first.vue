@@ -9,7 +9,7 @@
     <div class="warp">
       <van-cell title="选择卡片类型" to="choseType" is-link>{{cartType}}</van-cell>
       <van-cell>
-        <div class="cell"><span>卡号:</span><input type="number" v-model="phone" class="input"/></div>
+        <div class="cell"><span>卡号:</span><input type="number" @keypress="keypress" v-model="phone" class="input"/></div>
       </van-cell>
     </div>
     <div class="sure" @click="goSomePage('cartInfo')">下一步</div>

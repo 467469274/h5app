@@ -8,7 +8,7 @@
     <div class="warp">
        <van-cell>
          <div class="cell"><span>提现账户</span><input placeholder="请输入提现账户" v-model="user" type="text" class="input"/></div>
-         <div class="cell"><span>金额（元）</span><input placeholder="请输入提现金额" v-model="price"  type="number" class="input"/></div>
+         <div class="cell"><span>金额（元）</span><input placeholder="请输入提现金额" v-model="price" @keypress="keypress" type="number" class="input"/></div>
       </van-cell>
        <van-cell>
             <div class="cellPay">

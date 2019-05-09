@@ -10,10 +10,10 @@
       <div class="inputItem">姓名 <input type="text" v-model="name" placeholder="请输入姓名"></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">手机号 <input type="number" v-model="phone" placeholder="请输入手机号"/></div>
+      <div class="inputItem">手机号 <input type="number" @keypress="keypress" v-model="phone" placeholder="请输入手机号"/></div>
     </div>
     <div class="inputList">
-      <div class="inputItem">投入金券 <input v-model="gold" type="number" placeholder="请输入数量"></div>
+      <div class="inputItem">投入金券 <input v-model="gold" @keypress="keypress" type="number" placeholder="请输入数量"></div>
     </div>
     <div class="fireBtn" @click="save">加入</div>
   </div>

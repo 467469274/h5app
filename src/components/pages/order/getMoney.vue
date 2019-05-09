@@ -7,7 +7,7 @@
     />
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>金额（元）</span><input placeholder="请输入充值金额" type="number" v-model="number" class="input"/></div>
+        <div class="cell"><span>金额（元）</span><input placeholder="请输入购买金额" @keypress="keypress"  type="number" v-model="number" class="input"/></div>
       </van-cell>
       <!--  <van-cell>
              <div class="cellPay">

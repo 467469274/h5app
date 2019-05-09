@@ -43,7 +43,7 @@
     <colorBox :color="'#F5F6F7'"></colorBox>
     <van-popup v-model="show">
       <div class="sendWarp">
-        <van-field v-model="value" type="number" placeholder="请输入物流编号"/>
+        <van-field v-model="value" type="number" @keypress="keypress" placeholder="请输入物流编号"/>
         <div class="btnWarp">
           <van-button plain type="danger" @click="show=false,nowId='',value=''">取消</van-button>
           <van-button plain type="primary" @click="send">确定</van-button>
