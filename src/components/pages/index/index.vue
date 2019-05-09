@@ -24,6 +24,7 @@
 
 <script>
 import bus from '@/common/bus.js'
+import {getCookie} from '@/common/cookies'
 export default {
   name: 'index',
   data () {
@@ -35,15 +36,6 @@ export default {
     }
   },
   created(){
-    this.$ajax('/api/message/message',{},(res)=>{
-      let num = 0
-      res.data.forEach(item=>{
-        num+=item.count
-        console.log(item.count)
-      })
-      this.allnum = num
-      console.log(num)
-    },()=>{},'post')
   },
   watch:{
     $route:{
@@ -51,6 +43,18 @@ export default {
         let name = to.name
         if(name == 'shoppingMall'){
           this.active =  0
+       /*  let t = getCookie('token')
+
+          if(t){
+            this.$ajax('/api/message/message',{},(res)=>{
+              let num = 0
+              res.data.forEach(item=>{
+                num+=item.count
+                console.log(item.count)
+              })
+              this.allnum = num
+            },()=>{},'post')
+          }*/
         }else if(name=='malls'){
           this.active =  1
         }else if(name=='message'){

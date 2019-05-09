@@ -12,8 +12,8 @@
         <span><i @click="StatusChange(30)" :class="{'selectStatus' : form.status == 30}" data-id="30"
                  data-path="shipped">已付款</i></span>
         <span><i @click="StatusChange(40)" :class="{'selectStatus' : form.status == 40}" data-id="40">配送中</i></span>
-        <span><i @click="StatusChange(60)" :class="{'selectStatus' : form.status == 60}" data-id="60">已完成</i></span>
-        <span><i @click="StatusChange(10)" :class="{'selectStatus' : form.status == 10 || form.status ==20}" data-id="10">已取消</i></span>
+        <span><i @click="StatusChange('50,60')" :class="{'selectStatus' : form.status == 60}" data-id="60">已完成</i></span>
+        <span><i @click="StatusChange('10,20')" :class="{'selectStatus' : form.status == 10 || form.status ==20}" data-id="10">已取消</i></span>
       </div>
       <div>
         <van-list

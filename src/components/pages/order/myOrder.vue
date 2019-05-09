@@ -23,7 +23,7 @@
         <div class="myOrderCell" v-for="(item,index) in list" @click="goDetail(item.id)">
           <van-cell>
             <div class="cell" style="color:#666666;">
-              <span v-if="status == -1 || status == 0 || status == 30">订单号:{{item.id}}</span>
+              <span v-if="status == -1 || status == 0 || status == 30">订单号:{{item.orderNO}}</span>
               <span v-else>物流单号:{{item.expressNo}}</span>
             </div>
           </van-cell>

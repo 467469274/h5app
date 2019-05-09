@@ -85,7 +85,7 @@
         this.shopInfo.categoryIds = item.id
       },
       save(){
-        this.$ajax('/api/mine/info',this.shopInfo, (res) => {
+        this.$ajax('/api/shop',this.shopInfo, (res) => {
           this.isEdit = false;
           this.$toast('编辑成功')
         }, (err) => {

@@ -11,7 +11,7 @@ export function $ajax(url, data, call, err, methodsType) {
     }
   };
   // var tk = getCookie('token')
-  var tk = '2'
+  var tk = '2';
   data.token = tk
   if (methodsType == 'get') {
     axios.get(ajaxUrl, {

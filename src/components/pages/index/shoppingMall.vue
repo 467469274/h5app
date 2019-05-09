@@ -5,6 +5,7 @@
         <!--<span class="sweepCode icon"></span>-->
         <div class="searchWarp">
           <span class="searchInner" @click="goSearch">
+                      <van-icon name="search"size=".3rem"/>
             搜索你需要的......
           </span>
         </div>
@@ -240,14 +241,17 @@ $border-1px: 1PX solid #666;
         flex: 1;
         padding: 0 .4rem;
         .searchInner{
-
           display:block;
           background: #fff;
           height:.55rem;
           line-height: .55rem;
           border-radius: .4rem;
-          padding-left:1rem;
+          padding-left:.2rem;
           color:rgba(0,0,0,0.3);
+          i{
+            vertical-align: sub;
+            margin: 0 .2rem;
+          }
         }
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="searchBox" style="touch-action: none" @click="click">
     <span class="searchIcon" @click="goSomePage"><van-icon size=".4rem" name="arrow-left" /></span>
-    <input type="text" v-model="searchTxt" @keyup="change" placeholder="请输入搜索内容.....">
+    <input type="text" v-model="searchTxt" @keyup="change" @keyup.enter="search"placeholder="请输入搜索内容.....">
   </div>
 </template>
 
@@ -26,8 +26,10 @@ export default {
     click () {
       this.$emit('click')
     },
+    search(){
+      this.$emit('enter')
+    },
     goSomePage () {
-      console.log(123123)
       if(this.clickRight){
         this.clickRight()
       }else{
