@@ -11,7 +11,7 @@
     <div class="inputWarp">
       <div class="loginInput">
         <img src="/static/loginsj.png">
-        <input type="text" placeholder="请输入手机号" v-model="userName">
+        <input type="number" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入手机号" v-model="userName">
         <span class="clear"></span>
       </div>
       <div class="codeWarp">

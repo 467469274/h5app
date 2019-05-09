@@ -5,7 +5,7 @@
       :right-text="isEdit?'取消':'编辑'"
       left-arrow
       @click-left="goSomePage('back')"
-      @click-right="isEdit =!isEdit"
+      @click-right="changeEdit"
     />
     <div class="shopTop">
       <div class="imgWarp">
@@ -15,7 +15,7 @@
     </div>
     <div class="warp">
       <van-cell>
-        <div class="cell"><span>名称</span><input type="text" :disabled="!isEdit" @blur="change()" :placeholder="isEdit?'请填写':''" v-model="shopInfo.name" class="input"/></div>
+        <div class="cell"><span>名称</span><input type="text" :disabled="!isEdit" :placeholder="isEdit?'请填写':''" v-model="shopInfo.name" class="input"/></div>
       </van-cell>
       <van-cell  @click="showFl" >
         <div class="cell"><span>主营业务</span><input type="text" v-model="shopInfo.categoryNames" disabled class="input"/></div>
@@ -63,12 +63,20 @@
           this.$toast('编辑成功')
         }, (err) => {
           this.$toast(err)
-          console.log(err)
         },'PUT')
       },
       showFl(){
         if(this.isEdit){
           this.isShowFl = true
+        }
+      },
+      changeEdit(){
+        if(this.isEdit){
+          this.isEdit = false
+          this.shopInfo =JSON.parse(JSON.stringify(this.detailss))
+        }else{
+          this.detailss = JSON.parse(JSON.stringify(this.shopInfo))
+          this.isEdit = true
         }
       },
       choseOk(item){
