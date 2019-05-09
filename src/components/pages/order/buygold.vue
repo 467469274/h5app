@@ -45,7 +45,6 @@
     created(){
       if(!this.$route.params.money || !this.$route.params.ordernum){
         this.$toast('订单信息有误，请重新尝试')
-//        this.$router.push({name:'buyOrder'})
       }
     },
     methods: {

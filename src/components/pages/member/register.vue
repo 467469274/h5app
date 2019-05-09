@@ -46,7 +46,8 @@
         code: "",
         vicode: '',
         canClick: true,
-        getCodeWord: '获取验证码'
+        getCodeWord: '获取验证码',
+        serverCode:''
       }
     },
     methods: {
@@ -65,6 +66,7 @@
             (res) => {
               if (res.code == 0) {
                 this.$toast('获取成功');
+                this.serverCode = res.data.code
                 let num = 60
                 this.intervals = setInterval(() => {
                   if (num == -1) {
@@ -84,10 +86,17 @@
         }
       },
       next() {
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
         if(this.userName == ''){
           this.$toast('请输入手机号')
         }else if(this.code == ''){
           this.$toast('请输入验证码')
+        }else if(this.serverCode == ''){
+          this.$toast('请获取验证码')
+        }else if(this.serverCode != this.code){
+          this.$toast('请填写正确的验证码')
+        }else if(!myreg.test(this.userName)){
+          this.$toast('请填写正确的手机号')
         }else{
           this.$ajax('/api/register',
             {

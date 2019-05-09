@@ -12,7 +12,7 @@
       <van-cell>
         <div class="cell"><span>姓名</span><input v-model="username" placeholder="请输入真实姓名" type="text" class="input"/></div>
       </van-cell>
-      <van-cell title="证件类型" to="choseType"><span style="color: #CD0000;float: right">身份证</span></van-cell>
+      <van-cell title="证件类型"><span style="color: #CD0000;float: right">身份证</span></van-cell>
       <van-cell>
         <div class="cell"><span>证件号</span><input v-model="idcard" placeholder="请输入身份证号" @keypress="keypress" type="number" class="input"/></div>
       </van-cell>
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+  // 正则表达式：
+  var idcardReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+  var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
   export default {
     name: "sex",
     data(){
@@ -54,8 +57,12 @@
           this.$toast('请输入身份证号')
         }else if(this.phone == ''){
           this.$toast('请输入预留手机号')
+        }else if(!myreg.test(this.phone)){
+          this.$toast('请输入正确的手机号')
         }else if(!this.checked){
           this.$toast('请勾选用户协议')
+        }else if(idcardReg.test(this.idcard)) {
+          this.$toast('请输入正确的身份证号')
         }else{
           this.$ajax('/api/mine/cardSave',{
             bankName:this.cartType,

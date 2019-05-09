@@ -36,6 +36,14 @@ export default {
     }
   },
   created(){
+    this.$ajax('/api/mine/wxwallet', {
+      money:1
+    }, (res) => {
+      console.log(res.data)
+      this.onBridgeReady(res.data.jsParam)
+    }, (err) => {
+      this.$toast(err)
+    }, 'post')
   },
   watch:{
     $route:{
@@ -65,6 +73,58 @@ export default {
       },
       immediate:true
     }
+  },
+  mounted(){
+    alert(WeixinJSBridge)
+  },
+  methods:{
+   /* wxpay() {
+      axios.post(url,data)
+        .then((res) => {
+          if(res.code == 200) {
+            const pay_params = res.data.jsApiParameters
+            if (typeof WeixinJSBridge == "undefined"){
+              if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+              }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+              }
+            }else{
+              this.onBridgeReady(pay_params);
+            }
+          }else{
+            alert('微信支付调起失败！');
+          }
+        }).catch((err) => {
+        console.log(err);
+      })
+    },*/
+    onBridgeReady(params) {
+      const pay_params = JSON.parse(params);
+      console.log({
+        "appId": pay_params.appid,  //公众号名称，由商户传入
+        "timeStamp": pay_params.timestamp,  //时间戳，自1970年以来的秒数
+        "nonceStr": pay_params.noncestr,  //随机串
+        "package": 'prepay_id='+pay_params.prepayid,
+        "signType": 'MD5',  //微信签名方式：
+        "paySign": pay_params.paySign
+      })
+      WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', {
+          "appId": pay_params.appid,  //公众号名称，由商户传入
+          "timeStamp": pay_params.timestamp,  //时间戳，自1970年以来的秒数
+          "nonceStr": pay_params.noncestr,  //随机串
+          "package": 'prepay_id='+pay_params.prepayid,
+          "signType": 'MD5',  //微信签名方式：
+          "paySign": pay_params.paySign
+        },
+        function(res){
+          if(res.err_msg == "get_brand_wcpay_request:ok" ){
+            alert('支付成功！');
+          }
+        });
+    },
   }
 }
 </script>
