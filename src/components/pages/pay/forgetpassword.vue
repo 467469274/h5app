@@ -1,7 +1,7 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="找回密码"
+      :title="type?'设置支付密码':'找回密码'"
       left-arrow
       @click-left="goSomePage('back')"
     />
@@ -18,7 +18,7 @@
     <div v-if="showSet" class="register">
       <div class="nav">
         <van-nav-bar
-          title="设置密码"
+          :title="type?'设置支付密码':'找回密码'"
           left-arrow
           @click-left="goBack"
         />
@@ -54,8 +54,11 @@
         showSet:false,
         password:'',
         agpassword:'',
-        userId:''
+        userId:'',
+        type:this.$route.query.type
       }
+    },
+    created(){
     },
     methods: {
       goBack(){

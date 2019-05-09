@@ -57,6 +57,7 @@ const aboutUs = () => import('@/components/pages/set/aboutUs')
 const opinion = () => import('@/components/pages/set/opinion')
 const setSize = () => import('@/components/pages/set/setSize')
 const remind = () => import('@/components/pages/set/remind')
+const security = () => import('@/components/pages/set/security')
 const commentsDetail = () => import('@/components/pages/comments/commentsDetail')
 const cencelOrder = () => import('@/components/pages/myShop/cencelOrder')
 const fl = () => import('@/components/pages/fl/fl')
@@ -567,6 +568,11 @@ const router = new Router({
       path: '/remind',
       name: 'remind',
       component: remind
+    },
+    {
+      path: '/security',
+      name: 'security',
+      component: security
     },
     {
       path: '/record',

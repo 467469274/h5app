@@ -6,7 +6,7 @@
       @click-left="goSomePage('back')"
     />
     <div class="warp">
-      <van-cell title="账号安全" is-link/>
+      <van-cell title="账号安全" to="security" is-link/>
       <van-cell title="消息提醒" to="remind" is-link/>
       <van-cell title="字体大小" to="setSize" is-link/>
       <div class="strip"></div>
