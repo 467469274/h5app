@@ -35,6 +35,9 @@
                 <p class="imagePrcie">{{sku.skuPrice?'￥'+sku.skuPrice:''}}
                   {{(sku.skuGoldCouponNum&&sku.skuPrice)?'+':''}}{{sku.skuGoldCouponNum?sku.skuGoldCouponNum+"券":''}}<span>x{{sku.skuNum}}</span>
                 </p>
+                <div style="overflow: hidden">
+                  <button v-if="item.status == 50" style="margin: 0;margin-top:.3rem" @click.stop="again(sku)" class="receipt">再次购买</button>
+                </div>
               </div>
             </div>
           </van-cell>
@@ -43,7 +46,6 @@
             <button v-if="item.status == 0" @click.stop="cancel(item.id,index)">取消订单</button>
             <button v-if="item.status == 40" @click.stop="sh(item.id)">确认收货</button>
             <!--<button v-if="item.status == 50">立即评价</button>-->
-            <button v-if="item.status == 50" @click.stop="again(item)" class="receipt">再次购买</button>
           </div>
         </div>
       </van-list>
@@ -105,6 +107,7 @@
       },
       again(item){
         console.log(item)
+        this.$router.push({name:'goodsDetail',query:{goodsId:item.productId}})
       },
       sh(id) {
         this.$ajax('/api/order/receivingGoods', {
@@ -161,7 +164,6 @@
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 0 5%;
-
     .imageList {
       border-bottom: 1px solid #ccc;
       padding-bottom: .2rem;

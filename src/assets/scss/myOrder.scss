@@ -64,25 +64,26 @@
   width: 100%;
   display: inline-block;
   background: #fff;
-  button {
-    margin: 0 0.3rem 0 0;
-    float: right;
-    width: 1.6rem;
-    height: 0.7rem;
-    background: #fff;
-    border: 1px solid #E73927;
-    color: #E73927 !important;
-    font-size: 13px;
-    border-radius: 3px;
-    color: #666666;
-  }
-  .deliveryBtn {
-    background: #E73927 !important;
-    color: #fff !important;
-    border: none;
-  }
-  .receipt {
-    color: #323232;
-    border: 1px solid #DFDFDF;
-  }
+}
+
+button {
+  margin: 0 0.3rem 0 0;
+  float: right;
+  width: 1.6rem;
+  height: 0.7rem;
+  background: #fff;
+  border: 1px solid #E73927;
+  color: #E73927 !important;
+  font-size: 13px;
+  border-radius: 3px;
+  color: #666666;
+}
+.deliveryBtn {
+  background: #E73927 !important;
+  color: #fff !important;
+  border: none;
+}
+.receipt {
+  color: #323232;
+  border: 1px solid #DFDFDF;
 }
