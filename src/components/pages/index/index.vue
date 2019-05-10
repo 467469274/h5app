@@ -36,14 +36,6 @@ export default {
     }
   },
   created(){
-    this.$ajax('/api/mine/wxwallet', {
-      money:1
-    }, (res) => {
-      console.log(res.data)
-      this.onBridgeReady(res.data.jsParam)
-    }, (err) => {
-      this.$toast(err)
-    }, 'post')
   },
   watch:{
     $route:{

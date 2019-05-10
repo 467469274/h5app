@@ -114,6 +114,7 @@ import gainCode from '../../common/gainCode.vue'
                 },
                 (data)=>{
                   this.$toast('转账成功')
+                  this.$router.push({name:'wallet',query:{type:1}})
                 },
                 (e)=>{
                   this.$toast(e)

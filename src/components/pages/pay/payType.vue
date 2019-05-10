@@ -24,7 +24,7 @@
     name: "sex",
     data() {
       return {
-        radio: 1,type:'修改支付密码'
+        radio: 1,type:'忘记支付密码'
       }
     },
     methods: {

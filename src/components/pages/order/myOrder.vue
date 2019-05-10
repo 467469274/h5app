@@ -31,7 +31,7 @@
             <div class="imageList" v-for="(sku,index) in item.skus">
               <img :src="sku.skuMainImg"/>
               <div class="imageinfo">
-                <p class="imageTitle">{{sku.productName}}</p>
+                <p class="imageTitle sl">{{sku.productName}}</p>
                 <p class="imagePrcie">{{sku.skuPrice?'￥'+sku.skuPrice:''}} {{(sku.skuGoldCouponNum&&sku.skuPrice)?'+':''}}{{sku.skuGoldCouponNum?sku.skuGoldCouponNum+"券":''}}<span>x{{sku.skuNum}}</span></p>
               </div>
             </div>
@@ -78,6 +78,7 @@
           currPage: 0,
           pageSize: 10
         }
+        this.list = []
         this.onLoad()
       },
       onClickLeft() {
@@ -87,7 +88,7 @@
         this.loading = true
         this.formData.currPage+=1
         this.$ajax('/api/order/userOrders', {...this.formData, status: this.status}, (res) => {
-          this.list = res.data
+          this.list = this.list.concat(res.data)
           this.loading = false
           if (res.data.length < 10) {
             this.finished = true
