@@ -73,6 +73,7 @@ const account = () => import('@/components/pages/order/account')
 const freeze = () => import('@/components/pages/order/freeze')
 //转出页面
 const rollOut = () => import('@/components/pages/order/rollOut')
+const zc = () => import('@/components/pages/order/zc')
 //体现页面
 const withdraw = () => import('@/components/pages/order/withdraw')
 
@@ -395,6 +396,11 @@ const router = new Router({
       path: '/rollOut',
       name: 'rollOut',
       component: rollOut
+    },
+    {
+      path: '/zc',
+      name: 'zc',
+      component: zc
     },
     //提现
     {

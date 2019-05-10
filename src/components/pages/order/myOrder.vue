@@ -23,7 +23,7 @@
         <div class="myOrderCell" v-for="(item,index) in list" @click="goDetail(item.id)">
           <van-cell>
             <div class="cell" style="color:#666666;">
-              <span v-if="status == -1 || status == 0 || status == 30">订单号:{{item.orderNO}}</span>
+              <span v-if="status == -1 || status == 0 || status == 30">订单号:{{item.orderNo}}</span>
               <span v-else>物流单号:{{item.expressNo}}</span>
             </div>
           </van-cell>
@@ -32,7 +32,9 @@
               <img :src="sku.skuMainImg"/>
               <div class="imageinfo">
                 <p class="imageTitle sl">{{sku.productName}}</p>
-                <p class="imagePrcie">{{sku.skuPrice?'￥'+sku.skuPrice:''}} {{(sku.skuGoldCouponNum&&sku.skuPrice)?'+':''}}{{sku.skuGoldCouponNum?sku.skuGoldCouponNum+"券":''}}<span>x{{sku.skuNum}}</span></p>
+                <p class="imagePrcie">{{sku.skuPrice?'￥'+sku.skuPrice:''}}
+                  {{(sku.skuGoldCouponNum&&sku.skuPrice)?'+':''}}{{sku.skuGoldCouponNum?sku.skuGoldCouponNum+"券":''}}<span>x{{sku.skuNum}}</span>
+                </p>
               </div>
             </div>
           </van-cell>
@@ -40,8 +42,8 @@
             <button v-if="item.status == 0" @click.stop="pay(item)">去支付</button>
             <button v-if="item.status == 0" @click.stop="cancel(item.id,index)">取消订单</button>
             <button v-if="item.status == 40" @click.stop="sh(item.id)">确认收货</button>
-            <button v-if="item.status == 50">立即评价</button>
-            <button v-if="item.status == 50" class="receipt">再次购买</button>
+            <!--<button v-if="item.status == 50">立即评价</button>-->
+            <button v-if="item.status == 50" @click.stop="again(item)" class="receipt">再次购买</button>
           </div>
         </div>
       </van-list>
@@ -66,8 +68,8 @@
       }
     },
     created() {
-      console.log( this.$route.query.type)
-      if(this.$route.query.type){
+      console.log(this.$route.query.type)
+      if (this.$route.query.type) {
         this.status = this.$route.query.type
       }
     },
@@ -86,7 +88,7 @@
       },
       onLoad() {
         this.loading = true
-        this.formData.currPage+=1
+        this.formData.currPage += 1
         this.$ajax('/api/order/userOrders', {...this.formData, status: this.status}, (res) => {
           this.list = this.list.concat(res.data)
           this.loading = false
@@ -98,22 +100,25 @@
         }, () => {
         }, 'get')
       },
-      goDetail(id){
-        this.$router.push({name: 'orderDetail',query:{id:id}})
+      goDetail(id) {
+        this.$router.push({name: 'orderDetail', query: {id: id}})
       },
-    sh(id){
-      this.$ajax('/api/order/receivingGoods', {
-        id:id
-      }, (res) => {
-        this.$toast('收货成功')
-        this.$router.push({name:'myOrder',query:{type:50}})
-      }, (err) => {
-        this.$toast(err)
-      }, 'PUT')
+      again(item){
+        console.log(item)
+      },
+      sh(id) {
+        this.$ajax('/api/order/receivingGoods', {
+          id: id
+        }, (res) => {
+          this.$toast('收货成功')
+          this.$router.push({name: 'myOrder', query: {type: 50}})
+        }, (err) => {
+          this.$toast(err)
+        }, 'PUT')
 //        PUT
-    },
-      pay(item){
-        this.$router.push({name:'pay',query:{payPrice:item.allPrice,payNo:item.payNo}})
+      },
+      pay(item) {
+        this.$router.push({name: 'pay', query: {payPrice: item.allPrice, payNo: item.payNo}})
         console.log(item)
         /*this.$ajax('/api/order/aliPay', {
           id:item,
@@ -127,17 +132,17 @@
           this.$toast(err)
         }, 'PUT')*/
       },
-      cancel(id,index){
-        this.$ajax('/api/shop/cancelOrder',{
-            orderId:id
+      cancel(id, index) {
+        this.$ajax('/api/shop/cancelOrder', {
+            orderId: id
           },
-          (res)=>{
+          (res) => {
             this.formData.currPage = 0
             this.onLoad()
             this.$toast('取消成功')
-          },(err)=>{
+          }, (err) => {
             this.$toast(err)
-          },'PUT')
+          }, 'PUT')
       }
     },
     watch: {
@@ -156,10 +161,12 @@
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 0 5%;
-    .imageList{
+
+    .imageList {
       border-bottom: 1px solid #ccc;
       padding-bottom: .2rem;
-      &:last-child{
+
+      &:last-child {
         border: none;
       }
     }

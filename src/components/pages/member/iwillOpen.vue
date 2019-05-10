@@ -11,10 +11,12 @@
         <div class="cell"><span>姓名:</span><input type="text" class="input" v-model="username" placeholder="输入姓名"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>手机号:</span><input v-model="phone" @keypress="keypress" type="number" class="input" placeholder="输入手机号"/></div>
+        <div class="cell"><span>手机号:</span><input v-model="phone" @keypress="keypress" type="number" class="input"
+                                                  placeholder="输入手机号"/></div>
       </van-cell>
       <van-cell>
-        <div class="cell"><span>身份证号:</span><input v-model="cardnum" @keypress="keypress" type="number" class="input" placeholder="输入身份证号"/>
+        <div class="cell"><span>身份证号:</span><input v-model="cardnum" @keypress="keypress" type="number" class="input"
+                                                   placeholder="输入身份证号"/>
         </div>
       </van-cell>
     </div>
@@ -30,11 +32,14 @@
       <van-cell title="主营业务" is-link @click="isShowFl = true">{{showNames}}</van-cell>
       <!--类型为选择-->
       <van-cell>
-        <div class="cell"><span>店铺电话:</span><input type="number" @keypress="keypress" v-model="mobile" class="input" placeholder="输入店铺电话"/>
+        <div class="cell"><span>店铺电话:</span><input type="number" @keypress="keypress" v-model="mobile" class="input"
+                                                   placeholder="输入店铺电话"/>
         </div>
       </van-cell>
       <van-cell>
-        <div class="cell" style="border-bottom: 0"><span>店铺介绍:</span><input v-model="recommend"style="text-align: left;" type="text"class="input" placeholder="输入店铺介绍"/>
+        <div class="cell" style="border-bottom: 0"><span>店铺介绍:</span><input v-model="recommend"
+                                                                            style="text-align: left;" type="text"
+                                                                            class="input" placeholder="输入店铺介绍"/>
         </div>
       </van-cell>
       <van-cell>
@@ -45,8 +50,8 @@
       </van-cell>
     </div>
     <div class="sure" style="background: #598ACF" @click="save('cartInfo')" v-if="status==''">提交审核</div>
-    <div class="sure" style="background: #598ACF"v-if="status=='0'">正在审核</div>
-    <div class="sure" style="background: #598ACF"v-if="status=='5'"@click="save('cartInfo')">审核失败重新审核</div>
+    <div class="sure" style="background: #598ACF" v-if="status=='0'">正在审核</div>
+    <div class="sure" style="background: #598ACF" v-if="status=='5'" @click="save('cartInfo')">审核失败重新审核</div>
     <fl @choseOk="choseOk" @back="isShowFl=false" :type="'choseType'" v-if="isShowFl"></fl>
   </div>
 </template>
@@ -69,7 +74,7 @@
         recommend: '',
         imgs: '',
         categoryIds: '',
-        status:''
+        status: ''
       }
     },
     methods: {
@@ -86,23 +91,23 @@
         this.isShowFl = false
       },
       save() {
-        if(this.username ==''){
+        if (this.username == '') {
           this.$toast('请填写姓名')
-        }else if(this.phone == ''){
+        } else if (this.phone == '') {
           this.$toast('请填写手机号')
-        }else if(this.cardnum == ''){
+        } else if (this.cardnum == '') {
           this.$toast('请填写身份证号')
-        }else if(this.name == ''){
+        } else if (this.name == '') {
           this.$toast('请填写店铺名称')
-        }else if(this.address == ''){
+        } else if (this.address == '') {
           this.$toast('请填写营业地址')
-        }else if(this.recommend == ''){
+        } else if (this.recommend == '') {
           this.$toast('请填写店铺介绍')
-        }else if(this.imgs == ''){
+        } else if (this.imgs == '') {
           this.$toast('请上传店铺图片')
-        }else if(this.fls.length==0){
+        } else if (this.fls.length == 0) {
           this.$toast('请选择主营业务')
-        }else{
+        } else {
           this.$ajax('/api/shop', {
             username: this.username,
             phone: this.phone,
@@ -124,19 +129,19 @@
     },
     created() {
       this.$ajax('/api/shop', {}, (res) => {
-        if(!res){
-        }else{
+        if (!res) {
+        } else {
           let data = res.data
-          this.fls =  [],
-          this.username =  data.username;
-          this.phone =  data.phone;
-          this.cardnum =  data.cardnum;
-          this.name =  data.name;
-          this.mobile =  data.mobile;
-          this.address =  data.address;
-          this.recommend =  data.recommend;
-          this.imgs =  data.imgs;
-          this.categoryIds =  data.categoryIds;
+          this.fls = [],
+            this.username = data.username;
+          this.phone = data.phone;
+          this.cardnum = data.cardnum;
+          this.name = data.name;
+          this.mobile = data.mobile;
+          this.address = data.address;
+          this.recommend = data.recommend;
+          this.imgs = data.imgs;
+          this.categoryIds = data.categoryIds;
           this.status = res.data.status
         }
       }, (res) => {
@@ -181,17 +186,21 @@
   .warp {
     .hasImg .van-cell__value {
       flex: 1rem 0 0;
+
       .van-uploader {
         height: 1rem;
       }
     }
+
     .van-cell {
       border-bottom: 1px solid #ccc;
       line-height: 1rem;
       box-sizing: border-box;
+
       i {
         line-height: 1rem;
       }
+
       img {
         width: 1rem;
         height: 1rem;
@@ -202,11 +211,13 @@
 
   .cell {
     display: flex;
+
     span {
       flex: 1.5rem 0 0;
       font-size: 15px;
       color: $colorG;
     }
+
     input {
       flex: 1;
       text-align: right;

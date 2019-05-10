@@ -5,6 +5,7 @@
        right-text="转出记录"
       left-arrow
       @click-left="goSomepage('wallet',{type:1})"
+      @click-right="goSomepage('zc')"
     />
     <div class="warp">
        <van-cell>
