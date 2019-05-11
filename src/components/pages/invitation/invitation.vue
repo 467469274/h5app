@@ -16,7 +16,7 @@
         <span class="colorR">{{userInfo.incode}}</span>
       </div>
       <div class="friends">好友们扫描二维码接收邀请</div>
-      <div class="shareBtn">分享给好友</div>
+     <!-- <div class="shareBtn">分享给好友</div>
       <div class="invitationBtns">
         <div class="item">
           <img src="/static/weixin@2x.png" alt="">
@@ -30,7 +30,7 @@
           <img src="/static/weibo@2x.png" alt="">
           <p>邀请微博好友</p>
         </div>
-      </div>
+      </div>-->
     </div>
     <colorBox :color="'#F5F6F7'"></colorBox>
   </div>

@@ -80,6 +80,7 @@
             this.$router.push({name:'payFail',query:{from:'myOrder'}})
           },'PUT')
         }else if(this.radio == '3'){
+          alert(this.payNo)
           this.$ajax('/api/order/aliPay', {
             id:this.payNo,
             returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'

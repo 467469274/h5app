@@ -7,7 +7,7 @@
     />
     <van-radio-group v-model="radio">
       <van-cell-group>
-        <van-cell title="修改支付密码" v-if="type == '修改支付密码'" @click="goSomePage('changePassword')">
+        <van-cell title="修改支付密码" v-if="type == '忘记支付密码'" @click="goSomePage('changePassword')">
           <van-icon color="rgba(0,0,0,0.5)" name="arrow"/>
         </van-cell>
         <van-cell :title="type" @click="goSomePage('forget')">

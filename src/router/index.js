@@ -630,15 +630,6 @@ const router = new Router({
       name: 'addGoods',
       component: addGoods
     },
-    // {
-    //   path: '/shoppingCart',
-    //   name: 'shoppingcart',
-    //   component: ShoppingCart,
-    //   meta: {
-    //     keepAlive: true,
-    //     keepAliveApp: true
-    //   }
-    // },
     {
       path: '/order',
       name: 'order',
