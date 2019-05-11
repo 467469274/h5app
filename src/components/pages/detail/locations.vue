@@ -96,10 +96,12 @@
         }, 'get')
       },
       save() {
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+
         if(this.name == ''){
           this.$toast('请填写收货人')
-        }else if(this.phone == ''){
-          this.$toast('请填写手机号码')
+        }else if(this.phone == ''|| !myreg.test(this.phone)){
+          this.$toast('请填写正确的手机号码')
         }else if(this.cityName == ''){
           this.$toast('请选择地址')
         }else if(this.address == ''){

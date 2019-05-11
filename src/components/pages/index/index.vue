@@ -35,7 +35,7 @@ export default {
       allnum:0
     }
   },
-  created(){
+  created(){/*
     this.$ajax('/api/mine/wxwallet', {
       money:1
     }, (res) => {
@@ -43,7 +43,7 @@ export default {
       this.onBridgeReady(res.data.jsParam)
     }, (err) => {
       this.$toast(err)
-    }, 'post')
+    }, 'post')*/
   },
   watch:{
     $route:{
@@ -75,7 +75,7 @@ export default {
     }
   },
   mounted(){
-    alert(WeixinJSBridge)
+//    alert(WeixinJSBridge)
   },
   methods:{
    /* wxpay() {

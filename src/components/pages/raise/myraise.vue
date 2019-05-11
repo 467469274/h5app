@@ -82,9 +82,9 @@
                 <div class="title">价格</div>
                 <div class="des"><span>{{item.gold}}金券={{item.silver}}银券</span></div>
               </div>
-              <div class="bottomItem joinBtn js" @click="goSomePage('detail',{id:item.tickId})">
+              <!--<div class="bottomItem joinBtn js" @click="goSomePage('detail',{id:item.tickId})">
                 明细
-              </div>
+              </div>-->
             </div>
           </div>
         </van-list>
