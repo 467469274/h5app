@@ -19,9 +19,11 @@
   }
 </script>
 <style lang="scss">
-  .sl{text-overflow: ellipsis;
+  .sl{
+    text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;}
+    white-space: nowrap;
+  }
   $red: rgb(247, 16, 15);
   html,body {
     font-size: .24rem;

@@ -5,6 +5,7 @@
        right-text="转出记录"
       left-arrow
       @click-left="goSomepage('wallet',{type:1})"
+      @click-right="goSomepage('zc')"
     />
     <div class="warp">
        <van-cell>
@@ -114,6 +115,7 @@ import gainCode from '../../common/gainCode.vue'
                 },
                 (data)=>{
                   this.$toast('转账成功')
+                  this.$router.push({name:'wallet',query:{type:1}})
                 },
                 (e)=>{
                   this.$toast(e)

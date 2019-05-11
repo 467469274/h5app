@@ -297,8 +297,12 @@ $border-1px: 1PX solid #666;
       padding: .2rem;
       color: rgb(130,130,130);
       img {
+        width: .86rem;
         margin-bottom: .1rem;
         border-radius: 50%;
+      }
+      span{
+        display: block;
       }
     }
   }
@@ -312,8 +316,6 @@ $border-1px: 1PX solid #666;
     margin-top: .4rem;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-box-shadow: 0.05rem 0.05rem 0.1rem rgba(0,0,0,0.3);
-    box-shadow: 0.05rem 0.05rem 0.1rem rgba(0,0,0,0.3);
     justify-content: space-between;
     .item{
       text-align: center;

@@ -121,12 +121,11 @@
       ...mapGetters(['confirmDetail'])
     },
     activated() {
-//      console.log(this.$route.params)
-      console.log(123123)
     },
     created() {
       if (!this.confirmDetail) {
         this.$toast('订单有误，请重新下单')
+        this.$router.push({name:'payFail',query:{from:'myOrder'}})
       }
     },
     watch: {

@@ -80,7 +80,7 @@
         height: .88rem;
         line-height: .88rem;
         text-align: center;
-        background: rgb(216,218,219);
+        background: #F1B23E;
         color: #fff;
         border-radius: .1rem;
       }
