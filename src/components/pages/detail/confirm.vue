@@ -109,7 +109,6 @@
           (res) => {
             let data = res.data
             this.$store.commit('setInfo',null)
-            this.$toast('下单成功')
             this.$router.push({name: 'pay', query: {payPrice: data.payPrice, payNo: data.payNo}})
           },
           (err) => {

@@ -29,6 +29,7 @@
         <div class="cell"><span>营业地址:</span><input type="text" v-model="address" class="input" placeholder="输入营业地址"/>
         </div>
       </van-cell>
+      <van-cell title="用户类型" is-link @click="showType = true">{{typeChinese}}</van-cell>
       <van-cell title="主营业务" is-link @click="isShowFl = true">{{showNames}}</van-cell>
       <!--类型为选择-->
       <van-cell>
@@ -53,6 +54,12 @@
     <div class="sure" style="background: #598ACF" v-if="status=='0'">正在审核</div>
     <div class="sure" style="background: #598ACF" v-if="status=='5'" @click="save('cartInfo')">审核失败重新审核</div>
     <fl @choseOk="choseOk" @back="isShowFl=false" :type="'choseType'" v-if="isShowFl"></fl>
+    <colorBox :color="'#F5F6F7'"></colorBox>
+    <van-actionsheet
+      v-model="showType"
+      :actions="actions"
+      @select="select"
+    />
   </div>
 </template>
 
@@ -74,10 +81,26 @@
         recommend: '',
         imgs: '',
         categoryIds: '',
-        status: ''
+        status: '',
+        userType: 1,
+        actions: [
+          {
+            name: '个体户',
+            id: 0
+          },
+          {
+            name: '供应商',
+            id: 10
+          }
+        ],
+        showType: false
       }
     },
     methods: {
+      select(item){
+        this.userType = item.id
+        this.showType = false
+      },
       goSomePage(type) {
         if (type == 'back') {
           this.$router.back(-1)
@@ -107,6 +130,8 @@
           this.$toast('请上传店铺图片')
         } else if (this.fls.length == 0) {
           this.$toast('请选择主营业务')
+        } else if (this.userType == 1) {
+          this.$toast('请选择用户类型')
         } else {
           this.$ajax('/api/shop', {
             username: this.username,
@@ -116,6 +141,7 @@
             mobile: this.mobile,
             address: this.address,
             recommend: this.recommend,
+            userType: this.userType,
             imgs: this.imgs,
             categoryIds: this.fls.map(item => item.id).join(',')
           }, (res) => {
@@ -153,6 +179,10 @@
     computed: {
       showNames() {
         return this.fls.map(item => item.name).join(',')
+      },
+      typeChinese(){
+        let action = this.actions.find((item)=>item.id == this.userType)
+        return action&&action.name||''
       }
     }
   }
