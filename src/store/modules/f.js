@@ -1,5 +1,8 @@
+var ua = navigator.userAgent.toLowerCase();
+var isWeixin = ua.indexOf('micromessenger') != -1;
 const state = {
-  confirmDetail:null
+  confirmDetail:null,
+  isWechat:isWeixin?true:false
 }
 
 const getters = {

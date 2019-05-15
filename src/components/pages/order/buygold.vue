@@ -50,11 +50,18 @@
     },
     methods: {
       sub(){
+        if(this.$store.state.f.isWechat){
+          this.$toast('请在外部浏览器打开')
+          return
+        }
         this.$ajax('/api/mine/zfbgold', {
           money:this.$route.params.money,
           ordernum  :this.$route.params.ordernum,
           backurl:window.location.origin+'/#/paySuccess?from=wallet'
         }, (res) => {
+          if (document.forms[0]) {
+            document.getElementsByTagName('body')[0].removeChild(document.getElementById('zfb'))
+          }
           const div = document.createElement('div')
           div.innerHTML = res.data//此处form就是后台返回接收到的数据
           document.body.appendChild(div)

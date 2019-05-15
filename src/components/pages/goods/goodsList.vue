@@ -141,6 +141,9 @@
           url = '/api/search'
           this.postP.categoryId = this.$route.query.id
           this.postP.l = 25
+        }else if (this.type == 'overseas') {
+          url = '/api/search'
+          this.postP.l = 15
         } else {
           url = '/api/product/xrth'
         }

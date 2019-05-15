@@ -10,47 +10,46 @@
         <div class="warp">
           <div class="serviceMessage" @click="goList(1)">
             <div class="avatar blue">
-              <van-icon :info="service.count" name="volume-o" color="#fff" size=".6rem" />
+              <van-icon :info="service&&service.count" name="volume-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">系统消息</p>
-              <p class="des sl">{{service.messageContent}}</p>
+              <p class="des sl">{{service&&service.messageContent}}</p>
             </div>
           </div>
           <div class="serviceMessage" @click="goList(2)">
             <div class="avatar green">
-              <van-icon :info="order.count" name="orders-o" color="#fff" size=".6rem" />
+              <van-icon :info="order&&order.count" name="orders-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">订单消息</p>
-              <p class="des sl">{{order.messageContent}}</p>
+              <p class="des sl">{{order&&order.messageContent}}</p>
 
             </div>
           </div>
           <div class="serviceMessage" @click="goList(3)">
             <div class="avatar red">
-              <van-icon :info="money.count"  name="cash-back-record" color="#fff" size=".6rem" />
+              <van-icon :info="money&&money.count"  name="cash-back-record" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">到账消息</p>
-              <p class="des sl">{{money.messageContent}}</p>
+              <p class="des sl">{{money&&money.messageContent}}</p>
             </div>
           </div>
         </div>
       </van-tab>
       <van-tab title="公告">
-
         <div class="warp">
-          <div class="serviceMessage" v-if="gg">
+          <div class="serviceMessage" @click="goDetail(item)" v-if="gg.length>0" v-for="(item,index) in gg">
             <div class="avatar blue">
               <van-icon name="shop-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
-              <p class="title">{{gg.messageTitle}}</p>
-              <p class="des sl">{{gg.messageContent}}</p>
+              <p class="title">{{item.title}}</p>
+              <!--<p class="des sl">{{gg.messageContent}}</p>-->
             </div>
           </div>
-          <div class="serviceMessage" v-if="!gg">
+          <div class="serviceMessage" v-if="gg&&gg.length == 0">
             <div class="avatar blue">
               <van-icon name="shop-o" color="#fff" size=".6rem" />
             </div>
@@ -74,7 +73,7 @@
           service:{},
           order:{},
           money:{},
-          gg:{}
+          gg:[]
         }
       },
       activated(){
@@ -93,14 +92,21 @@
             this.money.count = 0
           },()=>{},'post')
         },
+        goDetail(item){
+          this.$router.push({name: 'messageDetail',params:item})
+        },
         getData(){
           this.$ajax('/api/message/message',{},(res)=>{
 //             1系统消息 2订单消息 3到账消息 4公告 ,
-            console.log(res.data)
             this.service = res.data.find((item)=>item.type ==1)
             this.order = res.data.find((item)=>item.type ==2)
             this.money = res.data.find((item)=>item.type ==3)
-            this.gg = res.data.find((item)=>item.type ==4)
+          },()=>{},'post')
+          this.$ajax('/api/announcement/list',{
+            currPage:1,
+            pageSize:9999
+          },(res)=>{
+            this.gg = res.data
           },()=>{},'post')
         },
         goList(type){

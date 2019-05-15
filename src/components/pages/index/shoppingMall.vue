@@ -176,7 +176,7 @@ export default {
       }else if (type == 'bkzq') {
         loca = {name: 'goodsList', query: {type: 'hot',v : '爆款专区'}}
       } else if (type == 'overseas') {
-        loca = {name: 'goodsList', query: {type: 'hot', v: '海外专营'}}
+        loca = {name: 'goodsList', query: {type: 'overseas', v: '海外专营'}}
       } else {
         loca = {name: type}
       }
