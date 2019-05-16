@@ -23,8 +23,7 @@
       </div>
     </div>
     <div class="inputList">
-      <div class="inputItem">众筹规模 <input v-model="dimensions" @keypress="keypress" type="number" placeholder="请填写">
-      </div>
+      <div class="inputItem" style="display:block;line-height: 1.2rem">众筹规模 <span style="float: right">300万</span></div>
     </div>
     <div class="inputList">
       <div class="inputItem">限量 <input v-model="quantity" @keypress="keypress" type="number" placeholder="请填写">
@@ -47,7 +46,7 @@
         tickName: '',
         gold: '',
         silver: '',
-        dimensions: '',
+        dimensions: '3000000',
         quantity: '',
         recommend: '',
       }
@@ -69,8 +68,6 @@
           this.$toast('请填写金券比例')
         } else if (this.silver == '') {
           this.$toast('请填写银券比例')
-        } else if (this.dimensions == '') {
-          this.$toast('请填写众筹规模')
         } else if (this.quantity == '') {
           this.$toast('请填写限购数量')
         } else if (this.recommend == '') {

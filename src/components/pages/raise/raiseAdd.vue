@@ -44,11 +44,15 @@
         if (this.name == '') {
           this.$toast('请输入有效的姓名')
         } else if (this.phone == '') {
-          this.$toast('请填写金券比例')
+          this.$toast('请输入手机号')
         } else if (this.gold == '') {
-          this.$toast('请填写银券比例')
+          this.$toast('请输入数量')
         } else if (this.phone == '' || !myreg.test(this.phone)) {
           this.$toast('请填写正确的手机号')
+        } else if (this.gold<3000) {
+          this.$toast('最少投入3000')
+        }else if (this.gold>=3000 && this.gold%100!=0) {
+          this.$toast('投入金额必须为100的倍数')
         } else {
           this.$ajax('/api/tick/join', {
               tickId: this.$route.query.value,
