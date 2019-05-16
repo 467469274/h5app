@@ -79,11 +79,17 @@
             this.$toast(err)
             this.$router.push({name:'payFail',query:{from:'myOrder'}})
           },'PUT')
+        }else if(this.$store.state.f.isWechat){
+          this.$toast('请在外部浏览器打开')
+          return
         }else if(this.radio == '3'){
           this.$ajax('/api/order/aliPay', {
             id:this.payNo,
             returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
           }, (res) => {
+            if (document.forms[0]) {
+              document.getElementsByTagName('body')[0].removeChild(document.getElementById('zfb'))
+            }
             const div = document.createElement('div')
             div.innerHTML = res.data//此处form就是后台返回接收到的数据
             document.body.appendChild(div)

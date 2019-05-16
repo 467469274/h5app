@@ -1,15 +1,15 @@
 <template>
   <div class="messageWarp">
     <van-nav-bar
-      :title="types[this.detail.type]"
+      :title="types[this.detail.type] || '公告'"
       left-arrow
       @click-left="onClickRight"
     />
     <div class="detail">
       <div class="messageItem">
-        <p class="title">{{detail.messageTitle}}</p>
+        <p class="title">{{detail.messageTitle || detail.title}}</p>
         <p class="time">{{detail.createTime}}</p>
-        <p class="des">{{detail.messageContent}}</p>
+        <p class="des" v-html="detail.messageContent || detail.content"></p>
       </div>
     </div>
     <colorBox :color="'#F5F6F7'"></colorBox>
@@ -32,16 +32,8 @@
     },
     created() {
       this.detail =  this.$route.params
-      console.log(this.detail)
-      if(!this.detail.messageId)this.$router.push({name:'message'})
-      this.$ajax('/api/message/read',{
-          messageId:this.$route.params.messageId
-        },
-        (res)=>{
-//          console.log(res.data)
-        },
-        ()=>{},
-        'post')
+      if(!this.detail.messageId && !this.detail.announcementId)this.$router.push({name:'message'})
+      console.log( this.$route.params)
     }
   }
 </script>

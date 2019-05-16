@@ -35,7 +35,6 @@
     },
     created(){
       this.getData()
-      alert(1)
     },
     methods:{
         StatusChange (e) {

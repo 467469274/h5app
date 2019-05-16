@@ -20,7 +20,7 @@
       <p class="title">{{detail.name}}</p>
       <div class="txt">
         <div class="redTxt"><span class="b">￥{{nowSku.price}}</span></div>
-        <div class="redTxt" v-if="type!='goodsList'"><!--<span>￥</span><span>99.9</span>--></div>
+        <div class="redTxt" v-if="type!='goodsList'"><span v-if="nowSku.cashback">￥</span><span v-if="nowSku.cashback">{{nowSku.cashback}}</span></div>
         <div class="redTxt chinese" v-if="type!='goodsList'"><!--<span class="grey">购买返现</span><span class="b">￥1.00</span>-->
         </div>
       </div>
