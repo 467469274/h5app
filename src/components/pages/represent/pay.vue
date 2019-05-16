@@ -12,7 +12,7 @@
       <van-cell>
         <div class="cellPay" ><i>余额支付</i> <van-radio name="1" class="radio"checked-color="red" v-model="radio"/></div>
       </van-cell>
-     <!-- <van-cell>
+      <van-cell>
         <div class="cellPay">
           <div class="wechat">
             <p class="payTitle">微信支付</p>
@@ -20,7 +20,7 @@
           </div>
           <van-radio name="2" class="radio" checked-color="red" v-model="radio"/>
         </div>
-      </van-cell>-->
+      </van-cell>
       <van-cell>
         <div class="cellPay">
           <div class="zhifu">
@@ -80,7 +80,6 @@
             this.$router.push({name:'payFail',query:{from:'myOrder'}})
           },'PUT')
         }else if(this.radio == '3'){
-          alert(this.payNo)
           this.$ajax('/api/order/aliPay', {
             id:this.payNo,
             returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
@@ -89,6 +88,16 @@
             div.innerHTML = res.data//此处form就是后台返回接收到的数据
             document.body.appendChild(div)
             document.forms[0].submit()
+          }, (err) => {
+            this.$toast(err)
+          }, 'PUT')
+        }else if(this.radio == '2'){
+          this.$ajax('/api/order/wxPay', {
+            id:this.payNo,
+            returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
+          }, (res) => {
+            console.log(res.data.mweb_url)
+            // location.href = res.data.mweb_url
           }, (err) => {
             this.$toast(err)
           }, 'PUT')

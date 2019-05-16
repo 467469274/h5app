@@ -20,7 +20,7 @@
       :actions="actions"
       @select="select"
     />
-    <addSku ref="$addsku" v-show="showSku" :initD2ata="formData.skus" @back="hideSku"></addSku>
+    <addSku ref="$addsku" :user-type="usetType" v-show="showSku" :initD2ata="formData.skus" @back="hideSku"></addSku>
     <goodsDetail ref="goodsDetail" :detailInit="detailInit" @isOk="isOk" v-show="showDetail" @back="hideDetail"></goodsDetail>
     <fl @back="isShowFl=false" :type="'choseType'" @choseOk="choseOk" v-if="isShowFl"></fl>
     <colorBox :color="'#F5F6F7'"></colorBox>
@@ -44,6 +44,7 @@
           "skus": [],
           "status": 0
         },
+        usetType:0,
         checked: true,
         isShowFl: false,
         showSku: false,
@@ -74,6 +75,16 @@
         } else {
           this.$router.push({name: type})
         }
+      },
+      getUserType(){
+        this.$ajax('/api/shop/userType',{},
+          (res)=>{
+            this.userType = res.data
+          },
+          (err)=>{
+            console.log(err)
+          },
+          'get')
       },
       GetRequest(url) {
         var result = [];
@@ -141,6 +152,7 @@
       }
     },
     created(){
+      this.getUserType()
       if(this.$route.query.goodsid){
         this.$ajax('/api/shop/productDetail',{
           id:this.$route.query.goodsid

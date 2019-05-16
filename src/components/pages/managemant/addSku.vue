@@ -18,7 +18,7 @@
         <van-field class="hasborderb" label="价格" input-align="right" v-model="item.price" placeholder="请输入价格" />
         <van-field class="hasborderb" label="运费" input-align="right" v-model="item.freight" placeholder="请输入运费" />
         <van-field class="hasborderb" label="库存" input-align="right" v-model="item.stock" placeholder="请输入库存" />
-        <van-field class="hasborderb" label="金券数量" input-align="right" v-model="item.goldCouponNum" placeholder="请输入金券数量" />
+        <van-field class="hasborderb" label="金券数量" v-show="userType == 10" input-align="right" v-model="item.goldCouponNum" placeholder="请输入金券数量" />
         <van-cell class="hasborderb" title="状态" @click="showSelect(index)" is-link>
           {{item.statusChinese}}
         </van-cell>
@@ -38,7 +38,7 @@
 
 <script>
   export default {
-    props:['initData'],
+    props:['initData','userType'],
     name: "sex",
     data(){
       return{
@@ -64,6 +64,7 @@
     },
     created(){
       if(this.initData)this.list  = this.initData;
+      this.getUserType()
     },
     methods:{
       setDat(list){
