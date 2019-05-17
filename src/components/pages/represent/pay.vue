@@ -102,8 +102,8 @@
             id:this.payNo,
             returnUrl:window.location.origin+'/#/paySuccess?from=myOrder'
           }, (res) => {
-            console.log(res.data.mweb_url)
-            // location.href = res.data.mweb_url
+            // console.log(res.data.mweb_url)
+            location.href = res.data.mweb_url
           }, (err) => {
             this.$toast(err)
           }, 'PUT')
