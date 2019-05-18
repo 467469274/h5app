@@ -88,7 +88,15 @@
       <goods :list="hotGoods"></goods>
     </van-list>
     <colorBox :color="'#fff'"></colorBox>
-
+    <div class="maskBox" v-if="content">
+      <div class="box">
+        <div class="gg"></div>
+        <p class="title">家家商城最新公告</p>
+        <p class="content" v-html="content"></p>
+        <div class="iknow" @click="content = ''">知道了</div>
+        <div class="close" @click="content = ''"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -105,6 +113,7 @@ export default {
   },
   data () {
     return {
+      content:'',
       banner: [], // banner
       hotGoods: [], // 热门
       swiperOption: { // swiper配置
@@ -141,18 +150,11 @@ export default {
   },
   created () {
     this.getImg()
-  /*   this.$ajax('/api/mine/zfbwallet', {
-          money: 1
-        }, (res) => {
-          console.log()
-          const div = document.createElement('div')
-          div.innerHTML = res.data//此处form就是后台返回接收到的数据
-          console.log(div)
-          document.body.appendChild(div)
-          document.forms[0].submit()
-        }, (err) => {
-          console.log(err)
-        }, 'post')*/
+    this.$ajax('/api/message/announcement',{},(res)=>{
+      if(res.data.announcementId || res.data.content){
+        this.content = res.data.content
+      }
+    },()=>{},'post')
   },
   computed: {
     swiper () {
@@ -370,6 +372,71 @@ $border-1px: 1PX solid #666;
 }
   .bell{
     line-height: .55rem;
-
+  }
+  .maskBox{
+    position:fixed;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    .box{
+      position:absolute;
+      left: 50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width: 4.75rem;
+      height: 6.38rem;
+      background: #fff;
+      border-radius: 20% 20% 0.2rem 0.2rem;
+      .gg{
+        background: url("../../../assets/images/gg.png") no-repeat;
+        position: absolute;
+        left: 50%;
+        top: -10%;
+        width: 100%;
+        height: 1.5rem;
+        transform:translateX(-50%);
+        background-position:center top;
+      }
+      .title{
+        color: rgb(210,0,0);
+        text-align: center;
+        font-size: 16px;
+        margin-top:.5rem;
+      }
+      .content{
+        padding:0 10px;
+        color:#989898;
+        max-height:3.5rem;
+        display: block;
+        overflow-y: scroll;
+      }
+      .iknow{
+        position:absolute;
+        width: 90%;
+        line-height: .64rem;
+        text-align: center;
+        border-radius: .1rem;
+        background: rgb(210,24,22);
+        color: #fff;
+        left: 50%;
+        bottom: .2rem;
+        transform: translateX(-50%);
+      }
+      .close{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -1rem;
+        width: .48rem;
+        height: .48rem;
+        background: #fff;
+        border-radius: 50%;
+        background: url("../../../assets/images/cuowu@2x.png") no-repeat;
+        background-size:  100% 100%;
+      }
+    }
   }
 </style>
