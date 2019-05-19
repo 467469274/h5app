@@ -107,5 +107,6 @@
     border: none;
     outline:0;
     background-color: #fff;
+    -webkit-user-select:text !important;
   }
 </style>
