@@ -47,7 +47,7 @@
         }
       },
       clear() {
-        this.DelCookie('token')
+        storage.removeItem("token")
         this.$toast('登出成功')
         this.$router.push({name:'shoppingMall'})
       },
