@@ -19,7 +19,6 @@
     <colorBox color="#fff"></colorBox>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -59,7 +58,7 @@ export default {
         }
             this.$toast('登录成功')
             this.$router.push({name:'shoppingMall'})
-            this.setCookie('token',res.token)
+            window.localStorage.token = res.token
           },
           (err)=>{
             this.$toast(err)
@@ -73,12 +72,6 @@ export default {
 
 <style scoped lang="scss">
   .login{
- /*   position:fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;*/
     background: #fff;
     .top{
       height:4rem;

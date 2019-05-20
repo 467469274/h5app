@@ -10,7 +10,7 @@
         <div class="cell"><span>支付金额</span><i>¥{{price}}</i></div>
       </van-cell>
       <van-cell>
-        <div class="cellPay" ><i>余额支付</i> <van-radio name="1" class="radio"checked-color="red" v-model="radio"/></div>
+        <div class="cellPay"><i>余额支付</i> <van-radio name="1" class="radio"checked-color="red" v-model="radio"/></div>
       </van-cell>
       <van-cell>
         <div class="cellPay">

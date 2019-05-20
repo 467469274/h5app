@@ -36,6 +36,7 @@ export default {
     }
   },
   created(){
+
   },
   watch:{
     $route:{
@@ -43,18 +44,6 @@ export default {
         let name = to.name
         if(name == 'shoppingMall'){
           this.active =  0
-       /*  let t = getCookie('token')
-
-          if(t){
-            this.$ajax('/api/message/message',{},(res)=>{
-              let num = 0
-              res.data.forEach(item=>{
-                num+=item.count
-                console.log(item.count)
-              })
-              this.allnum = num
-            },()=>{},'post')
-          }*/
         }else if(name=='malls'){
           this.active =  1
         }else if(name=='message'){

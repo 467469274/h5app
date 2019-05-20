@@ -1,8 +1,7 @@
 <template>
   <div class="endorsementWarp">
     <van-nav-bar
-      title="商品详情"
-      left-right="编辑"
+      :title="type == 'dy'?'我要代言':'商品详情'"
       left-arrow
       @click-left="goSomePage('back')"
     />
@@ -24,6 +23,10 @@
         <div class="redTxt chinese" v-if="type!='goodsList'"><!--<span class="grey">购买返现</span><span class="b">￥1.00</span>-->
         </div>
       </div>
+      <p class="des" v-if="type == 'dy'">
+        <span><img src="static/zhun.png" alt="">24小时发货</span>
+        <span><img src="static/zheng.png" alt="">官方店认证</span>
+      </p>
       <p class="isChose" @click="showBase = true"><span>已选</span>{{nowSku.name}}
         <van-icon size=".4rem" color="rgba(0,0,0,.4)" name="arrow" class="icon"/>
       </p>
@@ -44,13 +47,13 @@
       <van-tabs v-model="active" class="navInner">
         <van-tab title="商品描述">
           <div class="detail">
-            <div class="content" v-html="detail.desc">
+            <div class="content detaildes" v-html="detail.desc">
             </div>
           </div>
         </van-tab>
         <van-tab title="备注信息">
           <div class="detail">
-            <div class="content" v-html="nowSku.remarks"></div>
+            <div class="content detaildes" v-html="nowSku.remarks"></div>
           </div>
 
         </van-tab>
@@ -88,6 +91,8 @@
         @click="showBase = true"
       />
     </van-goods-action>
+    <colorBox :color="'#F5F6F7'"></colorBox>
+
   </div>
 </template>
 <!--@click="goSomePage('confirm')"-->
@@ -336,6 +341,9 @@
         .content {
           padding: .3rem;
           border-top: 1px solid #ccc;
+          img{
+            width: 100%!important;
+          }
           &.nop {
             padding: 0 !important;
           }
@@ -371,8 +379,24 @@
     .van-goods-action {
       z-index: 123;
     }
+    .des {
+      padding: 0 .2rem;
+      line-height: .6rem;
+      color: rgba(0, 0, 0, 0.4);
+      span {
+        margin-right: .4rem;
+        img {
+          display: inline-block;
+          width: .25rem;
+          height: .25rem;
+          margin-right: .2rem;
+        }
+      }
+    }
   }
 </style>
 <style>
-
+.detaildes img{
+  width: 100%;
+}
 </style>
