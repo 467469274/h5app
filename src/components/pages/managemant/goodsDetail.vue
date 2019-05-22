@@ -10,7 +10,7 @@
     <van-cell-group>
       <input type="text" v-model="recommendTxt" placeholder="商品介绍" />
       <van-cell class="hasborderb">
-        <img :src="recommend || detailInit.recommend" v-if="recommend">
+        <img :src="item" v-for="(item,index) in recommend" style="margin-left: 10px;">
         <vueUpload @upOk="upOk1"></vueUpload>
       </van-cell>
     </van-cell-group>
@@ -40,7 +40,7 @@
     name: "sex",
     data(){
       return{
-        recommend:'',
+        recommend:[],
         sku:'',
         sh:'',
         recommendTxt:'',
@@ -57,7 +57,7 @@
     },
     methods:{
       upOk1(url){
-        this.recommend = url
+        this.recommend.push(url)
       },
       upOk2(url){
         this.sku = url
@@ -67,7 +67,7 @@
       },
       setDat(data){
         this.recommendTxt = data.replace(/<.*?>/g, "")
-        this.recommend = this.getSrc(data)[0]
+        this.recommend = this.getSrc(data)
       },
       getSrc(str){
         let imgReg = /<img.*?(?:>|\/>)/gi //匹配图片中的img标签

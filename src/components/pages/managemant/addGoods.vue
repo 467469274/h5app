@@ -65,7 +65,8 @@
         ],
         detailInit: {},
         skuDetail: [],
-        flName: ''
+        flName: '',
+        userType:''
       }
     },
     methods: {
@@ -110,7 +111,11 @@
           this.$toast('请选择类目')
         }else{
           this.formData.status = this.isSelect.id
-          this.formData.desc = this.detailInit.recommendTxt + `<img src='${this.detailInit.recommend}'/>`
+          let imgs = ''
+          this.detailInit.recommend.forEach((item)=>{
+            imgs+=`<img src='${item}'/>`
+          })
+          this.formData.desc = this.detailInit.recommendTxt +imgs
           this.formData.skus.forEach((item) => {
             item.imgs = item.imgs.join(',')
             item.mainSkuId = item.mainSkuId ? 1 : 0
@@ -152,7 +157,6 @@
       }
     },
     created(){
-      this.getUserType()
       if(this.$route.query.goodsid){
         this.$ajax('/api/shop/productDetail',{
           id:this.$route.query.goodsid
@@ -168,14 +172,6 @@
           this.formData = data
           this.$refs.$addsku.setDat(data.skus)
           this.$refs.goodsDetail.setDat(data.desc)
-          /*{
-            "categoryId": 0,
-              "desc": "",
-              "name": "",
-              "skus": [],
-              "status": 0
-          }*/
-          console.log(this.formData)
         },(err)=>{
           this.$toast('商品有误，请联系管理员')
         },'get')

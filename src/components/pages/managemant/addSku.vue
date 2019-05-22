@@ -64,7 +64,6 @@
     },
     created(){
       if(this.initData)this.list  = this.initData;
-      this.getUserType()
     },
     methods:{
       setDat(list){
@@ -90,7 +89,7 @@
                 throw new Error('请填写运费')
               }else if(item.stock == '' || !item.stock){
                 throw new Error('请填写库存')
-              }else if(item.goldCouponNum == '' || !item.goldCouponNum){
+              }else if((item.goldCouponNum == '' || !item.goldCouponNum) && this.userType == 10){
                 throw new Error('请填写金券数量')
               }else if(typeof item.status != 'number'){
                 throw new Error('请选择状态')
