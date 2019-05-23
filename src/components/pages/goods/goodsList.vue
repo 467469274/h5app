@@ -185,6 +185,7 @@
       },
       onchange() {
         this.postP.currPage = 1
+        this.products = []
         this.onLoad()
       }
     },

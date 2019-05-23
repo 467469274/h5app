@@ -155,7 +155,7 @@
     },
     created() {
       this.getImg()
-      this.$ajax('/api/message/announcement', {}, (res) => {
+      window.localStorage.token&&this.$ajax('/api/message/announcement', {}, (res) => {
         if (res.data.announcementId || res.data.content) {
           this.content = res.data.content
         }

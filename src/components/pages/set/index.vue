@@ -47,7 +47,7 @@
         }
       },
       clear() {
-        storage.removeItem("token")
+        window.localStorage.removeItem("token")
         this.$toast('登出成功')
         this.$router.push({name:'shoppingMall'})
       },

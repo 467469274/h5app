@@ -12,7 +12,6 @@
       name:'vueUpload',
       methods:{
         onRead(file, detail) {
-
           let formData = new FormData();
           formData.append('files', file.file)
           this.$ajax('/api/mine/upload',
