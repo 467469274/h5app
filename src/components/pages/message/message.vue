@@ -10,7 +10,8 @@
         <div class="warp">
           <div class="serviceMessage" @click="goList(1)">
             <div class="avatar blue">
-              <van-icon :info="service&&service.count" name="volume-o" color="#fff" size=".6rem" />
+              <van-icon v-if="service.count" :info="service&&service.count&&service.count!='0'" name="volume-o" color="#fff" size=".6rem" />
+              <van-icon v-if="!service||service.count == '0'" name="volume-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">系统消息</p>
@@ -19,7 +20,8 @@
           </div>
           <div class="serviceMessage" @click="goList(2)">
             <div class="avatar green">
-              <van-icon :info="order&&order.count" name="orders-o" color="#fff" size=".6rem" />
+              <van-icon :info="order&&order.count" v-if="order&&order.count" name="orders-o" color="#fff" size=".6rem" />
+              <van-icon v-if="!order||order.count=='0'" name="orders-o" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">订单消息</p>
@@ -30,6 +32,7 @@
           <div class="serviceMessage" @click="goList(3)">
             <div class="avatar red">
               <van-icon :info="money&&money.count"  name="cash-back-record" color="#fff" size=".6rem" />
+              <van-icon v-if="!money||money.count =='0'"name="cash-back-record" color="#fff" size=".6rem" />
             </div>
             <div class="txt">
               <p class="title">到账消息</p>

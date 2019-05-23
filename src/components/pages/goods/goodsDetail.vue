@@ -18,7 +18,7 @@
       </div>
       <p class="title">{{detail.name}}</p>
       <div class="txt">
-        <div class="redTxt"><span class="b">￥{{nowSku.price}}</span></div>
+        <div class="redTxt"><span class="b">{{nowSku.price?'￥'+nowSku.price:''}}{{nowSku.goldCouponNum && nowSku.price?'+':''}}{{nowSku.goldCouponNum?nowSku.goldCouponNum+'券':''}}</span></div>
         <div class="redTxt" v-if="type!='goodsList'"><span v-if="nowSku.cashback">返现金额￥</span><span v-if="nowSku.cashback">{{nowSku.cashback}}</span></div>
         <div class="redTxt chinese" v-if="type!='goodsList'"><!--<span class="grey">购买返现</span><span class="b">￥1.00</span>-->
         </div>

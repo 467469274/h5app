@@ -34,19 +34,23 @@
           <van-cell title="我的订单" class="myShop" to="myOrder" is-link />
           <div class="iconBtn">
             <div class="btn" @click="goSomePage('myOrder',{type:'0'})">
-              <van-icon name="idcard" :info="waitinfo.waitPay" size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="idcard" v-if="waitinfo.waitPay"  :info="waitinfo.waitPay" size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="idcard" v-if="!waitinfo.waitPay" size=".6rem" color="rgba(0,0,0,0.7)"/>
               <p>待付款</p>
             </div>
             <div class="btn" @click="goSomePage('myOrder',{type:30})">
-              <van-icon name="logistics"  :info="waitinfo.waitDeliveGoods" size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="logistics" v-if="waitinfo.waitDeliveGoods" :info="waitinfo.waitDeliveGoods" size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="logistics" v-if="!waitinfo.waitDeliveGoods" size=".6rem" color="rgba(0,0,0,0.7)"/>
               <p>待发货</p>
             </div>
             <div class="btn" @click="goSomePage('myOrder',{type:40})">
-              <van-icon name="todo-list-o"  :info="waitinfo.waitCollectGoods"size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="todo-list-o" v-if="waitinfo.waitCollectGoods" :info="waitinfo.waitCollectGoods"size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="todo-list-o" v-if="!waitinfo.waitCollectGoods" size=".6rem" color="rgba(0,0,0,0.7)"/>
               <p>待收货</p>
             </div>
             <div class="btn" @click="goSomePage('myOrder',{type:50})">
-              <van-icon name="comment-o" :info="waitinfo.waitComment" size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="comment-o" :info="waitinfo.waitComment" v-if="waitinfo.waitComment" size=".6rem" color="rgba(0,0,0,0.7)"/>
+              <van-icon name="comment-o" v-if="!waitinfo.waitComment" size=".6rem" color="rgba(0,0,0,0.7)"/>
               <p>待评价</p>
             </div>
            <!-- <div class="btn">
