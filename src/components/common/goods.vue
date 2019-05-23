@@ -6,7 +6,12 @@
       </div>
       <div class="goods-name">{{item.name}}</div>
       <div class="goods-price">
-       ￥{{item.price}} +{{item.goldCouponNum}} <i>券</i> <van-icon size=".3rem" class="cart-icon" @click.stop="addCart(item)" name="shopping-cart-o" />
+       <!--￥{{item.price}} +{{item.goldCouponNum}} <i>券</i>-->
+        {{item.price?('￥'+item.price):''}}
+        {{(item.price&&item.goldCouponNum)?'+':''}}
+        {{item.goldCouponNum?item.goldCouponNum:''}}<i v-if="item.goldCouponNum">券</i>
+
+        <van-icon size=".3rem" class="cart-icon" @click.stop="addCart(item)" name="shopping-cart-o" />
       </div>
     </div>
   </div>

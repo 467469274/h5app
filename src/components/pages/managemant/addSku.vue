@@ -5,7 +5,7 @@
       left-arrow
       right-text="完成"
       @click-left="goSomePage('back')"
-      @click-right="goSomePage"
+      @click-right="goSomePage('over')"
     />
     <div class="main">
       <van-cell-group v-for="(item,index) in list">
@@ -15,10 +15,10 @@
           <vueUpload @upOk="(url)=>{item.imgs.push(url)}"></vueUpload>
         </van-cell>
         <van-field class="hasborderb" label="规格名称" input-align="right" v-model="item.name" placeholder="请输入规格名称" />
-        <van-field class="hasborderb" label="价格" input-align="right" v-model="item.price" placeholder="请输入价格" />
+        <van-field class="hasborderb" label="价格" v-show="userType == 10" input-align="right" v-model="item.price" placeholder="请输入价格" />
         <van-field class="hasborderb" label="运费" input-align="right" v-model="item.freight" placeholder="请输入运费" />
         <van-field class="hasborderb" label="库存" input-align="right" v-model="item.stock" placeholder="请输入库存" />
-        <van-field class="hasborderb" label="金券数量" v-show="userType == 10" input-align="right" v-model="item.goldCouponNum" placeholder="请输入金券数量" />
+        <van-field class="hasborderb" label="金券数量" input-align="right" v-model="item.goldCouponNum" placeholder="请输入金券数量" />
         <van-cell class="hasborderb" title="状态" @click="showSelect(index)" is-link>
           {{item.statusChinese}}
         </van-cell>
@@ -70,26 +70,25 @@
         this.list = list
       },
       goSomePage (type) {
-        if(type){
+        if(type == 'over'){
           let errorFlage;
           try{
             let flag;
             if(this.list.length == 0)throw new Error('请添加sku')
             this.list.forEach((item)=>{
-              console.log(item)
               if(item.remarks == '' ||!item.remarks){
                 throw new Error('请填写规格描述')
               }else if(item.name == ''||!item.name){
                 throw new Error('请填写规格名称')
               }else if(item.imgs.length==0||!item.imgs){
                 throw new Error('请填写规格图片')
-              }else if(item.price == '' || !item.price){
+              }else if((item.price == '' || !item.price) && this.userType == 10){
                 throw new Error('请填写价格')
               }else if(item.freight == '' || !item.freight){
                 throw new Error('请填写运费')
               }else if(item.stock == '' || !item.stock){
                 throw new Error('请填写库存')
-              }else if((item.goldCouponNum == '' || !item.goldCouponNum) && this.userType == 10){
+              }else if(item.goldCouponNum == '' || !item.goldCouponNum){
                 throw new Error('请填写金券数量')
               }else if(typeof item.status != 'number'){
                 throw new Error('请选择状态')
@@ -109,6 +108,7 @@
             this.$toast(errorFlage)
           }
         }else {
+          console.log(2)
           this.$emit('back')
         }
       },

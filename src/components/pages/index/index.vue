@@ -14,7 +14,8 @@
         >
           <van-tabbar-item icon="wap-home" :to="{name:'shoppingMall'}">首页</van-tabbar-item>
           <van-tabbar-item icon="shop-o" :to="{name:'malls'}">商城</van-tabbar-item>
-          <van-tabbar-item icon="envelop-o" :to="{name:'message'}" :info="allnum">消息</van-tabbar-item>
+          <van-tabbar-item icon="envelop-o" :to="{name:'message'}" :info="allnum" v-if="allnum>0">消息</van-tabbar-item>
+          <van-tabbar-item icon="envelop-o" :to="{name:'message'}" v-if="allnum==0">消息</van-tabbar-item>
           <van-tabbar-item icon="contact" :to="{name:'member'}">我的</van-tabbar-item>
         </van-tabbar>
       <!-- </keep-alive> -->
@@ -40,10 +41,20 @@ export default {
   },
   watch:{
     $route:{
-      handler(to){
+      handler(to,form){
         let name = to.name
         if(name == 'shoppingMall'){
           this.active =  0
+         let t = window.localStorage.token
+          if(t){
+            this.$ajax('/api/message/message',{},(res)=>{
+              let num = 0
+              res.data.forEach(item=>{
+                num+=item.count
+              })
+              this.allnum = num
+            },()=>{},'post')
+          }
         }else if(name=='malls'){
           this.active =  1
         }else if(name=='message'){

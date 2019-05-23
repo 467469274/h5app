@@ -4,7 +4,7 @@
       title="我的店铺"
       right-text="店铺信息"
       left-arrow
-      @click-left="goSomePage('back')"
+      @click-left="goSomePage('member')"
       @click-right="goSomePage('shopInfo')"
     />
     <div class="shopTop">

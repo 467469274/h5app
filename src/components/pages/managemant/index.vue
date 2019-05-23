@@ -33,8 +33,8 @@
             </p>
             <div class="operBtns">
               <!--<span class="red">设为打折</span>-->
-              <span @click="xj(item.productId)" v-if="active==0">下架</span>
-              <span @click="sj(item.productId)" v-if="active!=0">上架</span>
+              <span @click.stop="xj(item.productId)" v-if="active==0">下架</span>
+              <span @click.stop="sj(item.productId)" v-if="active!=0">上架</span>
             </div>
           </div>
           <van-icon size=".4rem" name="arrow"/>

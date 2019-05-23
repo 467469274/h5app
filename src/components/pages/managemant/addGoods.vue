@@ -101,30 +101,33 @@
         return result;
       },
       save() {
+        let obj = JSON.parse(JSON.stringify(this.formData))
+        console.log(obj)
         if (this.detailInit.recommendTxt == '') {
           this.$toast('请填写商品介绍')
-        } else if (this.formData.skus.length == 0) {
+        } else if (obj.length == 0) {
           this.$toast('请填写sku信息')
         } else if(this.isSelect.name == '请选择'){
           this.$toast('请选择状态')
-        }else if(this.formData.categoryId == 0){
+        }else if(obj.categoryId == 0){
           this.$toast('请选择类目')
         }else{
-          this.formData.status = this.isSelect.id
+          obj.status = this.isSelect.id
           let imgs = ''
           this.detailInit.recommend.forEach((item)=>{
             imgs+=`<img src='${item}'/>`
           })
-          this.formData.desc = this.detailInit.recommendTxt +imgs
-          this.formData.skus.forEach((item) => {
+          obj.desc = this.detailInit.recommendTxt +imgs
+          obj.skus.forEach((item) => {
             item.imgs = item.imgs.join(',')
             item.mainSkuId = item.mainSkuId ? 1 : 0
           })
-          this.$ajax('/api/shop/product', this.formData, (res) => {
+          this.$ajax('/api/shop/product', obj, (res) => {
             this.$toast('添加成功')
             this.$router.push('managemant')
           }, (msg) => {
             this.$toast(msg)
+
           }, 'setProduct')
         }
       },

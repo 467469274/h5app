@@ -20,7 +20,8 @@
   </div>
 </template>
 <script>
-export default {
+  import { pushHistory } from '../../../common/history' // 引入工具类
+  export default {
   data () {
     return {
       phone:window.localStorage.phone|| '',
@@ -28,9 +29,19 @@ export default {
       isRemeber:window.localStorage.isRemeber||'0'
     }
   },
-  created () {
-  },
+    mounted () {
+      pushHistory()
+      // 监听历史记录点, 添加返回事件监听
+      /*window.onpopstate = () => {
+        this.$router.push({path:'/'})  //输入要返回的上一级路由地址
+      }*/
+    },
   methods: {
+   /* goBack(){
+      console.log(123123123)
+      this.$router.replace({path: '/'});
+      //replace替换原路由，作用是避免回退死循环
+    },*/
     forget(){
       this.$router.push({name:'forgetpassword'})
     },
