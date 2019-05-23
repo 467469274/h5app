@@ -64,7 +64,6 @@
     },
     created(){
       if(this.initData)this.list  = this.initData;
-      this.getUserType()
     },
     methods:{
       setDat(list){
