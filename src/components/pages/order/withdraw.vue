@@ -57,6 +57,8 @@
             this.$toast('请填写提现金额')
           }else if(this.price > this.$route.money){
             this.$toast('提现金额超出账户余额')
+          }else if(this.price%100!=0 || this.price>100){
+            this.$toast('提现金额只能提现大于100并且100的倍数')
           }else{
             this.$ajax('/api/mine/withdraw',{
                 numberno:this.user,

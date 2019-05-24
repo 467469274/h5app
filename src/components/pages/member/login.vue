@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <div class="top">
+      <span class="backbtn" @click="gohome"></span>
       <img src="/static/loginlogo.png">
     </div>
     <div class="loginMain">
@@ -48,6 +49,9 @@
     goRegister(){
       this.$router.push({name:'register'})
     },
+    gohome(){
+      this.$router.push({name:'shoppingMall'})
+    },
     changeRemenber(type){
       this.isRemeber = type
       window.localStorage.isRemeber = type
@@ -89,6 +93,16 @@
       background:url("/static/loginTop.png") no-repeat;
       background-size: 100% 100%;
       position: relative;
+      .backbtn{
+        width: 30px;
+        height: 30px;
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        left: 20px;
+        top: 20px;background:url("/static/4011558660234_.pic_hd.jpg");
+        background-size: 100% 100%;
+      }
       img{
         width:2.2rem;
         position:absolute;

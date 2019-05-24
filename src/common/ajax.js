@@ -4,7 +4,7 @@ import qs from 'qs';
 export function $ajax(url, data, call, err, methodsType) {
   const ajaxUrl = `http://39.105.229.26:8081${url}`
   const errFunction = function (data) {
-    if(data.data.code == 1 && url!='/api/message/announcement'){
+    if(data.data.code == 1 && url!='/api/message/announcement' && url!='/api/message/message'){
       window.location.href = '/#/login';
     }else {
       err(data.data.msg)
