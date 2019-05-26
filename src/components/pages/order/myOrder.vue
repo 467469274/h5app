@@ -12,7 +12,7 @@
         <span><i @click="StatusChange(0)" :class="{'selectStatus' : this.status == 0}">待支付</i></span>
         <span><i @click="StatusChange(30)" :class="{'selectStatus' : this.status == 30}">待发货</i></span>
         <span><i @click="StatusChange(40)" :class="{'selectStatus' : this.status == 40}">待收货</i></span>
-        <span><i @click="StatusChange(50)" :class="{'selectStatus' : this.status == 50}">待评价</i></span>
+        <span><i @click="StatusChange(50)" :class="{'selectStatus' : this.status == 50}">已完成</i></span>
       </div>
       <van-list
         v-model="loading"

@@ -20,7 +20,7 @@
               规格 <span>{{product.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥{{product.price}}+{{product.goldCouponNum}}券</span>
+              <span class="redColor">{{product.price?'￥'+product.price:''}}{{product.price&& product.goldCouponNum?'+':''}}{{product.goldCouponNum?product.goldCouponNum+'券':''}}</span>
               <van-stepper class="num" @plus="changeProductNum(product)" @minus="changeProductNum(product)" v-model="product.num" />
             </p>
           </div>

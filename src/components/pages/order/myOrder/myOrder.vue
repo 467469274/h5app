@@ -12,7 +12,7 @@
             <span><i :class="{'selectStatus' : this.status == 2}" data-id="2" data-path="payment">待支付</i></span>
             <span><i :class="{'selectStatus' : this.status == 3}" data-id="3" data-path="shipments">待发货</i></span>
             <span><i :class="{'selectStatus' : this.status == 4}" data-id="4" data-path="harvest">待收货</i></span>
-            <span><i :class="{'selectStatus' : this.status == 5}" data-id="5" data-path="evaluate">待评价</i></span>
+            <span><i :class="{'selectStatus' : this.status == 5}" data-id="5" data-path="evaluate">已完成</i></span>
         </div>
         <router-view v-if="!$route.meta.keepAlive" />
     </div>

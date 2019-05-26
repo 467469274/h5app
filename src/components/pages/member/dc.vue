@@ -1,12 +1,12 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="兑冲"
+      title="兑换"
       left-arrow
       @click-left="goSomePage('wallet',{type:1})"
     />
-    <van-field label="兑冲数量" input-align="right" v-model="value" :placeholder="'请输入要兑冲的'+(this.$route.query.type==1?'金券':'银券')" />
-    <div class="sure" @click="dc">确认兑冲</div>
+    <van-field label="兑换数量" input-align="right" v-model="value" :placeholder="'请输入要兑换的'+(this.$route.query.type==1?'金券':'银券')" />
+    <div class="sure" @click="dc">确认兑换</div>
   </div>
 </template>
 
@@ -30,7 +30,7 @@
       dc(){
         let obj,url;
         if(this.value == ''){
-          this.$toast('请输入兑冲数量')
+          this.$toast('请输入兑换数量')
           return;
         }
         if(this.$route.query.type == 1){
@@ -48,7 +48,7 @@
         }
         this.$ajax(url,obj,
           (res)=>{
-            this.$toast('兑冲成功')
+            this.$toast('兑换成功')
             this.goSomePage('wallet',{type:1})
           },
           (mes)=>{

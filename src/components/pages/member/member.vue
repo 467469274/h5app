@@ -51,7 +51,7 @@
             <div class="btn" @click="goSomePage('myOrder',{type:50})">
               <van-icon name="comment-o" :info="waitinfo.waitComment" v-if="waitinfo.waitComment" size=".6rem" color="rgba(0,0,0,0.7)"/>
               <van-icon name="comment-o" v-if="!waitinfo.waitComment" size=".6rem" color="rgba(0,0,0,0.7)"/>
-              <p>待评价</p>
+              <p>已完成</p>
             </div>
            <!-- <div class="btn">
               <van-icon name="after-sale" size=".6rem" color="rgba(0,0,0,0.7)"/>

@@ -50,7 +50,7 @@
             <span style="background:rgb(213,91,54)" @click="goSomePage('rollOut',{mobile:userInfo.mobile})">转账</span>
             <span style="background:rgb(213,91,54)" @click="goSomePage('buyOrder')">买入</span>
             <span style="background: rgb(195,156,77)" @click="goSomePage('sellOrder',{mobile:userInfo.mobile})">卖出</span>
-            <span style="background: rgb(83,199,87)" @click="goSomePage('dc',{type:'1'})">兑冲</span>
+            <span style="background: rgb(83,199,87)" @click="goSomePage('dc',{type:'1'})">兑换</span>
           </div>
         </div>
         <div class="section yin">
@@ -66,7 +66,7 @@
           </div>
           <div class="bottomWarp" style=" justify-content:center;">
             <span style="background:rgb(213,91,54);margin-right: .4rem" @click="release">释放</span>
-            <!--<span style="background: rgb(83,199,87)" @click="goSomePage('dc',{type:'2'})">兑冲</span>-->
+            <!--<span style="background: rgb(83,199,87)" @click="goSomePage('dc',{type:'2'})">兑换</span>-->
           </div>
         </div>
 
@@ -74,13 +74,13 @@
           <van-cell title="通证交易">
             <div class="bottomWarp noH" style=" justify-content:center;">
               <span style="background:rgb(213,91,54);margin-right: .4rem">释放</span>
-              <span style="background: rgb(83,199,87)">兑冲</span>
+              <span style="background: rgb(83,199,87)">兑换</span>
             </div>
           </van-cell>
           <van-cell title="自由买卖">
             <div class="bottomWarp noH" style=" justify-content:center;">
               <span style="background:rgb(213,91,54);margin-right: .4rem">释放</span>
-              <span style="background: rgb(83,199,87)">兑冲</span>
+              <span style="background: rgb(83,199,87)">兑换</span>
             </div>
           </van-cell>
         </van-cell-group>-->

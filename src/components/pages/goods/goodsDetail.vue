@@ -41,7 +41,14 @@
         :close-on-click-overlay="true"
         @buy-clicked="onBuyClicked"
         @add-cart="onAddCartClicked"
-      />
+      >
+        <template slot="sku-header-price" slot-scope="props">
+          <div class="van-sku__goods-price">
+            <span class="van-sku__price-symbol" v-if="props.price>100">￥</span><span class="van-sku__price-num">{{ props.price>100?props.price:props.price*100}}</span>
+            <span class="van-sku__price-symbol" v-if="props.price<100">券</span>
+          </div>
+        </template>
+      </van-sku>
     </div>
     <div class="nav">
       <van-tabs v-model="active" class="navInner">
@@ -152,8 +159,6 @@
           this.$router.push({name: type})
         }
       },
-      add() {
-      },
       onAddCartClicked(data) {
         this.$ajax('/api/product/car', {
           skuId:data.selectedSkuComb.id,
@@ -211,9 +216,9 @@
             if(itm.skuId == res.data.mainSkuId)this.sku.price = itm.price
             return {
               id: itm.skuId, // skuId，下单时后端需要
-              price: itm.price * 100, // 价格（单位分）
+              price: itm.price?itm.price * 100:itm.goldCouponNum, // 价格（单位分）
               s1: itm.skuId, // 规格类目 k_s 为 s1 的对应规格值 id
-              stock_num: itm.stock // 当前 sku 组合对应的库存
+              stock_num: itm.stock
             }
           })
           this.sku.stock_num = stock_num

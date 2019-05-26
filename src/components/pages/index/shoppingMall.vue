@@ -69,9 +69,9 @@
         <img v-lazy="'static/yaoqing@2x.png'" width="100%">
         <p>邀请好友</p>
       </div>
-      <div class="item" @click="goSomePage('signIn')">
-        <img v-lazy="'static/qiandao@2x.png'" width="100%">
-        <p>签到</p>
+      <div class="item" @click="gow">
+        <img v-lazy="'static/16511558744607_.pic_hd.jpg'" width="100%">
+        <p>爱心捐赠</p>
       </div>
     </div>
     <div class="twoType">
@@ -173,6 +173,10 @@
       }
     },
     methods: {
+      gow(){
+//
+        window.location.href = 'http://huzhu.test.ietlab.com.cn'
+      },
       goSomePage(type) {
         let loca = {}
         if (type == 'hot') {
