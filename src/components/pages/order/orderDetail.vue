@@ -30,7 +30,7 @@
               规格 <span>{{item.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥{{item.skuPrice}}</span>
+              <span class="redColor">{{item.skuPrice?'￥'+item.skuPrice:''}}</span>
               <span class="num">x{{item.skuNum}}</span>
             </p>
           </div>

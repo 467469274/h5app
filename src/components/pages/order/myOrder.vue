@@ -121,7 +121,9 @@
 //        PUT
       },
       pay(item) {
-        this.$router.push({name: 'pay', query: {payPrice: item.allPrice, payNo: item.payNo}})
+        let num = 0
+        let allNum = item.skus.forEach((item)=>{num+=item.skuGoldCouponNum*item.skuNum})
+        this.$router.push({name: 'pay', query: {payPrice: item.allPrice,coupon:num, payNo: item.payNo}})
         console.log(item)
         /*this.$ajax('/api/order/aliPay', {
           id:item,

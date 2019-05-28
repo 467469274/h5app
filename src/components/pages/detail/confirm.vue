@@ -35,7 +35,7 @@
               规格 <span>{{te.skuName}}</span>
             </p>
             <p class="other">
-              <span class="redColor">￥{{te.price}}{{te.goldCouponNum?`+${te.goldCouponNum}券`:''}}</span>
+              <span class="redColor">{{te.price?'￥'+te.price:''}}{{(te.price&&te.goldCouponNum)?'+':''}}{{te.goldCouponNum?`${te.goldCouponNum}券`:''}}</span>
               <span class="num">x{{te.num}}</span>
             </p>
           </div>
@@ -109,7 +109,7 @@
           (res) => {
             let data = res.data
             this.$store.commit('setInfo',null)
-            this.$router.push({name: 'pay', query: {payPrice: data.payPrice, payNo: data.payNo}})
+            this.$router.push({name: 'pay', query: {payPrice: data.payPrice,coupon:confirmDetail.goldCouponNum, payNo: data.payNo}})
           },
           (err) => {
             this.$toast(err)

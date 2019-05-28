@@ -61,11 +61,11 @@
       goBack () {
         this.$router.back(-1)
       },
-      // 去账单
+      // 去记录
       goBill () {
         this.$router.push({name: 'bill'})
       },
-      // 去账单
+      // 去记录
       choseType () {
         this.$router.push({name: 'choseType'})
       }

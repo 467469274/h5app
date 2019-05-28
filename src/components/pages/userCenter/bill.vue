@@ -1,11 +1,18 @@
 <template>
   <div class="sexWarp">
     <van-nav-bar
-      title="账单"
+      v-if="active==0"
+      title="记录"
       left-arrow
       :right-text="mounth+'月'"
       @click-left="goSomePage('back')"
       @click-right="show = true"
+    />
+    <van-nav-bar
+      v-if="active!=0"
+      title="记录"
+      left-arrow
+      @click-left="goSomePage('back')"
     />
     <van-popup v-model="show" position="bottom">
       <van-datetime-picker
@@ -18,27 +25,63 @@
         class="arealist"
       />
     </van-popup>
-    <van-list
-      v-model="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
-      <van-cell
-        v-for="item in list"
-        class="cell"
-      >
-        <div class="cell">
-          <div>
-            <p class="descript">{{item.description}}</p>
-            <p class="creat"> {{item.createTime}}</p>
+    <van-tabs v-model="active">
+      <van-tab title="钱包明细">
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <van-cell
+            v-for="item in list"
+            class="cell"
+          >
+            <div class="cell">
+              <div>
+                <p class="descript">{{item.description}}</p>
+                <p class="creat"> {{item.createTime}}</p>
+              </div>
+              <div class="right" :class="{'red':item.type == 1}">
+                {{item.type==1?'+':'-'}}   {{item.money}}
+              </div>
+            </div>
+          </van-cell>
+        </van-list>
+      </van-tab>
+      <van-tab title="转入记录">
+        <div class="inputList" style="margin-top: 20px">
+          <div class="inputItem">
+            <span class="hasBorder">转出方</span>
+            <span class="hasBorder">金额</span>
+            <span>日期</span>
           </div>
-          <div class="right" :class="{'red':item.type == 1}">
-         {{item.type==1?'+':'-'}}   {{item.money}}
+          <div class="scolle">
+            <div class="inputItem list" v-for="item in list1">
+              <span>{{item.toUser}}</span>
+              <span class="redTxt">{{item.gold}}</span>
+              <span class="sl">{{item.createTime}}</span>
+            </div>
           </div>
         </div>
-      </van-cell>
-    </van-list>
+      </van-tab>
+      <van-tab title="转出记录">
+        <div class="inputList" style="margin-top: 20px">
+          <div class="inputItem">
+            <span class="hasBorder">转入方</span>
+            <span class="hasBorder">金额</span>
+            <span>日期</span>
+          </div>
+          <div class="scolle">
+            <div class="inputItem list" v-for="item in list2">
+              <span>{{item.phone}}</span>
+              <span class="redTxt">{{item.gold}}</span>
+              <span class="sl">{{item.createTime}}</span>
+            </div>
+          </div>
+        </div>
+      </van-tab>
+    </van-tabs>
     <colorBox :color="'#F5F6F7'"></colorBox>
   </div>
 </template>
@@ -48,6 +91,9 @@
     name: "sex",
     data(){
       return{
+        list1:[],
+        list2:[],
+        active:1,
         loading:false,
         finished:false,
         show:false,
@@ -62,6 +108,7 @@
       }
     },
     created(){
+      this.getlis2()
     },
     methods:{
       onLoad(){
@@ -77,7 +124,6 @@
             }
             this.loading = false
         },(err)=>{
-          console.log(err)
             this.loading = false
           },'post')
       },
@@ -101,6 +147,22 @@
           return `${value}月`
         }
         return value;
+      },
+      getlis2(){
+        this.$ajax('/api/mine/interRecords',
+          {},(res)=>{
+            this.list2 = res.data
+          },(err)=>{
+            this.$toast(err)
+          },'post')
+      },
+      getlis(){
+        this.$ajax('POST /api/mine/toRecords',
+          {},(res)=>{
+            this.list = res.data
+          },(err)=>{
+            this.$toast(err)
+          },'post')
       }
     },
     computed:{
@@ -157,6 +219,31 @@
       color: rgba(0,0,0,0.5);
     }
   }
+ .inputList{
+   background: #fff;
+   .inputItem{
+     background: #fff;
+     display: flex;
+     font-size: 17px;
+     padding:.4rem 0;
+     color:rgba(0,0,0,.6);
+     border-bottom:rgba(0,0,0,.3) 1px solid;
+     text-align: center;
+     span{
+       flex: 1;
+     }
+     .hasBorder{
+       border-right: 1px solid rgba(0,0,0,0.4);
+     }
+     &.list{
+       font-size:13px;
+       .redTxt{
+         font-weight: 900;
+         color: red;
+       }
+     }
+   }
+ }
 </style>
 <style>
   .van-nav-bar__text{

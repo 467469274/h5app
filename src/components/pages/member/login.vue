@@ -32,7 +32,7 @@
   },
     mounted () {
       pushHistory()
-      // 监听历史账单点, 添加返回事件监听
+      // 监听历史记录点, 添加返回事件监听
       /*window.onpopstate = () => {
         this.$router.push({path:'/'})  //输入要返回的上一级路由地址
       }*/

@@ -1,28 +1,22 @@
 <template>
   <div class="fire">
-    <van-nav-bar title="记录"
+    <van-nav-bar title="转账记录"
                  left-arrow
                  class="nav"
                  @click-left="goSomePage('back')"
     >
     </van-nav-bar>
-    <van-tabs v-model="active">
-      <van-tab title="钱包明细"></van-tab>
-      <van-tab title="转入记录"></van-tab>
-      <van-tab title="转出记录"></van-tab>
-    </van-tabs>
     <div class="inputList">
+      <div class="inputItem">
+        <span class="hasBorder">转入方</span>
+        <span class="hasBorder">金额</span>
+        <span>日期</span>
+      </div>
       <div class="scolle">
         <div class="inputItem list" v-for="item in list">
-          <div class="cell">
-            <div>
-              <p class="descript">{{item.description}}</p>
-              <p class="creat">{{item.createTime}}</p>
-            </div>
-            <div class="right" :class="{'red':item.type == 1}">
-              {{item.type==1?'+':'-'}}   {{item.money}}
-            </div>
-          </div>
+          <span>{{item.phone}}</span>
+          <span class="redTxt">{{item.gold}}</span>
+          <span class="sl">{{item.createTime}}</span>
         </div>
       </div>
     </div>
@@ -32,7 +26,7 @@
 
 <script>
   export default {
-  name: 'zc',
+    name: 'zc',
     data () {
       return {
         list:[]
@@ -43,7 +37,7 @@
         {
         },
         (res)=>{
-        this.list = res.data
+          this.list = res.data
         },
         (err)=>{
           console.log(err)
@@ -65,23 +59,32 @@
 </script>
 
 <style scoped lang="scss">
-  $colorG: rgba(0, 0, 0, 0.6);
   .nav{
     box-shadow: 0.05rem 0.05rem 0.1rem rgba(0,0,0,0.1);
 
   }
   .inputList{
     background: #fff;
-    .cell {
+    .inputItem{
+      background: #fff;
       display: flex;
-      span {
-        flex: 1.5rem 0 0;
-        font-size: 15px;
-        color: $colorG;
-      }
-      input {
+      font-size: 17px;
+      padding:.4rem 0;
+      color:rgba(0,0,0,.6);
+      border-bottom:rgba(0,0,0,.3) 1px solid;
+      text-align: center;
+      span{
         flex: 1;
-        text-align: right;
+      }
+      .hasBorder{
+        border-right: 1px solid rgba(0,0,0,0.4);
+      }
+      &.list{
+        font-size:13px;
+        .redTxt{
+          font-weight: 900;
+          color: red;
+        }
       }
     }
   }

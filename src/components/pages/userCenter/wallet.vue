@@ -2,7 +2,7 @@
   <div class="myWallet">
     <van-nav-bar
       title="我的钱包"
-      right-text="账单"
+      right-text="记录"
       left-arrow
       @click-left="goSomePage('member')"
       @click-right="goSomePage('bill')"
@@ -121,7 +121,7 @@
           this.$toast(err)
         }, 'post')
       },
-      // 去账单
+      // 去记录
       goSomePage (type,query) {
         this.$router.push({name: type,query:query})
         // this.$router.push({name: 'bill'})
