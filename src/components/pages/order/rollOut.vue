@@ -2,7 +2,7 @@
   <div class="sexWarp">
     <van-nav-bar
       title="转出"
-       right-text="转出记录"
+       right-text="记录"
       left-arrow
       @click-left="goSomepage('wallet',{type:1})"
       @click-right="goSomepage('zc')"

@@ -29,7 +29,6 @@
         class="cell"
       >
         <div class="cell">
-
           <div>
             <p class="descript">{{item.description}}</p>
             <p class="creat"> {{item.createTime}}</p>
